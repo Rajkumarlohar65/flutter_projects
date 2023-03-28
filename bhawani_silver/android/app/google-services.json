@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "584596413504",
+    "project_id": "bhawanisilver-f55b2",
+    "storage_bucket": "bhawanisilver-f55b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584596413504:android:10489287a63faafe2dd3a5",
+        "android_client_info": {
+          "package_name": "com.bhawani.bhawani_silver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584596413504-nhp75qd3hmop9pdc99jgck6u26mhd7el.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwa7ZYmeanahZpvnxlyZydkq12YHF_pSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584596413504-nhp75qd3hmop9pdc99jgck6u26mhd7el.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,6 +9,7 @@ class SignupView extends GetView<SignupController> {
   const SignupView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    late String name, email, password, confirmPassword;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sign up"),
@@ -25,50 +26,70 @@ class SignupView extends GetView<SignupController> {
 
                 const SizedBox(height: 30,),
 
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Name",
                       prefixIcon: Icon(Icons.account_circle)
                   ),
+                  onChanged: (value){
+                    name = value;
+                  },
                 ),
 
                 const SizedBox(height: 20,),
 
-                const TextField(
+                TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "E-mail",
                       prefixIcon: Icon(Icons.email)
                   ),
+                  onChanged: (value){
+                    email = value;
+                  },
                 ),
 
                 const SizedBox(height: 20,),
 
-                const TextField(
+                TextField(
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Password",
                       prefixIcon: Icon(Icons.password)
                   ),
+                  onChanged: (value){
+                    password = value;
+                  },
                 ),
 
                 const SizedBox(height: 20,),
 
-                const TextField(
+                TextField(
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Confirm Password",
                       prefixIcon: Icon(Icons.password)
                   ),
+                  onChanged: (value){
+                    confirmPassword = value;
+                  },
                 ),
 
                 const SizedBox(height: 30,),
 
                 ElevatedButton(onPressed: (){
-
+                  controller.signUp(emailAddress: email, password: password)
+                      .then((result) {
+                    if(result == null){
+                      Get.toNamed(Routes.HOME);
+                    }
+                    else{
+                      Get.snackbar("my app", "incorrect mail");
+                    }
+                  });
                 }, child: const Text("Create Account")),
 
                 const SizedBox(height: 20,),

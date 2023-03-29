@@ -1,9 +1,10 @@
+import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +20,9 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future signOut() async{
+    await FirebaseAuth.instance.signOut();
+    Get.toNamed(Routes.LOGIN);
+  }
+
 }

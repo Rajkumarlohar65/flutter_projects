@@ -14,7 +14,7 @@ class HomeView extends GetView<HomeController> {
         actions: [
           IconButton(onPressed: (){
             controller.signOut();
-
+            Get.snackbar("Activity", "Log out successfully");
           }, icon: Icon(Icons.logout)),
         ],
         centerTitle: true,

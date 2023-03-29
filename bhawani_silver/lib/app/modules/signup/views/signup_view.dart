@@ -85,6 +85,7 @@ class SignupView extends GetView<SignupController> {
                       .then((result) {
                     if(result == null){
                       Get.toNamed(Routes.HOME);
+                      Get.snackbar("Activity", "Account successfully created");
                     }
                     else{
                       Get.snackbar("my app", "incorrect mail");

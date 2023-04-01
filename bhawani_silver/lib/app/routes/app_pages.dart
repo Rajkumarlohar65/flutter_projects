@@ -1,3 +1,4 @@
+import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
 import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
@@ -14,7 +15,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static final INITIAL = AuthenticationHelper().isUserLoggedIN() ? Routes.HOME : Routes.LOGIN;
 
   static final routes = [
     GetPage(

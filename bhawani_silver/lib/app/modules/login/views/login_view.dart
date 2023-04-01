@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/modules/Authentication/authentication_helper.dart';
+import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,7 +62,7 @@ class LoginView extends GetView<LoginController> {
                     AuthenticationHelper().login(email: email, password: password)
                         .then((result) {
                           if(result == null){
-                            Get.offNamed(Routes.HOME);
+                            Get.offAllNamed(Routes.HOME);
                             Get.snackbar("Activity", "Welcome Back");
                           }
                           else{

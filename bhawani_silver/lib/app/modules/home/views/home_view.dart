@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/modules/Authentication/authentication_helper.dart';
+import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -16,7 +16,7 @@ class HomeView extends GetView<HomeController> {
           IconButton(onPressed: (){
             AuthenticationHelper().signOut()
                 .then((result){
-              Get.toNamed(Routes.LOGIN);
+              Get.offAllNamed(Routes.LOGIN);
               Get.snackbar("Activity", "Log out successfully");
             });
           }, icon: const Icon(Icons.logout)),

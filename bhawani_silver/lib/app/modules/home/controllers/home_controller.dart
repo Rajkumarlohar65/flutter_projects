@@ -1,6 +1,4 @@
-import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
@@ -8,6 +6,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // initial();
   }
 
   @override
@@ -19,5 +18,13 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
+  // void initial() async{
+  //   final isUserLoggedIn = AuthenticationHelper().isUserLoggedIN();
+  //
+  //   if(!isUserLoggedIn){
+  //     Get.toNamed(Routes.LOGIN);
+  //   }
+  // }
 
 }

@@ -92,7 +92,7 @@ class SignupView extends GetView<SignupController> {
                     AuthenticationHelper().signUp(email: email, password: password)
                         .then((result){
                           if(result == null){
-                            Get.offNamed(Routes.HOME);
+                            Get.offAllNamed(Routes.HOME);
                             Get.snackbar("Welcome", "Account Created Successfully",);
                           }
                           else{

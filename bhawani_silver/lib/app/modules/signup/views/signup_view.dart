@@ -1,17 +1,14 @@
-
+import 'package:bhawani_silver/app/modules/Authentication/authentication_helper.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  late String name;
+  late String email;
+  late String password;
+  late String confirmPassword;
 
   SignupView({Key? key}) : super(key: key);
   @override
@@ -38,57 +35,70 @@ class SignupView extends GetView<SignupController> {
                   const SizedBox(height: 30,),
 
                   TextField(
-                    controller: nameController,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Name",
                         prefixIcon: Icon(Icons.account_circle)
                     ),
-
+                    onChanged: (value){
+                      name = value;
+                    },
                   ),
 
                   const SizedBox(height: 20,),
 
                   TextField(
-                    controller: emailController,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "E-mail",
                         prefixIcon: Icon(Icons.email)
                     ),
-
+                    onChanged: (value){
+                      email = value;
+                    },
                   ),
 
                   const SizedBox(height: 20,),
 
                   TextField(
-                    controller: passwordController,
                     obscureText: true,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Password",
                         prefixIcon: Icon(Icons.password)
                     ),
-
+                    onChanged: (value){
+                      password = value;
+                    },
                   ),
 
                   const SizedBox(height: 20,),
 
                   TextField(
-                    controller: confirmPasswordController,
                     obscureText: true,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Confirm Password",
                         prefixIcon: Icon(Icons.password)
                     ),
-
+                    onChanged: (value){
+                      confirmPassword = value;
+                    },
                   ),
 
                   const SizedBox(height: 30,),
 
                   ElevatedButton(onPressed: () async {
-                    signUp();
+                    AuthenticationHelper().signUp(email: email, password: password)
+                        .then((result){
+                          if(result == null){
+                            Get.offNamed(Routes.HOME);
+                            Get.snackbar("Welcome", "Account Created Successfully",);
+                          }
+                          else{
+                            Get.snackbar("Activity", result);
+                          }
+                    });
                   }, child: const Text("Create Account")),
 
                   const SizedBox(height: 20,),
@@ -106,24 +116,5 @@ class SignupView extends GetView<SignupController> {
       ),
     );
   }
-  Future<void> signUp() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      Get.offNamed(Routes.HOME);
-      Get.snackbar("Welcome", "Account Created Successfully", backgroundColor: Colors.green);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        Get.snackbar("SignUp Page", "weak password", backgroundColor: Colors.redAccent);
-      } else if (e.code == 'email-already-in-use') {
-        Get.snackbar("SignUp page", "The account already exists for that email.", backgroundColor: Colors.redAccent);
-      } else{
-        Get.snackbar("Error", "Something went wrong !", backgroundColor: Colors.redAccent);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+
 }

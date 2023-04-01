@@ -1,15 +1,12 @@
-
+import 'package:bhawani_silver/app/modules/Authentication/authentication_helper.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  late String email;
+  late String password;
 
   LoginView({Key? key}) : super(key: key);
   @override
@@ -34,31 +31,44 @@ class LoginView extends GetView<LoginController> {
                 const SizedBox(height: 40,),
 
                 TextField(
-                  controller: emailController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "E-mail",
                       prefixIcon: Icon(Icons.email)
                   ),
+                  onChanged: (value){
+                    email = value;
+                  },
                 ),
 
                 const SizedBox(height: 20,),
 
                 TextField(
                   obscureText: true,
-                  controller: passwordController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Password",
                       prefixIcon: Icon(Icons.password)
                   ),
+                  onChanged: (value){
+                    password = value;
+                  },
                 ),
 
                 const SizedBox(height: 30,),
 
                 ElevatedButton(
                   onPressed: () {
-                    login();
+                    AuthenticationHelper().login(email: email, password: password)
+                        .then((result) {
+                          if(result == null){
+                            Get.offNamed(Routes.HOME);
+                            Get.snackbar("Activity", "Welcome Back");
+                          }
+                          else{
+                            Get.snackbar("Activity", result);
+                          }
+                    });
                   },
                   child: const Text('Login'),
                 ),
@@ -87,24 +97,4 @@ class LoginView extends GetView<LoginController> {
 
   }
 
-  void login() async{
-    try {
-      final credential =
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      // Successful login, go to home page
-      Get.offNamed(Routes.HOME);
-      Get.snackbar("Welcome", "back", backgroundColor: Colors.green);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Get.snackbar('Error', 'No user found for that email.', backgroundColor: Colors.redAccent);
-      } else if (e.code == 'wrong-password') {
-        Get.snackbar('Error', 'Wrong password for that user.', backgroundColor: Colors.redAccent);
-      } else{
-        Get.snackbar("Error", "Incorrect mail", backgroundColor: Colors.redAccent);
-      }
-    }
-  }
 }

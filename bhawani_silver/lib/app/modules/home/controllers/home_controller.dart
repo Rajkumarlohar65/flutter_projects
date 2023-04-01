@@ -6,7 +6,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // initial();
+
   }
 
   @override
@@ -18,13 +18,5 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  // void initial() async{
-  //   final isUserLoggedIn = AuthenticationHelper().isUserLoggedIN();
-  //
-  //   if(!isUserLoggedIn){
-  //     Get.toNamed(Routes.LOGIN);
-  //   }
-  // }
 
 }

@@ -38,4 +38,9 @@ class AuthenticationHelper{
   bool isUserLoggedIN() {
     return FirebaseAuth.instance.currentUser != null;
   }
+
+  String? userEmail(){
+    return FirebaseAuth.instance.currentUser?.email;
+  }
+
 }

@@ -18,60 +18,67 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Login"),
+        title: const Text("Welcome"),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3, left: 25, right: 25),
-          // padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3, left: 25, right: 25),
-          child: Column(
-            children: [
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.only(left: 25, right: 25),
 
-              TextField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "E-mail",
-                    prefixIcon: Icon(Icons.email)
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                const Text("Login", style: TextStyle(fontSize: 33, color: Colors.blueGrey),),
+
+                const SizedBox(height: 40,),
+
+                TextField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "E-mail",
+                      prefixIcon: Icon(Icons.email)
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
-              TextField(
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Password",
-                    prefixIcon: Icon(Icons.password)
+                TextField(
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Password",
+                      prefixIcon: Icon(Icons.password)
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 30,),
+                const SizedBox(height: 30,),
 
-              ElevatedButton(
-                onPressed: () {
-                  login();
-                },
-                child: const Text('Login'),
-              ),
+                ElevatedButton(
+                  onPressed: () {
+                    login();
+                  },
+                  child: const Text('Login'),
+                ),
 
-              const SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
-              TextButton(onPressed: (){
+                TextButton(onPressed: (){
 
-              }, child: const Text("Forget Password?", style: TextStyle(color: Colors.black),)),
+                }, child: const Text("Forget Password?", style: TextStyle(color: Colors.black),)),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("I am new user?"),
-                  TextButton(onPressed: (){Get.toNamed(Routes.SIGNUP);
-                  },child: const Text("sign up", style: TextStyle(decoration: TextDecoration.underline),)),
-                ],
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("I am new user?"),
+                    TextButton(onPressed: (){Get.toNamed(Routes.SIGNUP);
+                    },child: const Text("sign up", style: TextStyle(decoration: TextDecoration.underline),)),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

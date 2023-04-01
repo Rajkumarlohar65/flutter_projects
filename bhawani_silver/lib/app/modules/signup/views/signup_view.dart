@@ -20,85 +20,89 @@ class SignupView extends GetView<SignupController> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Sign up"),
+        title: const Text("Welcome"),
       ),
-      body: SingleChildScrollView(
-        child:
+      body: Center(
+        child: SingleChildScrollView(
+          child:
+            Container(
+              padding: const EdgeInsets.only(right: 20, left:20),
 
-          Container(
-            padding: const EdgeInsets.only(top: kToolbarHeight, right: 20, left:20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
 
-              children: [
+                children: [
 
-                const SizedBox(height: 30,),
+                  const Text("Sign Up", style: TextStyle(fontSize: 33, color: Colors.blueGrey),),
 
-                TextField(
-                  controller: nameController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Name",
-                      prefixIcon: Icon(Icons.account_circle)
+                  const SizedBox(height: 30,),
+
+                  TextField(
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Name",
+                        prefixIcon: Icon(Icons.account_circle)
+                    ),
+
                   ),
 
-                ),
+                  const SizedBox(height: 20,),
 
-                const SizedBox(height: 20,),
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "E-mail",
+                        prefixIcon: Icon(Icons.email)
+                    ),
 
-                TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "E-mail",
-                      prefixIcon: Icon(Icons.email)
                   ),
 
-                ),
+                  const SizedBox(height: 20,),
 
-                const SizedBox(height: 20,),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Password",
+                        prefixIcon: Icon(Icons.password)
+                    ),
 
-                TextField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Password",
-                      prefixIcon: Icon(Icons.password)
                   ),
 
-                ),
+                  const SizedBox(height: 20,),
 
-                const SizedBox(height: 20,),
+                  TextField(
+                    controller: confirmPasswordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Confirm Password",
+                        prefixIcon: Icon(Icons.password)
+                    ),
 
-                TextField(
-                  controller: confirmPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Confirm Password",
-                      prefixIcon: Icon(Icons.password)
                   ),
 
-                ),
+                  const SizedBox(height: 30,),
 
-                const SizedBox(height: 30,),
+                  ElevatedButton(onPressed: () async {
+                    signUp();
+                  }, child: const Text("Create Account")),
 
-                ElevatedButton(onPressed: () async {
-                  signUp();
-                }, child: const Text("Create Account")),
+                  const SizedBox(height: 20,),
 
-                const SizedBox(height: 20,),
+                  TextButton(onPressed: (){
+                    Get.toNamed(Routes.LOGIN);
+                  }, child: const Text("I am already a member", style: TextStyle(decoration: TextDecoration.underline),)
+                  ),
 
-                TextButton(onPressed: (){
-                  Get.toNamed(Routes.LOGIN);
-                }, child: const Text("I am already a member", style: TextStyle(decoration: TextDecoration.underline),)
-                ),
+                ],
+              ),
 
-              ],
             ),
-
-          ),
+        ),
       ),
     );
   }

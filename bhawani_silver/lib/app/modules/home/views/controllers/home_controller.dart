@@ -20,9 +20,4 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  Future signOut() async{
-    await FirebaseAuth.instance.signOut();
-    Get.toNamed(Routes.LOGIN);
-  }
-
 }

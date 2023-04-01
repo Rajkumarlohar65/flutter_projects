@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/home_controller.dart';
+import '../../../routes/app_pages.dart';
+import 'controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -13,9 +15,8 @@ class HomeView extends GetView<HomeController> {
         title: const Text('HomeView'),
         actions: [
           IconButton(onPressed: (){
-            controller.signOut();
-            Get.snackbar("Activity", "Log out successfully");
-          }, icon: Icon(Icons.logout)),
+            signOut();
+          }, icon: const Icon(Icons.logout)),
         ],
         centerTitle: true,
       ),
@@ -26,5 +27,10 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
     );
+  }
+  Future signOut() async{
+    await FirebaseAuth.instance.signOut();
+    Get.toNamed(Routes.LOGIN);
+    Get.snackbar("Activity", "Log out successfully", backgroundColor: Colors.green);
   }
 }

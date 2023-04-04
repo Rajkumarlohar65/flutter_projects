@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  int currentIndex = 0;
 
   @override
   void onInit() {
@@ -17,6 +17,11 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void changeTabIndex(int index){
+    currentIndex = index;
+    update();
   }
 
 }

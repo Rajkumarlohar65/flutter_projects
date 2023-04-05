@@ -1,6 +1,6 @@
-import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
 import 'package:get/get.dart';
 
+import '../Authentication/authentication_helper.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -15,12 +15,13 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static final INITIAL = AuthenticationHelper().isUserLoggedIN() ? Routes.HOME : Routes.LOGIN;
+  static final INITIAL =
+      AuthenticationHelper().isUserLoggedIN() ? Routes.HOME : Routes.LOGIN;
 
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -38,5 +39,6 @@ class AppPages {
       page: () => SignupView(),
       binding: SignupBinding(),
     ),
+
   ];
 }

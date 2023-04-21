@@ -1,16 +1,11 @@
-import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
-  late String name;
-  late String email;
-  late String password;
-  late String confirmPassword;
 
-  SignupView({Key? key}) : super(key: key);
+  const SignupView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -41,7 +36,7 @@ class SignupView extends GetView<SignupController> {
                         prefixIcon: Icon(Icons.account_circle)
                     ),
                     onChanged: (value){
-                      name = value;
+                      controller.name = value;
                     },
                   ),
 
@@ -54,7 +49,7 @@ class SignupView extends GetView<SignupController> {
                         prefixIcon: Icon(Icons.email)
                     ),
                     onChanged: (value){
-                      email = value;
+                      controller.email = value;
                     },
                   ),
 
@@ -68,7 +63,7 @@ class SignupView extends GetView<SignupController> {
                         prefixIcon: Icon(Icons.password)
                     ),
                     onChanged: (value){
-                      password = value;
+                      controller.password = value;
                     },
                   ),
 
@@ -82,23 +77,14 @@ class SignupView extends GetView<SignupController> {
                         prefixIcon: Icon(Icons.password)
                     ),
                     onChanged: (value){
-                      confirmPassword = value;
+                      controller.confirmPassword = value;
                     },
                   ),
 
                   const SizedBox(height: 30,),
 
                   ElevatedButton(onPressed: () async {
-                    AuthenticationHelper().signUp(email: email, password: password)
-                        .then((result){
-                          if(result == null){
-                            Get.offAllNamed(Routes.HOME);
-                            Get.snackbar("Welcome", "Account Created Successfully",);
-                          }
-                          else{
-                            Get.snackbar("Activity", result);
-                          }
-                    });
+                    controller.createAccount();
                   }, child: const Text("Create Account")),
 
                   const SizedBox(height: 20,),

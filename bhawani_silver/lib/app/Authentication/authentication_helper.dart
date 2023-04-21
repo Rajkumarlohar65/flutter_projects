@@ -14,7 +14,7 @@ class AuthenticationHelper{
     }
     }
 
-  Future login({required email, required password}) async{
+  Future signIn({required email, required password}) async{
     try {
       final credential =
       await FirebaseAuth.instance.signInWithEmailAndPassword(

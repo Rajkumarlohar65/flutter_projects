@@ -5,10 +5,8 @@ import 'package:get/get.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  late String email;
-  late String password;
 
-  LoginView({Key? key}) : super(key: key);
+  const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -37,7 +35,7 @@ class LoginView extends GetView<LoginController> {
                       prefixIcon: Icon(Icons.email)
                   ),
                   onChanged: (value){
-                    email = value;
+                    controller.email = value;
                   },
                 ),
 
@@ -51,7 +49,7 @@ class LoginView extends GetView<LoginController> {
                       prefixIcon: Icon(Icons.password)
                   ),
                   onChanged: (value){
-                    password = value;
+                    controller.password = value;
                   },
                 ),
 
@@ -59,16 +57,7 @@ class LoginView extends GetView<LoginController> {
 
                 ElevatedButton(
                   onPressed: () {
-                    AuthenticationHelper().login(email: email, password: password)
-                        .then((result) {
-                          if(result == null){
-                            Get.offAllNamed(Routes.HOME);
-                            Get.snackbar("Activity", "Welcome Back");
-                          }
-                          else{
-                            Get.snackbar("Activity", result);
-                          }
-                    });
+                    controller.loginUser();
                   },
                   child: const Text('Login'),
                 ),

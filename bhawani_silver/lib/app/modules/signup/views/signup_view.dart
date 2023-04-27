@@ -110,18 +110,24 @@ class SignupView extends GetView<SignupController> {
 
                     const SizedBox(height: 30,),
 
-                    ElevatedButton(onPressed: () async {
-                      if(_formKey.currentState!.validate()){
-                        _formKey.currentState!.save();
-                        controller.createAccount();
-                      }
-                    }, child: const Text(AppString.signUpButton)),
+                    Obx(() {
+                      return controller.isLoading.value ?
+                      const CircularProgressIndicator() :
+                      ElevatedButton(onPressed: () async {
+                        if(_formKey.currentState!.validate()){
+                          _formKey.currentState!.save();
+                          controller.createAccount();
+                        }
+                      }, child: const Text(AppString.signUpButton));
+                    }),
+
 
                     const SizedBox(height: 20,),
 
                     TextButton(onPressed: (){
                       Get.toNamed(Routes.LOGIN);
-                    }, child: const Text(AppString.alreadyHaveAccountText, style: TextStyle(decoration: TextDecoration.underline),)
+                    }, child: const Text(
+                      AppString.alreadyHaveAccountText, style: TextStyle(decoration: TextDecoration.underline),)
                     ),
 
                   ],

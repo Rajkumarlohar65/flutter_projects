@@ -78,15 +78,20 @@ class LoginView extends GetView<LoginController> {
 
                   const SizedBox(height: 30,),
 
-                  ElevatedButton(
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()){
-                        _formKey.currentState!.save();
-                        controller.loginUser();
-                      }
-                    },
-                    child: const Text(AppString.loginButton),
-                  ),
+                  Obx(() {
+                    return controller.isLoading.value ?
+                    const CircularProgressIndicator() :
+                    ElevatedButton(
+                      onPressed: () {
+                        if(_formKey.currentState!.validate()){
+                          _formKey.currentState!.save();
+                          controller.loginUser();
+                        }
+                      },
+                      child: const Text(AppString.loginButton),
+                    );
+                  }),
+
 
                   const SizedBox(height: 20,),
 

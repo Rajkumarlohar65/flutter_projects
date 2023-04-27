@@ -4,7 +4,7 @@ class AppTheme{
 
   static ThemeData lightTheme(){
     return ThemeData(
-      primarySwatch: Colors.blue,
+      appBarTheme: const AppBarTheme(color: Colors.white),
     );
   }
 

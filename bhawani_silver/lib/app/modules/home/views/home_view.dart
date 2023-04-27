@@ -1,6 +1,6 @@
 import 'package:bhawani_silver/app/modules/Tabs/category_tab.dart';
 import 'package:bhawani_silver/app/modules/Tabs/home_tab.dart';
-import 'package:bhawani_silver/app/widgets/my_app_bar.dart';
+import 'package:bhawani_silver/app/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/values/app_string.dart';
@@ -16,7 +16,7 @@ class HomeView extends GetView<HomeController> {
 
     return GetBuilder<HomeController>(builder: (controller){
       return Scaffold(
-        appBar: MyAppBar(key: key,),
+        appBar: AppBarWidget(key: key,),
 
         body: IndexedStack(
           index: controller.currentIndex,

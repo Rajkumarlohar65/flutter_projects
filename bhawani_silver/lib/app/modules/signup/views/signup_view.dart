@@ -1,5 +1,9 @@
 import 'package:bhawani_silver/app/core/values/app_string.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field/signup_confirm_password_widget.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field/signup_email_widget.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field/signup_name_widget.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field/signup_password_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
@@ -34,82 +38,19 @@ class SignupView extends GetView<SignupController> {
 
                     const SizedBox(height: 30,),
 
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: AppString.signUpNameHint,
-                          prefixIcon: Icon(Icons.account_circle)
-                      ),
-                      onChanged: (value){
-                        controller.name = value;
-                      },
-                    ),
+                    const SignUpNameTextFormField(),
 
                     const SizedBox(height: 20,),
 
-                    TextFormField(
-                      controller: controller.emailController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: AppString.signUpEmailHint,
-                          prefixIcon: Icon(Icons.email)
-                      ),
-                      validator: (value) {
-                        if(value == null || value.isEmpty){
-                          return AppString.signUpAlertEmailNotNull;
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        controller.email = value;
-                      },
-                    ),
+                    const SignUpEmailTextFormField(),
 
                     const SizedBox(height: 20,),
 
-                    TextFormField(
-                      controller: controller.passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: AppString.signUpPasswordHint,
-                          prefixIcon: Icon(Icons.password)
-                      ),
-                      validator: (value) {
-                        if(value == null || value.isEmpty){
-                          return AppString.signUpAlertPasswordNotNull;
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        controller.password = value;
-                      },
-                    ),
+                    const SignUpPasswordTextFormField(),
 
                     const SizedBox(height: 20,),
 
-                    TextFormField(
-                      controller: controller.confirmPasswordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: AppString.signUpConfirmPasswordHint,
-                          prefixIcon: Icon(Icons.password)
-                      ),
-                      validator: (value) {
-                        if(value == null || value.isEmpty){
-                          return AppString.signUpAlertPasswordNotNull;
-                        }
-                        if(value != controller.passwordController.text){
-                          return AppString.signUpAlertPasswordNotMatch;
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-
-                        controller.confirmPassword = value;
-                      },
-                    ),
+                    const SignUpConfirmPasswordTextFormField(),
 
                     const SizedBox(height: 30,),
 

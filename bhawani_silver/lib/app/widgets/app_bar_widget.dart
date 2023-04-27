@@ -3,11 +3,11 @@ import 'package:bhawani_silver/app/core/values/app_string.dart';
 import 'package:bhawani_silver/app/widgets/my_search_delegate.dart';
 import 'package:flutter/material.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  const MyAppBar({Key? key})
+  const AppBarWidget({Key? key})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 

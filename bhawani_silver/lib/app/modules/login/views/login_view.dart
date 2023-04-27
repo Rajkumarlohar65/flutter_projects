@@ -1,4 +1,6 @@
 import 'package:bhawani_silver/app/routes/app_pages.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field/login_email_widget.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field/login_password_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/values/app_string.dart';
@@ -10,9 +12,7 @@ class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       appBar: AppBar(
         title: const Text(AppString.loginAppbarTitle),
       ),
@@ -23,85 +23,65 @@ class LoginView extends GetView<LoginController> {
           child: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.only(left: 25, right: 25),
-
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  const Text(AppString.loginScreenTitle, style: TextStyle(fontSize: 33,),),
-
-                  const SizedBox(height: 40,),
-
-                  TextFormField(
-                    controller: controller.emailController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: AppString.loginEmailHint,
-                        prefixIcon: Icon(Icons.email)
+                  const Text(
+                    AppString.loginScreenTitle,
+                    style: TextStyle(
+                      fontSize: 33,
                     ),
-                    validator: (value) {
-                      if(value == null || value.isEmpty){
-                        return AppString.loginAlertEmailNotNull;
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      controller.email = value;
-                    },
+                  ),
+                  const SizedBox(
+                    height: 40,
                   ),
 
-                  const SizedBox(height: 20,),
+                  const LoginEmailTextFormField(),
 
-                  TextFormField(
-                    controller: controller.passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: AppString.loginPasswordHint,
-                        prefixIcon: Icon(Icons.password)
-                    ),
-                    validator: (value) {
-                      if(value == null || value.isEmpty){
-                        return AppString.loginAlertPasswordNotNull;
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      controller.password = value;
-                    },
+                  const SizedBox(
+                    height: 20,
                   ),
+
+                  LoginPasswordTextFormField(),
+
                   Container(
-                    padding: const EdgeInsets.only(top: 5),
-                    alignment: Alignment.bottomRight,
-                      child: const Text(AppString.forgetPasswordButton,)
+                      padding: const EdgeInsets.only(top: 5),
+                      alignment: Alignment.bottomRight,
+                      child: const Text(
+                        AppString.forgetPasswordButton,
+                      )),
+                  const SizedBox(
+                    height: 30,
                   ),
-
-                  const SizedBox(height: 30,),
-
                   Obx(() {
-                    return controller.isLoading.value ?
-                    const CircularProgressIndicator() :
-                    ElevatedButton(
-                      onPressed: () {
-                        if(_formKey.currentState!.validate()){
-                          _formKey.currentState!.save();
-                          controller.loginUser();
-                        }
-                      },
-                      child: const Text(AppString.loginButton),
-                    );
+                    return controller.isLoading.value
+                        ? const CircularProgressIndicator()
+                        : ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                controller.loginUser();
+                              }
+                            },
+                            child: const Text(AppString.loginButton),
+                          );
                   }),
-
-
-                  const SizedBox(height: 20,),
-
-
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(AppString.loginNewUserText),
-                      TextButton(onPressed: (){Get.toNamed(Routes.SIGNUP);
-                      },child: const Text(AppString.loginCreateAccountButton, style: TextStyle(decoration: TextDecoration.underline),)),
+                      TextButton(
+                          onPressed: () {
+                            Get.toNamed(Routes.SIGNUP);
+                          },
+                          child: const Text(
+                            AppString.loginCreateAccountButton,
+                            style:
+                                TextStyle(decoration: TextDecoration.underline),
+                          )),
                     ],
                   )
                 ],
@@ -111,7 +91,5 @@ class LoginView extends GetView<LoginController> {
         ),
       ),
     );
-
   }
-
 }

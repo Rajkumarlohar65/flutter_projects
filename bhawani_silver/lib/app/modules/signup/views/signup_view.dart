@@ -1,3 +1,4 @@
+import 'package:bhawani_silver/app/core/values/app_string.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ class SignupView extends GetView<SignupController> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Welcome"),
+        title: const Text(AppString.signUpAppbarTitle),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -25,14 +26,14 @@ class SignupView extends GetView<SignupController> {
 
                 children: [
 
-                  const Text("Sign Up", style: TextStyle(fontSize: 33, color: Colors.blueGrey),),
+                  const Text(AppString.signUpScreenTitle, style: TextStyle(fontSize: 33, color: Colors.blueGrey),),
 
                   const SizedBox(height: 30,),
 
                   TextField(
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Name",
+                        labelText: AppString.signUpNameHint,
                         prefixIcon: Icon(Icons.account_circle)
                     ),
                     onChanged: (value){
@@ -45,7 +46,7 @@ class SignupView extends GetView<SignupController> {
                   TextField(
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "E-mail",
+                        labelText: AppString.signUpEmailHint,
                         prefixIcon: Icon(Icons.email)
                     ),
                     onChanged: (value){
@@ -59,7 +60,7 @@ class SignupView extends GetView<SignupController> {
                     obscureText: true,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Password",
+                        labelText: AppString.signUpPasswordHint,
                         prefixIcon: Icon(Icons.password)
                     ),
                     onChanged: (value){
@@ -73,7 +74,7 @@ class SignupView extends GetView<SignupController> {
                     obscureText: true,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Confirm Password",
+                        labelText: AppString.signUpConfirmPasswordHint,
                         prefixIcon: Icon(Icons.password)
                     ),
                     onChanged: (value){
@@ -85,13 +86,13 @@ class SignupView extends GetView<SignupController> {
 
                   ElevatedButton(onPressed: () async {
                     controller.createAccount();
-                  }, child: const Text("Create Account")),
+                  }, child: const Text(AppString.signUpButton)),
 
                   const SizedBox(height: 20,),
 
                   TextButton(onPressed: (){
                     Get.toNamed(Routes.LOGIN);
-                  }, child: const Text("I am already a member", style: TextStyle(decoration: TextDecoration.underline),)
+                  }, child: const Text(AppString.alreadyHaveAccountText, style: TextStyle(decoration: TextDecoration.underline),)
                   ),
 
                 ],

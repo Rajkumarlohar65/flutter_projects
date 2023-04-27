@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../core/values/app_string.dart';
+
 class MySearchDelegate extends SearchDelegate{
 
   final List<String> products = [
@@ -19,7 +21,7 @@ class MySearchDelegate extends SearchDelegate{
   ];
 
   @override
-  String get searchFieldLabel => 'Search products';
+  String get searchFieldLabel => AppString.searchDelegateHint;
 
   @override
   TextStyle get searchFieldStyle => const TextStyle(fontSize: 18.0);

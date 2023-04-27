@@ -10,6 +10,9 @@ Future<void> main() async{
   await Firebase.initializeApp();
   runApp(
     GetMaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       title: "Application",
       initialRoute: AppPages.INITIAL,

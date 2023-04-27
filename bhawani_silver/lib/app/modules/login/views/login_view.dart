@@ -2,6 +2,7 @@ import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../core/values/app_string.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -13,7 +14,7 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Welcome"),
+        title: const Text(AppString.loginAppbarTitle),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -24,14 +25,14 @@ class LoginView extends GetView<LoginController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                const Text("Login", style: TextStyle(fontSize: 33, color: Colors.blueGrey),),
+                const Text(AppString.loginScreenTitle, style: TextStyle(fontSize: 33, color: Colors.blueGrey),),
 
                 const SizedBox(height: 40,),
 
                 TextField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "E-mail",
+                      labelText: AppString.loginEmailHint,
                       prefixIcon: Icon(Icons.email)
                   ),
                   onChanged: (value){
@@ -45,7 +46,7 @@ class LoginView extends GetView<LoginController> {
                   obscureText: true,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Password",
+                      labelText: AppString.loginPasswordHint,
                       prefixIcon: Icon(Icons.password)
                   ),
                   onChanged: (value){
@@ -59,21 +60,21 @@ class LoginView extends GetView<LoginController> {
                   onPressed: () {
                     controller.loginUser();
                   },
-                  child: const Text('Login'),
+                  child: const Text(AppString.loginButton),
                 ),
 
                 const SizedBox(height: 20,),
 
                 TextButton(onPressed: (){
 
-                }, child: const Text("Forget Password?", style: TextStyle(color: Colors.black),)),
+                }, child: const Text(AppString.forgetPasswordButton, style: TextStyle(color: Colors.black),)),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("I am new user?"),
+                    const Text(AppString.loginNewUserText),
                     TextButton(onPressed: (){Get.toNamed(Routes.SIGNUP);
-                    },child: const Text("sign up", style: TextStyle(decoration: TextDecoration.underline),)),
+                    },child: const Text(AppString.loginCreateAccountButton, style: TextStyle(decoration: TextDecoration.underline),)),
                   ],
                 )
               ],

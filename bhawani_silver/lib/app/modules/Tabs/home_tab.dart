@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/search_delegate/my_search_delegate.dart';
+import 'package:bhawani_silver/app/widgets/my_search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {

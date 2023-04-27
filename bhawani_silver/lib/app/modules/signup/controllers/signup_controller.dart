@@ -1,3 +1,4 @@
+import 'package:bhawani_silver/app/core/values/app_string.dart';
 import 'package:get/get.dart';
 
 import '../../../Authentication/authentication_helper.dart';
@@ -28,10 +29,10 @@ class SignupController extends GetxController {
         .then((result){
       if(result == null){
         Get.offAllNamed(Routes.HOME);
-        Get.snackbar("Welcome", "Account Created Successfully",);
+        Get.snackbar(AppString.signUpSuccessSnackBarTitle, AppString.signUpSuccessSnackBarMessage,);
       }
       else{
-        Get.snackbar("Activity", result);
+        Get.snackbar(AppString.signUpFailedSnackBarTitle, result);
       }
     });
   }

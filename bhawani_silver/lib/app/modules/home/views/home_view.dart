@@ -1,8 +1,9 @@
 import 'package:bhawani_silver/app/modules/Tabs/category_tab.dart';
 import 'package:bhawani_silver/app/modules/Tabs/home_tab.dart';
-import 'package:bhawani_silver/app/my_app_bar/my_app_bar.dart';
+import 'package:bhawani_silver/app/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../core/values/app_string.dart';
 import '../../Tabs/account_tab.dart';
 import '../../Tabs/cart_tab.dart';
 import '../controllers/home_controller.dart';
@@ -33,10 +34,10 @@ class HomeView extends GetView<HomeController> {
               type: BottomNavigationBarType.fixed,
 
               items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-                BottomNavigationBarItem(icon: Icon(Icons.category), label: 'Category'),
-                BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
-                BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Account')
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: AppString.homeNav),
+                BottomNavigationBarItem(icon: Icon(Icons.category), label: AppString.categoryNav),
+                BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: AppString.cartNav),
+                BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: AppString.accountNav)
               ],
               onTap: controller.changeTabIndex,
               currentIndex: controller.currentIndex,

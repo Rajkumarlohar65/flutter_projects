@@ -1,3 +1,4 @@
+import 'package:bhawani_silver/app/core/values/app_string.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,9 +15,9 @@ class SplashScreenView extends GetView<SplashScreenController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("Welcome to,",style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),),
+              Text(AppString.splashTitle,style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),),
               Text(
-                'Bhawani Silver',
+                AppString.splashAppName,
                 style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
               ),
             ],

@@ -2,6 +2,7 @@ import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/values/app_string.dart';
 import '../../routes/app_pages.dart';
 
 class AccountTab extends StatelessWidget {
@@ -25,10 +26,10 @@ class AccountTab extends StatelessWidget {
         onPressed: () {
           AuthenticationHelper().signOut().then((result) {
             Get.offAllNamed(Routes.LOGIN);
-            Get.snackbar("Activity", "Log out successfully");
+            Get.snackbar(AppString.logOutSuccessSnackBarTitle, AppString.logOutSuccessSnackBarMessage);
           });
         },
-        label: const Text("LOG OUT"),
+        label: const Text(AppString.logOutButton),
         icon: const Icon(Icons.logout),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

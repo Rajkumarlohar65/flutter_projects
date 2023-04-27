@@ -1,4 +1,5 @@
-import 'package:bhawani_silver/app/search_delegate/my_search_delegate.dart';
+import 'package:bhawani_silver/app/core/values/app_string.dart';
+import 'package:bhawani_silver/app/widgets/my_search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -15,10 +16,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Colors.white,
         titleSpacing: 0.0,
         title: Hero(
-            tag: 'searchBar',
+            tag: AppString.appBarTag,
             child: TextField(
                 decoration: const InputDecoration(
-                  hintText: 'Search Product',
+                  hintText: AppString.appBarHint,
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 16.0),
                   prefixIcon: Icon(Icons.search),

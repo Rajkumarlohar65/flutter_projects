@@ -58,6 +58,7 @@ class SignupView extends GetView<SignupController> {
                         if(value == null || value.isEmpty){
                           return AppString.signUpAlertEmailNotNull;
                         }
+                        return null;
                       },
                       onSaved: (value) {
                         controller.email = value;
@@ -78,6 +79,7 @@ class SignupView extends GetView<SignupController> {
                         if(value == null || value.isEmpty){
                           return AppString.signUpAlertPasswordNotNull;
                         }
+                        return null;
                       },
                       onSaved: (value) {
                         controller.password = value;
@@ -101,6 +103,7 @@ class SignupView extends GetView<SignupController> {
                         if(value != controller.passwordController.text){
                           return AppString.signUpAlertPasswordNotMatch;
                         }
+                        return null;
                       },
                       onSaved: (value) {
 

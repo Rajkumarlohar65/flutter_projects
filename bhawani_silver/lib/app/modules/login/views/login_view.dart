@@ -1,5 +1,3 @@
-import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
-import 'package:bhawani_silver/app/core/values/app_color.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,6 +43,7 @@ class LoginView extends GetView<LoginController> {
                       if(value == null || value.isEmpty){
                         return AppString.loginAlertEmailNotNull;
                       }
+                      return null;
                     },
                     onSaved: (value) {
                       controller.email = value;
@@ -65,6 +64,7 @@ class LoginView extends GetView<LoginController> {
                       if(value == null || value.isEmpty){
                         return AppString.loginAlertPasswordNotNull;
                       }
+                      return null;
                     },
                     onSaved: (value) {
                       controller.password = value;

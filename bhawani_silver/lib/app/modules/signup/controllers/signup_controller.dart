@@ -8,10 +8,11 @@ class SignupController extends GetxController {
   late String name;
   String? email;
   String? password;
-  late String confirmPassword;
+  String? confirmPassword;
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   void createAccount(){
     AuthenticationHelper().signUp(email: email, password: password)

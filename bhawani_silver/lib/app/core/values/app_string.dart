@@ -26,7 +26,8 @@ class AppString{
   static const signUpNameHint = 'Name';
   static const signUpEmailHint = 'E-mail';
   static const signUpAlertEmailNotNull = 'Enter E-mail';
-  static const signUpAlertPasswordNotNull = 'Enter Password';
+  static const signUpAlertPasswordNotNull = 'Enter Confirm Password';
+  static const signUpAlertPasswordNotMatch = 'Password not match';
   static const signUpPasswordHint = 'password';
   static const signUpConfirmPasswordHint = 'Confirm Password';
   static const signUpButton = 'Create Account';

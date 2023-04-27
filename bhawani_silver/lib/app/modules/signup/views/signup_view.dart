@@ -87,13 +87,23 @@ class SignupView extends GetView<SignupController> {
                     const SizedBox(height: 20,),
 
                     TextFormField(
+                      controller: controller.confirmPasswordController,
                       obscureText: true,
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: AppString.signUpConfirmPasswordHint,
                           prefixIcon: Icon(Icons.password)
                       ),
-                      onChanged: (value){
+                      validator: (value) {
+                        if(value == null || value.isEmpty){
+                          return AppString.signUpAlertPasswordNotNull;
+                        }
+                        if(value != controller.passwordController.text){
+                          return AppString.signUpAlertPasswordNotMatch;
+                        }
+                      },
+                      onSaved: (value) {
+
                         controller.confirmPassword = value;
                       },
                     ),

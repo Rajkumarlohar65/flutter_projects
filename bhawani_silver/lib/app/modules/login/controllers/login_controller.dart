@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../Authentication/authentication_helper.dart';
@@ -5,23 +6,11 @@ import '../../../core/values/app_string.dart';
 import '../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
-  late String email;
-  late String password;
+  String? email;
+  String? password;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void loginUser(){
     AuthenticationHelper().signIn(email: email, password: password)

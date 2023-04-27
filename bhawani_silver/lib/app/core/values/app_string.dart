@@ -10,6 +10,8 @@ class AppString{
   static const loginScreenTitle = 'Login';
   static const loginEmailHint = 'E-mail';
   static const loginPasswordHint = 'password';
+  static const loginAlertEmailNotNull = 'Enter E-mail';
+  static const loginAlertPasswordNotNull = 'Enter Password';
   static const loginButton = 'Login';
   static const forgetPasswordButton = 'Forget Password?';
   static const loginNewUserText = 'I am new user?';

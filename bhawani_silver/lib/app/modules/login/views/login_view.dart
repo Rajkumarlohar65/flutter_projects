@@ -7,8 +7,9 @@ import '../../../core/values/app_string.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
+  final _formKey = GlobalKey<FormState>();
 
-  const LoginView({Key? key}) : super(key: key);
+  LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -17,75 +18,93 @@ class LoginView extends GetView<LoginController> {
       appBar: AppBar(
         title: const Text(AppString.loginAppbarTitle),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.only(left: 25, right: 25),
+      body: Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.only(left: 25, right: 25),
 
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
 
-                const Text(AppString.loginScreenTitle, style: TextStyle(fontSize: 33,),),
+                  const Text(AppString.loginScreenTitle, style: TextStyle(fontSize: 33,),),
 
-                const SizedBox(height: 40,),
+                  const SizedBox(height: 40,),
 
-                TextField(
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: AppString.loginEmailHint,
-                      prefixIcon: Icon(Icons.email)
+                  TextFormField(
+                    controller: controller.emailController,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: AppString.loginEmailHint,
+                        prefixIcon: Icon(Icons.email)
+                    ),
+                    validator: (value) {
+                      if(value == null || value.isEmpty){
+                        return AppString.loginAlertEmailNotNull;
+                      }
+                    },
+                    onSaved: (value) {
+                      controller.email = value;
+                    },
                   ),
-                  onChanged: (value){
-                    controller.email = value;
-                  },
-                ),
 
-                const SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
 
-                TextField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: AppString.loginPasswordHint,
-                      prefixIcon: Icon(Icons.password)
+                  TextFormField(
+                    controller: controller.passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: AppString.loginPasswordHint,
+                        prefixIcon: Icon(Icons.password)
+                    ),
+                    validator: (value) {
+                      if(value == null || value.isEmpty){
+                        return AppString.loginAlertPasswordNotNull;
+                      }
+                    },
+                    onSaved: (value) {
+                      controller.password = value;
+                    },
                   ),
-                  onChanged: (value){
-                    controller.password = value;
-                  },
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 5),
-                  alignment: Alignment.bottomRight,
-                    child: const Text(AppString.forgetPasswordButton,)
-                ),
+                  Container(
+                    padding: const EdgeInsets.only(top: 5),
+                    alignment: Alignment.bottomRight,
+                      child: const Text(AppString.forgetPasswordButton,)
+                  ),
 
-                const SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
 
-                ElevatedButton(
-                  onPressed: () {
-                    controller.loginUser();
-                  },
-                  child: const Text(AppString.loginButton),
-                ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if(_formKey.currentState!.validate()){
+                        _formKey.currentState!.save();
+                        controller.loginUser();
+                      }
+                    },
+                    child: const Text(AppString.loginButton),
+                  ),
 
-                const SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
 
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(AppString.loginNewUserText),
-                    TextButton(onPressed: (){Get.toNamed(Routes.SIGNUP);
-                    },child: const Text(AppString.loginCreateAccountButton, style: TextStyle(decoration: TextDecoration.underline),)),
-                  ],
-                )
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(AppString.loginNewUserText),
+                      TextButton(onPressed: (){Get.toNamed(Routes.SIGNUP);
+                      },child: const Text(AppString.loginCreateAccountButton, style: TextStyle(decoration: TextDecoration.underline),)),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
       ),
-
     );
 
   }

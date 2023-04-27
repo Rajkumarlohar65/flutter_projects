@@ -1,28 +1,17 @@
 import 'package:bhawani_silver/app/core/values/app_string.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../Authentication/authentication_helper.dart';
 import '../../../routes/app_pages.dart';
 class SignupController extends GetxController {
   late String name;
-  late String email;
-  late String password;
+  String? email;
+  String? password;
   late String confirmPassword;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void createAccount(){
     AuthenticationHelper().signUp(email: email, password: password)

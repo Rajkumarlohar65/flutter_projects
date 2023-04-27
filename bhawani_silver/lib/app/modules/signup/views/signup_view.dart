@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
+  final _formKey = GlobalKey<FormState>();
 
-  const SignupView({Key? key}) : super(key: key);
+  SignupView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -15,90 +16,109 @@ class SignupView extends GetView<SignupController> {
       appBar: AppBar(
         title: const Text(AppString.signUpAppbarTitle),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child:
-            Container(
-              padding: const EdgeInsets.only(right: 20, left:20),
+      body: Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Center(
+          child: SingleChildScrollView(
+            child:
+              Container(
+                padding: const EdgeInsets.only(right: 20, left:20),
 
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
 
-                children: [
+                  children: [
 
-                  const Text(AppString.signUpScreenTitle, style: TextStyle(fontSize: 33),),
+                    const Text(AppString.signUpScreenTitle, style: TextStyle(fontSize: 33),),
 
-                  const SizedBox(height: 30,),
+                    const SizedBox(height: 30,),
 
-                  TextField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: AppString.signUpNameHint,
-                        prefixIcon: Icon(Icons.account_circle)
+                    TextFormField(
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: AppString.signUpNameHint,
+                          prefixIcon: Icon(Icons.account_circle)
+                      ),
+                      onChanged: (value){
+                        controller.name = value;
+                      },
                     ),
-                    onChanged: (value){
-                      controller.name = value;
-                    },
-                  ),
 
-                  const SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
-                  TextField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: AppString.signUpEmailHint,
-                        prefixIcon: Icon(Icons.email)
+                    TextFormField(
+                      controller: controller.emailController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: AppString.signUpEmailHint,
+                          prefixIcon: Icon(Icons.email)
+                      ),
+                      validator: (value) {
+                        if(value == null || value.isEmpty){
+                          return AppString.signUpAlertEmailNotNull;
+                        }
+                      },
+                      onSaved: (value) {
+                        controller.email = value;
+                      },
                     ),
-                    onChanged: (value){
-                      controller.email = value;
-                    },
-                  ),
 
-                  const SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
-                  TextField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: AppString.signUpPasswordHint,
-                        prefixIcon: Icon(Icons.password)
+                    TextFormField(
+                      controller: controller.passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: AppString.signUpPasswordHint,
+                          prefixIcon: Icon(Icons.password)
+                      ),
+                      validator: (value) {
+                        if(value == null || value.isEmpty){
+                          return AppString.signUpAlertPasswordNotNull;
+                        }
+                      },
+                      onSaved: (value) {
+                        controller.password = value;
+                      },
                     ),
-                    onChanged: (value){
-                      controller.password = value;
-                    },
-                  ),
 
-                  const SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
-                  TextField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: AppString.signUpConfirmPasswordHint,
-                        prefixIcon: Icon(Icons.password)
+                    TextFormField(
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: AppString.signUpConfirmPasswordHint,
+                          prefixIcon: Icon(Icons.password)
+                      ),
+                      onChanged: (value){
+                        controller.confirmPassword = value;
+                      },
                     ),
-                    onChanged: (value){
-                      controller.confirmPassword = value;
-                    },
-                  ),
 
-                  const SizedBox(height: 30,),
+                    const SizedBox(height: 30,),
 
-                  ElevatedButton(onPressed: () async {
-                    controller.createAccount();
-                  }, child: const Text(AppString.signUpButton)),
+                    ElevatedButton(onPressed: () async {
+                      if(_formKey.currentState!.validate()){
+                        _formKey.currentState!.save();
+                        controller.createAccount();
+                      }
+                    }, child: const Text(AppString.signUpButton)),
 
-                  const SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
-                  TextButton(onPressed: (){
-                    Get.toNamed(Routes.LOGIN);
-                  }, child: const Text(AppString.alreadyHaveAccountText, style: TextStyle(decoration: TextDecoration.underline),)
-                  ),
+                    TextButton(onPressed: (){
+                      Get.toNamed(Routes.LOGIN);
+                    }, child: const Text(AppString.alreadyHaveAccountText, style: TextStyle(decoration: TextDecoration.underline),)
+                    ),
 
-                ],
+                  ],
+                ),
+
               ),
-
-            ),
+          ),
         ),
       ),
     );

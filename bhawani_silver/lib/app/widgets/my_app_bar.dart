@@ -13,7 +13,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor: Colors.white,
         titleSpacing: 0.0,
         title: Hero(
             tag: AppString.appBarTag,
@@ -27,6 +26,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 readOnly: true,
                 onTap: () {
                   showSearch(context: context, delegate: MySearchDelegate());
-                })));
+                }
+                )
+        )
+    );
   }
 }

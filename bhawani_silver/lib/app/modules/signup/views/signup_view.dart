@@ -26,7 +26,7 @@ class SignupView extends GetView<SignupController> {
 
                 children: [
 
-                  const Text(AppString.signUpScreenTitle, style: TextStyle(fontSize: 33, color: Colors.blueGrey),),
+                  const Text(AppString.signUpScreenTitle, style: TextStyle(fontSize: 33),),
 
                   const SizedBox(height: 30,),
 

@@ -1,4 +1,5 @@
 import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
+import 'package:bhawani_silver/app/core/values/app_color.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class LoginView extends GetView<LoginController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                const Text(AppString.loginScreenTitle, style: TextStyle(fontSize: 33, color: Colors.blueGrey),),
+                const Text(AppString.loginScreenTitle, style: TextStyle(fontSize: 33,),),
 
                 const SizedBox(height: 40,),
 
@@ -53,6 +54,11 @@ class LoginView extends GetView<LoginController> {
                     controller.password = value;
                   },
                 ),
+                Container(
+                  padding: const EdgeInsets.only(top: 5),
+                  alignment: Alignment.bottomRight,
+                    child: const Text(AppString.forgetPasswordButton,)
+                ),
 
                 const SizedBox(height: 30,),
 
@@ -65,9 +71,6 @@ class LoginView extends GetView<LoginController> {
 
                 const SizedBox(height: 20,),
 
-                TextButton(onPressed: (){
-
-                }, child: const Text(AppString.forgetPasswordButton, style: TextStyle(color: Colors.black),)),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

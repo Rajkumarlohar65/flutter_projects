@@ -9,23 +9,31 @@ class LoginPasswordTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    RxBool obscureText = true.obs;
     final controller = Get.find<LoginController>();
-    return TextFormField(
-      controller: controller.passwordController,
-      obscureText: true,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: AppString.loginPasswordHint,
-          prefixIcon: Icon(Icons.password)),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return AppString.loginAlertPasswordNotNull;
-        }
-        return null;
-      },
-      onSaved: (value) {
-        controller.password = value;
-      },
-    );
+
+    return Obx(() {
+      return TextFormField(
+        controller: controller.passwordController,
+        obscureText: obscureText.value,
+        decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            labelText: AppString.loginPasswordHint,
+            suffixIcon: IconButton(onPressed: (){
+              obscureText.toggle();
+            }, icon: Icon(obscureText.value ? Icons.visibility_off : Icons.visibility)),
+            prefixIcon: const Icon(Icons.password)),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return AppString.loginAlertPasswordNotNull;
+          }
+          return null;
+        },
+        onSaved: (value) {
+          controller.password = value;
+        },
+      );
+    });
   }
 }

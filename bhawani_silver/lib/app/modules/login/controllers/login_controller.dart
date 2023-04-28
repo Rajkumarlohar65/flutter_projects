@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../Authentication/authentication_helper.dart';
+import '../../../core/utils/utils.dart';
 import '../../../core/values/app_string.dart';
 import '../../../routes/app_pages.dart';
 
@@ -21,11 +22,11 @@ class LoginController extends GetxController {
         .then((result) {
       if(result == null){
         Get.offAllNamed(Routes.HOME);
-        Get.snackbar(AppString.loginSuccessSnackBarTitle, AppString.loginSuccessSnackBarMessage);
+        Utils().showSuccessToast(AppString.loginSuccessToastMessage);
         isLoading.value = false;
       }
       else{
-        Get.snackbar(AppString.loginFailedSnackBarTitle, result);
+        Utils().showErrorSnackBar(AppString.loginFailedSnackBarTitle, result);
         isLoading.value = false;
       }
     });

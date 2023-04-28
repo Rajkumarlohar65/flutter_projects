@@ -1,9 +1,6 @@
 import 'package:bhawani_silver/app/Authentication/authentication_helper.dart';
+import 'package:bhawani_silver/app/widgets/button_widget/logout_button_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../core/values/app_string.dart';
-import '../../routes/app_pages.dart';
 
 class AccountTab extends StatelessWidget {
   const AccountTab({super.key});
@@ -22,16 +19,7 @@ class AccountTab extends StatelessWidget {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          AuthenticationHelper().signOut().then((result) {
-            Get.offAllNamed(Routes.LOGIN);
-            Get.snackbar(AppString.logOutSuccessSnackBarTitle, AppString.logOutSuccessSnackBarMessage);
-          });
-        },
-        label: const Text(AppString.logOutButton),
-        icon: const Icon(Icons.logout),
-      ),
+      floatingActionButton: const LogOutButtonWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
     );

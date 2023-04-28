@@ -16,8 +16,7 @@ class AppString{
   static const forgetPasswordButton = 'Forget Password?';
   static const loginNewUserText = 'I am new user?';
   static const loginCreateAccountButton = 'Create Account';
-  static const loginSuccessSnackBarTitle = 'Activity';
-  static const loginSuccessSnackBarMessage = 'Welcome Back';
+  static const loginSuccessToastMessage = 'Welcome Back';
   static const loginFailedSnackBarTitle = 'Activity';
 
 //  SignUp Page
@@ -32,8 +31,7 @@ class AppString{
   static const signUpConfirmPasswordHint = 'Confirm Password';
   static const signUpButton = 'Create Account';
   static const alreadyHaveAccountText = 'I am already a member';
-  static const signUpSuccessSnackBarTitle = 'Activity';
-  static const signUpSuccessSnackBarMessage = 'Account Created Successfully';
+  static const signUpSuccessToastMessage = 'Account Created Successfully';
   static const signUpFailedSnackBarTitle = 'Activity';
 
 // Home Page
@@ -51,6 +49,5 @@ class AppString{
 
 //  Account Tab
   static const logOutButton = 'LOG OUT';
-  static const logOutSuccessSnackBarTitle = 'Activity';
   static const logOutSuccessSnackBarMessage = 'Log out successfully';
 }

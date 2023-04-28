@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../Authentication/authentication_helper.dart';
+import '../../../core/utils/utils.dart';
 import '../../../routes/app_pages.dart';
 class SignupController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -25,11 +26,11 @@ class SignupController extends GetxController {
         .then((result){
       if(result == null){
         Get.offAllNamed(Routes.HOME);
-        Get.snackbar(AppString.signUpSuccessSnackBarTitle, AppString.signUpSuccessSnackBarMessage,);
+        Utils().showSuccessToast(AppString.signUpSuccessToastMessage);
         isLoading.value = false;
       }
       else{
-        Get.snackbar(AppString.signUpFailedSnackBarTitle, result);
+        Utils().showErrorSnackBar(AppString.signUpFailedSnackBarTitle, result);
         isLoading.value = false;
       }
     });

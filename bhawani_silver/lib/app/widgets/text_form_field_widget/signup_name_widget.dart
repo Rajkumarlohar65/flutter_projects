@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/values/app_string.dart';
 
-class SignUpNameTextFormField extends StatelessWidget{
+class SignUpNameTextFormField extends StatelessWidget {
   const SignUpNameTextFormField({super.key});
 
   @override
@@ -13,12 +13,10 @@ class SignUpNameTextFormField extends StatelessWidget{
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
           labelText: AppString.signUpNameHint,
-          prefixIcon: Icon(Icons.account_circle)
-      ),
-      onChanged: (value){
+          prefixIcon: Icon(Icons.account_circle)),
+      onChanged: (value) {
         controller.name = value;
       },
     );
   }
-
 }

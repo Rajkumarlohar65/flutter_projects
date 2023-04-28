@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import '../../../Authentication/authentication_helper.dart';
 import '../../../routes/app_pages.dart';
 class SignupController extends GetxController {
+  final formKey = GlobalKey<FormState>();
+
   late String name;
   String? email;
   String? password;

@@ -6,6 +6,7 @@ import '../../../core/values/app_string.dart';
 import '../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
+  final formKey = GlobalKey<FormState>();
   String? email;
   String? password;
 

@@ -1,15 +1,16 @@
-import 'package:bhawani_silver/app/routes/app_pages.dart';
-import 'package:bhawani_silver/app/widgets/text_form_field/login_email_widget.dart';
-import 'package:bhawani_silver/app/widgets/text_form_field/login_password_widget.dart';
+import 'package:bhawani_silver/app/widgets/button_widget/login_button_widget.dart';
+import 'package:bhawani_silver/app/widgets/button_widget/login_forget_password_button.dart';
+import 'package:bhawani_silver/app/widgets/button_widget/navigate_login_to_signup_button.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field_widget/login_email_widget.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field_widget/login_password_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/values/app_string.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  final _formKey = GlobalKey<FormState>();
 
-  LoginView({Key? key}) : super(key: key);
+  const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +18,7 @@ class LoginView extends GetView<LoginController> {
         title: const Text(AppString.loginAppbarTitle),
       ),
       body: Form(
-        key: _formKey,
+        key: controller.formKey,
         autovalidateMode: AutovalidateMode.always,
         child: Center(
           child: SingleChildScrollView(
@@ -26,62 +27,38 @@ class LoginView extends GetView<LoginController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
                   const Text(
                     AppString.loginScreenTitle,
                     style: TextStyle(
                       fontSize: 33,
                     ),
                   ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+
+                  const SizedBox(height: 40,),
 
                   const LoginEmailTextFormField(),
 
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20,),
 
-                  LoginPasswordTextFormField(),
+                  const LoginPasswordTextFormField(),
 
                   Container(
-                      padding: const EdgeInsets.only(top: 5),
                       alignment: Alignment.bottomRight,
-                      child: const Text(
-                        AppString.forgetPasswordButton,
-                      )),
-                  const SizedBox(
-                    height: 30,
+                      child: const LoginForgetPasswordButton(),
                   ),
-                  Obx(() {
-                    return controller.isLoading.value
-                        ? const CircularProgressIndicator()
-                        : ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                controller.loginUser();
-                              }
-                            },
-                            child: const Text(AppString.loginButton),
-                          );
-                  }),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  
+                  const SizedBox(height: 30,),
+
+                  const LoginButtonWidget(),
+
+                  const SizedBox(height: 20,),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(AppString.loginNewUserText),
-                      TextButton(
-                          onPressed: () {
-                            Get.toNamed(Routes.SIGNUP);
-                          },
-                          child: const Text(
-                            AppString.loginCreateAccountButton,
-                            style:
-                                TextStyle(decoration: TextDecoration.underline),
-                          )),
+                    children: const [
+                      Text(AppString.loginNewUserText),
+                      NavigateLoginToSignUpButton(),
                     ],
                   )
                 ],

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../core/values/app_string.dart';
 
-class SignUpConfirmPasswordTextFormField extends StatelessWidget{
+class SignUpConfirmPasswordTextFormField extends StatelessWidget {
   const SignUpConfirmPasswordTextFormField({super.key});
 
   @override
@@ -17,22 +17,19 @@ class SignUpConfirmPasswordTextFormField extends StatelessWidget{
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
           labelText: AppString.signUpConfirmPasswordHint,
-          prefixIcon: Icon(Icons.password)
-      ),
+          prefixIcon: Icon(Icons.password)),
       validator: (value) {
-        if(value == null || value.isEmpty){
+        if (value == null || value.isEmpty) {
           return AppString.signUpAlertPasswordNotNull;
         }
-        if(value != controller.passwordController.text){
+        if (value != controller.passwordController.text) {
           return AppString.signUpAlertPasswordNotMatch;
         }
         return null;
       },
       onSaved: (value) {
-
         controller.confirmPassword = value;
       },
     );
   }
-
 }

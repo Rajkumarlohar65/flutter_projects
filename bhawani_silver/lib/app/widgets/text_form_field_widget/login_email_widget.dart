@@ -1,32 +1,30 @@
+import 'package:bhawani_silver/app/modules/login/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/values/app_string.dart';
-import '../../modules/login/controllers/login_controller.dart';
 
-class LoginPasswordTextFormField extends StatelessWidget{
-  const LoginPasswordTextFormField({super.key});
+class LoginEmailTextFormField extends StatelessWidget {
+  const LoginEmailTextFormField({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<LoginController>();
     return TextFormField(
-      controller: controller.passwordController,
-      obscureText: true,
+      controller: controller.emailController,
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
-          labelText: AppString.loginPasswordHint,
-          prefixIcon: Icon(Icons.password)),
+          labelText: AppString.loginEmailHint,
+          prefixIcon: Icon(Icons.mail)),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return AppString.loginAlertPasswordNotNull;
+          return AppString.loginAlertEmailNotNull;
         }
         return null;
       },
       onSaved: (value) {
-        controller.password = value;
+        controller.email = value;
       },
     );
   }
-
 }

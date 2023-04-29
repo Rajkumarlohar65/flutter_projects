@@ -12,10 +12,13 @@ class LoginEmailTextFormField extends StatelessWidget {
     final controller = Get.find<LoginController>();
     return TextFormField(
       controller: controller.emailController,
+      style: const TextStyle(
+        fontSize: 20,
+      ),
       decoration: const InputDecoration(
-          border: OutlineInputBorder(),
           labelText: AppString.loginEmailHint,
-          prefixIcon: Icon(Icons.mail)),
+          labelStyle: TextStyle(fontSize: 15),
+          contentPadding: EdgeInsets.zero),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return AppString.loginAlertEmailNotNull;

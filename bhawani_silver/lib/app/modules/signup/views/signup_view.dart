@@ -14,9 +14,6 @@ class SignupView extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(AppString.signUpAppbarTitle),
-      ),
       body: Form(
         key: controller.formKey,
         autovalidateMode: AutovalidateMode.always,

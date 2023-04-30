@@ -15,7 +15,7 @@ class LoginButtonWidget extends StatelessWidget {
       return controller.isLoading.value
           ? const SpinKitThreeBounce(
               size: 20,
-              color: AppColor.whiteColor,
+              color: AppColor.blueColor,
             )
           : ElevatedButton(
               onPressed: () {

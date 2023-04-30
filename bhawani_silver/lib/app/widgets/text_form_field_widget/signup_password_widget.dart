@@ -9,7 +9,6 @@ class SignUpPasswordTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     RxBool obscureText = true.obs;
     final controller = Get.find<SignupController>();
 
@@ -18,12 +17,16 @@ class SignUpPasswordTextFormField extends StatelessWidget {
         controller: controller.passwordController,
         obscureText: obscureText.value,
         decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: AppString.signUpPasswordHint,
-            suffixIcon: IconButton(onPressed: (){
-              obscureText.toggle();
-            }, icon: Icon(obscureText.value ? Icons.visibility_off : Icons.visibility)),
-            prefixIcon: const Icon(Icons.password)),
+          labelText: AppString.signUpPasswordHint,
+          suffixIcon: IconButton(
+              onPressed: () {
+                obscureText.toggle();
+              },
+              icon: Icon(
+                  obscureText.value ? Icons.visibility_off : Icons.visibility)),
+          labelStyle: const TextStyle(fontSize: 15),
+          contentPadding: EdgeInsets.zero,
+        ),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return AppString.signUpAlertPasswordNotNull;

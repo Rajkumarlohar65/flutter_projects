@@ -17,12 +17,16 @@ class SignUpConfirmPasswordTextFormField extends StatelessWidget {
         controller: controller.confirmPasswordController,
         obscureText: obscureText.value,
         decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: AppString.signUpConfirmPasswordHint,
-            suffixIcon: IconButton(onPressed: (){
-              obscureText.toggle();
-            }, icon: Icon(obscureText.value ? Icons.visibility_off : Icons.visibility)),
-            prefixIcon: const Icon(Icons.password)),
+          labelText: AppString.signUpConfirmPasswordHint,
+          suffixIcon: IconButton(
+              onPressed: () {
+                obscureText.toggle();
+              },
+              icon: Icon(
+                  obscureText.value ? Icons.visibility_off : Icons.visibility)),
+          labelStyle: const TextStyle(fontSize: 15),
+          contentPadding: EdgeInsets.zero,
+        ),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return AppString.signUpAlertPasswordNotNull;

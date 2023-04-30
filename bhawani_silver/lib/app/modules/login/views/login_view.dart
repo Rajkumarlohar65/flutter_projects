@@ -17,6 +17,7 @@ class LoginView extends GetView<LoginController> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 100),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

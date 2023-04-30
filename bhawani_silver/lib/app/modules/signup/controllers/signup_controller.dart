@@ -8,7 +8,6 @@ import '../../../routes/app_pages.dart';
 class SignupController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
-  late String name;
   String? email;
   String? password;
   String? confirmPassword;

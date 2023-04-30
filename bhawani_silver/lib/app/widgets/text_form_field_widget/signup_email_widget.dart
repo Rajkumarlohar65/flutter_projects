@@ -12,9 +12,10 @@ class SignUpEmailTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller.emailController,
       decoration: const InputDecoration(
-          border: OutlineInputBorder(),
           labelText: AppString.signUpEmailHint,
-          prefixIcon: Icon(Icons.email)),
+          labelStyle: TextStyle(fontSize: 15),
+          contentPadding: EdgeInsets.zero,
+      ),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return AppString.signUpAlertEmailNotNull;

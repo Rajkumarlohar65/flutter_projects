@@ -1,6 +1,8 @@
 import 'package:bhawani_silver/app/modules/login/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import '../../core/values/app_color.dart';
 import '../../core/values/app_string.dart';
 
 class LoginButtonWidget extends StatelessWidget {
@@ -11,7 +13,10 @@ class LoginButtonWidget extends StatelessWidget {
     final controller = Get.find<LoginController>();
     return Obx(() {
       return controller.isLoading.value
-          ? const CircularProgressIndicator()
+          ? const SpinKitThreeBounce(
+              size: 20,
+              color: AppColor.whiteColor,
+            )
           : ElevatedButton(
               onPressed: () {
                 if (controller.formKey.currentState!.validate()) {

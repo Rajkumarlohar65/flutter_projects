@@ -5,6 +5,7 @@ import 'package:bhawani_silver/app/widgets/text_form_field_widget/login_email_wi
 import 'package:bhawani_silver/app/widgets/text_form_field_widget/login_password_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../core/values/app_string.dart';
 import '../controllers/login_controller.dart';
 
@@ -19,12 +20,13 @@ class LoginView extends GetView<LoginController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             Padding(
               padding: EdgeInsets.only(top: screenHeight * 0.1),
-              child: const Text(AppString.splashAppName, style: TextStyle(fontSize: 30),),
+              child: Text(
+                AppString.splashAppName,
+                style: GoogleFonts.alike(fontSize: 25),
+              ),
             ),
-
             Form(
               key: controller.formKey,
               child: Container(
@@ -43,17 +45,13 @@ class LoginView extends GetView<LoginController> {
                       Container(
                           padding: EdgeInsets.zero,
                           alignment: Alignment.bottomRight,
-                          child: const LoginForgetPasswordButton()
-                      )
+                          child: const LoginForgetPasswordButton())
                     ],
-                  )
-              ),
+                  )),
             ),
-
           ],
         ),
       ),
-
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -75,7 +73,6 @@ class LoginView extends GetView<LoginController> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
     );
   }
 }

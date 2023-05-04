@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/widgets/dialog_box_widget/theme_dialog_widget.dart';
+import 'package:bhawani_silver/app/widgets/list_tile_widget/theme_list_tile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -18,18 +18,9 @@ class SettingView extends GetView<SettingController> {
             itemCount: 1,
             itemBuilder: (context, index) {
               return Column(
-                children: [
+                children: const [
+                  ThemeListTileWidget(),
                   ListTile(
-                      leading: const Icon(Icons.dark_mode),
-                      title: const Text("Theme"),
-                      subtitle: const Text("Dark Mode"),
-                      trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => const ThemeDialogWidget());
-                      }),
-                  const ListTile(
                     leading: Icon(Icons.language),
                     title: Text("Language"),
                     subtitle: Text("English"),

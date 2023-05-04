@@ -6,8 +6,6 @@ class AppString{
   static const splashAppName = 'Bhawani Silver';
 
 //  Login Page
-  static const loginAppbarTitle = 'Welcome';
-  static const loginScreenTitle = 'Login';
   static const loginEmailHint = 'E-mail';
   static const loginPasswordHint = 'password';
   static const loginAlertEmailNotNull = 'Enter Email';
@@ -17,22 +15,20 @@ class AppString{
   static const loginNewUserText = 'I am new user?';
   static const loginCreateAccountButton = 'Create Account';
   static const loginSuccessToastMessage = 'Welcome Back';
-  static const loginFailedSnackBarTitle = 'Activity';
+  static const loginFailedSnackBarTitle = 'Error';
 
 //  SignUp Page
-  static const signUpAppbarTitle = 'Welcome';
-  static const signUpScreenTitle = 'Sign Up';
-  static const signUpNameHint = 'Name';
   static const signUpEmailHint = 'E-mail';
-  static const signUpAlertEmailNotNull = 'Enter E-mail';
-  static const signUpAlertPasswordNotNull = 'Enter Confirm Password';
-  static const signUpAlertPasswordNotMatch = 'Password not match';
   static const signUpPasswordHint = 'password';
   static const signUpConfirmPasswordHint = 'Confirm Password';
+  static const signUpAlertEmailNotNull = 'Enter E-mail';
+  static const signUpAlertPasswordNotNull = 'Enter Password';
+  static const signUpAlertConfirmPasswordNotNull = 'Enter Confirm Password';
+  static const signUpAlertPasswordNotMatch = 'Password not match';
   static const signUpButton = 'Create Account';
   static const alreadyHaveAccountText = 'I am already a member';
   static const signUpSuccessToastMessage = 'Account Created Successfully';
-  static const signUpFailedSnackBarTitle = 'Activity';
+  static const signUpFailedSnackBarTitle = 'Error';
 
 // Setting Page
   static const settingAppBarTitle = 'Settings';

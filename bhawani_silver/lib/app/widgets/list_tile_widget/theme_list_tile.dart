@@ -2,6 +2,7 @@ import 'package:bhawani_silver/app/modules/setting/controllers/setting_controlle
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/values/app_string.dart';
 import '../dialog_box_widget/theme_dialog_widget.dart';
 
 class ThemeListTileWidget extends StatelessWidget{
@@ -18,13 +19,13 @@ class ThemeListTileWidget extends StatelessWidget{
               ? const Icon(Icons.dark_mode)
               : const Icon(Icons.settings_brightness_rounded);
         }),
-        title: const Text("Theme"),
+        title: const Text(AppString.theme),
         subtitle: Obx(() {
           return controller.themeMode.value == ThemeMode.light
-              ? const Text("Light Theme")
+              ? const Text(AppString.lightTheme)
               : controller.themeMode.value == ThemeMode.dark
-              ? const Text("Dark Theme")
-              : const Text("System default");
+              ? const Text(AppString.darkTheme)
+              : const Text(AppString.systemDefault);
         }),
         trailing: const Icon(Icons.keyboard_arrow_right),
         onTap: () {

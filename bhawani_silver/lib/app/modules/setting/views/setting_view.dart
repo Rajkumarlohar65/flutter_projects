@@ -1,3 +1,4 @@
+import 'package:bhawani_silver/app/core/values/app_string.dart';
 import 'package:bhawani_silver/app/widgets/list_tile_widget/theme_list_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,10 @@ class SettingView extends GetView<SettingController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('SettingView'),
+          title: const Text(
+            AppString.settingAppBarTitle,
+            style: TextStyle(fontSize: 20),
+          ),
           centerTitle: true,
         ),
         body: ListView.builder(

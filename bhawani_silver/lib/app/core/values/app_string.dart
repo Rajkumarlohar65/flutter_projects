@@ -34,6 +34,14 @@ class AppString{
   static const signUpSuccessToastMessage = 'Account Created Successfully';
   static const signUpFailedSnackBarTitle = 'Activity';
 
+// Setting Page
+  static const settingAppBarTitle = 'Settings';
+  static const theme = 'Theme';
+  static const lightTheme = 'Light Theme';
+  static const darkTheme = 'Dark Theme';
+  static const systemDefault = 'System default';
+  static const selectATheme = 'Select a Theme';
+
 // Home Page
   static const homeNav = 'Home';
   static const categoryNav = 'Category';

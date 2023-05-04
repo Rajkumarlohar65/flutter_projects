@@ -2,6 +2,8 @@ import 'package:bhawani_silver/app/modules/setting/controllers/setting_controlle
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/values/app_string.dart';
+
 class ThemeDialogWidget extends StatelessWidget {
   const ThemeDialogWidget({super.key});
 
@@ -10,12 +12,12 @@ class ThemeDialogWidget extends StatelessWidget {
     final controller = Get.find<SettingController>();
     return Obx(() {
       return AlertDialog(
-        title: const Text('Select a Theme'),
+        title: const Text(AppString.selectATheme),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             RadioListTile(
-              title: const Text('Light Theme'),
+              title: const Text(AppString.lightTheme),
               value: ThemeMode.light,
               groupValue: controller.themeMode.value,
               onChanged: (value) {
@@ -23,7 +25,7 @@ class ThemeDialogWidget extends StatelessWidget {
               },
             ),
             RadioListTile(
-              title: const Text('Dark Theme'),
+              title: const Text(AppString.darkTheme),
               value: ThemeMode.dark,
               groupValue: controller.themeMode.value,
               onChanged: (value) {
@@ -31,7 +33,7 @@ class ThemeDialogWidget extends StatelessWidget {
               },
             ),
             RadioListTile(
-              title: const Text('System default'),
+              title: const Text(AppString.systemDefault),
               value: ThemeMode.system,
               groupValue: controller.themeMode.value,
               onChanged: (value) {

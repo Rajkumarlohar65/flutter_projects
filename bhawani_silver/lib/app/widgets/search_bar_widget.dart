@@ -2,13 +2,13 @@ import 'package:bhawani_silver/app/core/values/app_string.dart';
 import 'package:bhawani_silver/app/widgets/icon_button_widget/more_option_button_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'my_search_delegate.dart';
+import '../modules/home/my_search_delegate.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+class SearchBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  const AppBarWidget({Key? key})
+  const SearchBarWidget({Key? key})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 

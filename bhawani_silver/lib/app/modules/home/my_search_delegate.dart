@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../core/values/app_string.dart';
+import '../../core/values/app_string.dart';
 
 class MySearchDelegate extends SearchDelegate{
 

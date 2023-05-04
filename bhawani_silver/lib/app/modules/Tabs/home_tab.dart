@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/widgets/my_search_delegate.dart';
+import 'package:bhawani_silver/app/modules/home/my_search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {
@@ -8,18 +8,12 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: MySearchDelegate().products.length,
+          itemCount: MySearchDelegate().products.length,
           itemBuilder: (context, int index) {
-          return ListTile(
-            leading: const Icon(Icons.online_prediction),
-            title: Text(MySearchDelegate().products[index])
-          );
-      }),
-
-      // Center(
-      //   child: Text("Home"),
-      //
-      // ),
+            return ListTile(
+                leading: const Icon(Icons.online_prediction),
+                title: Text(MySearchDelegate().products[index]));
+          }),
     );
   }
 }

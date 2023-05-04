@@ -1,23 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingController extends GetxController {
-  //TODO: Implement SettingController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  Rx<ThemeMode> themeMode = ThemeMode.system.obs;
+
+  void changeThemeMode(ThemeMode newMode) {
+    Get.changeThemeMode(newMode);
+    themeMode.value = newMode;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

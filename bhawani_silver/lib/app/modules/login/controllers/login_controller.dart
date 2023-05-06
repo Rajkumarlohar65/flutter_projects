@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../../Authentication/authentication_helper.dart';
+import '../../../data/firebase/Authentication/authentication_helper.dart';
 import '../../../core/utils/utils.dart';
 import '../../../core/values/app_string.dart';
 import '../../../routes/app_pages.dart';

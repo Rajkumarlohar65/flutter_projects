@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../Authentication/authentication_helper.dart';
+import '../data/firebase/Authentication/authentication_helper.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';

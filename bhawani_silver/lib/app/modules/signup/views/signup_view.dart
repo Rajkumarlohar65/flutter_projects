@@ -3,6 +3,7 @@ import 'package:bhawani_silver/app/widgets/button_widget/signup_button_widget.da
 import 'package:bhawani_silver/app/widgets/button_widget/navigate_signup_to_login_button.dart';
 import 'package:bhawani_silver/app/widgets/text_form_field_widget/signup_confirm_password_widget.dart';
 import 'package:bhawani_silver/app/widgets/text_form_field_widget/signup_email_widget.dart';
+import 'package:bhawani_silver/app/widgets/text_form_field_widget/signup_name_widget.dart';
 import 'package:bhawani_silver/app/widgets/text_form_field_widget/signup_password_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class SignupView extends GetView<SignupController> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 100),
+        padding: const EdgeInsets.only(bottom: 200),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -38,6 +39,10 @@ class SignupView extends GetView<SignupController> {
                   ),
                   child: Column(
                     children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: screenHeight * 0.03),
+                        child: const SignUpNameTextFormField(),
+                      ),
                       Padding(
                         padding: EdgeInsets.only(bottom: screenHeight * 0.03),
                         child: const SignUpEmailTextFormField(),

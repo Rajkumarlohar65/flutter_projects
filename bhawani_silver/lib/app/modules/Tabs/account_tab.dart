@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Authentication/authentication_helper.dart';
+import '../../data/firebase/Authentication/authentication_helper.dart';
 import '../../widgets/button_widget/logout_button_widget.dart';
 
 class AccountTab extends StatelessWidget {
@@ -20,7 +20,8 @@ class AccountTab extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            Text("User mail : ${AuthenticationHelper().userEmail()}"),
+            Text("User name : ${AuthenticationHelper().currentUser!.displayName}"),
+            Text("User mail : ${AuthenticationHelper().currentUser!.email}"),
           ],
         ),
       ),

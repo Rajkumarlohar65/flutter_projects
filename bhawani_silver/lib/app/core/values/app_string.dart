@@ -18,9 +18,11 @@ class AppString{
   static const loginFailedSnackBarTitle = 'Error';
 
 //  SignUp Page
+  static const signUpNameHint = 'Name';
   static const signUpEmailHint = 'E-mail';
   static const signUpPasswordHint = 'password';
   static const signUpConfirmPasswordHint = 'Confirm Password';
+  static const signUpAlertNameNotNull = 'Enter name';
   static const signUpAlertEmailNotNull = 'Enter E-mail';
   static const signUpAlertPasswordNotNull = 'Enter Password';
   static const signUpAlertConfirmPasswordNotNull = 'Enter Confirm Password';

@@ -44,40 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBmj4Z_dG_usXXNwmfW82rWrKXp7yE8flk',
-    appId: '1:584596413504:web:c69c0f59e47a5c482dd3a5',
-    messagingSenderId: '584596413504',
-    projectId: 'bhawanisilver-f55b2',
-    authDomain: 'bhawanisilver-f55b2.firebaseapp.com',
-    storageBucket: 'bhawanisilver-f55b2.appspot.com',
-    measurementId: 'G-M731RPDPPV',
+    apiKey: 'AIzaSyACoI5RfyNvjFcO-JhqFWywxYj2xOmil5Y',
+    appId: '1:741542999889:web:fe2f4b91d004a994d30570',
+    messagingSenderId: '741542999889',
+    projectId: 'bhawanisilver-40e78',
+    authDomain: 'bhawanisilver-40e78.firebaseapp.com',
+    storageBucket: 'bhawanisilver-40e78.appspot.com',
+    measurementId: 'G-033GG82PW9',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCwa7ZYmeanahZpvnxlyZydkq12YHF_pSs',
-    appId: '1:584596413504:android:10489287a63faafe2dd3a5',
-    messagingSenderId: '584596413504',
-    projectId: 'bhawanisilver-f55b2',
-    storageBucket: 'bhawanisilver-f55b2.appspot.com',
+    apiKey: 'AIzaSyAyok6uxh-pwMdKJ7So8pfw4GpIP6e1HCg',
+    appId: '1:741542999889:android:6d30ad1c19ffccdad30570',
+    messagingSenderId: '741542999889',
+    projectId: 'bhawanisilver-40e78',
+    storageBucket: 'bhawanisilver-40e78.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAPJxLyySZ4B-pxb64lBSYKca1mMY-Lm58',
-    appId: '1:584596413504:ios:9ef521416ceb570c2dd3a5',
-    messagingSenderId: '584596413504',
-    projectId: 'bhawanisilver-f55b2',
-    storageBucket: 'bhawanisilver-f55b2.appspot.com',
-    iosClientId: '584596413504-jasj3ta47qukf1qcgj7tohohc78ubp8t.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCkCZYMyIEuCF4TJMxqkcXWXWIgL-Xoh80',
+    appId: '1:741542999889:ios:a8964f12c5121d0fd30570',
+    messagingSenderId: '741542999889',
+    projectId: 'bhawanisilver-40e78',
+    storageBucket: 'bhawanisilver-40e78.appspot.com',
+    iosClientId: '741542999889-er31sralel7q7jner56kqkphl1qvdahb.apps.googleusercontent.com',
     iosBundleId: 'com.bhawani.bhawaniSilver',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAPJxLyySZ4B-pxb64lBSYKca1mMY-Lm58',
-    appId: '1:584596413504:ios:9ef521416ceb570c2dd3a5',
-    messagingSenderId: '584596413504',
-    projectId: 'bhawanisilver-f55b2',
-    storageBucket: 'bhawanisilver-f55b2.appspot.com',
-    iosClientId: '584596413504-jasj3ta47qukf1qcgj7tohohc78ubp8t.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCkCZYMyIEuCF4TJMxqkcXWXWIgL-Xoh80',
+    appId: '1:741542999889:ios:a8964f12c5121d0fd30570',
+    messagingSenderId: '741542999889',
+    projectId: 'bhawanisilver-40e78',
+    storageBucket: 'bhawanisilver-40e78.appspot.com',
+    iosClientId: '741542999889-er31sralel7q7jner56kqkphl1qvdahb.apps.googleusercontent.com',
     iosBundleId: 'com.bhawani.bhawaniSilver',
   );
 }

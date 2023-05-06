@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "584596413504",
-    "project_id": "bhawanisilver-f55b2",
-    "storage_bucket": "bhawanisilver-f55b2.appspot.com"
+    "project_number": "741542999889",
+    "project_id": "bhawanisilver-40e78",
+    "storage_bucket": "bhawanisilver-40e78.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:584596413504:android:10489287a63faafe2dd3a5",
+        "mobilesdk_app_id": "1:741542999889:android:6d30ad1c19ffccdad30570",
         "android_client_info": {
           "package_name": "com.bhawani.bhawani_silver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "584596413504-nhp75qd3hmop9pdc99jgck6u26mhd7el.apps.googleusercontent.com",
+          "client_id": "741542999889-gbakeib4tepqsnjv4f01ffk2ism906bb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCwa7ZYmeanahZpvnxlyZydkq12YHF_pSs"
+          "current_key": "AIzaSyAyok6uxh-pwMdKJ7So8pfw4GpIP6e1HCg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "584596413504-nhp75qd3hmop9pdc99jgck6u26mhd7el.apps.googleusercontent.com",
+              "client_id": "741542999889-gbakeib4tepqsnjv4f01ffk2ism906bb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

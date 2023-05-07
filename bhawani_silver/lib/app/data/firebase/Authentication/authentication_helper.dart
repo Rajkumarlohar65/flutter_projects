@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bhawani_silver/app/data/firebase/firestore/firestore_services.dart';
 
-class AuthenticationHelper{
-
+class AuthenticationHelper {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -18,35 +17,29 @@ class AuthenticationHelper{
       await FireStoreServices.saveUser(name, email, userCredential.user?.uid);
 
       return null;
-
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    }
-    }
-
-  Future signIn({required email, required password}) async{
-    try {
-      final credential =
-      await auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      return null;
-
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
   }
 
-  Future signOut() async{
-    await auth.signOut();
+  Future signIn({required email, required password}) async {
+    try {
+      await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
+  }
 
+  Future signOut() async {
+    await auth.signOut();
     return null;
   }
 
   bool isUserLoggedIN() {
     return currentUser != null;
   }
-
 }

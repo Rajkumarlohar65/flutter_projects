@@ -12,6 +12,9 @@ class AuthenticationHelper {
         password: password,
       );
 
+      // update the currentUser variable with the newly created user
+      currentUser = userCredential.user;
+
       await currentUser!.updateDisplayName(name);
       await currentUser!.updateEmail(email);
       await FireStoreServices.saveUser(name, email, userCredential.user?.uid);
@@ -28,6 +31,8 @@ class AuthenticationHelper {
         email: email,
         password: password,
       );
+      currentUser = auth.currentUser;
+
       return null;
     } on FirebaseAuthException catch (e) {
       return e.message;

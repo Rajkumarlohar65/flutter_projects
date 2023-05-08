@@ -3,6 +3,7 @@ import 'package:bhawani_silver/app/widgets/dialog_box_widget/image_dialog_widget
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
@@ -51,12 +52,12 @@ class HomeTab extends StatelessWidget {
                                 showDialog(
                                     context: context,
                                     builder: (context) =>
-                                        ImageDialogWidget(imageUrl: image));
+                                        ImageDialogWidget(image_url: image,));
                               },
                               child: AspectRatio(
                                   aspectRatio: 1,
-                                  child: Image.network(
-                                    image,
+                                  child: CachedNetworkImage(
+                                    imageUrl: image,
                                     width: 100,
                                     fit: BoxFit.cover,
                                   )),
@@ -89,6 +90,7 @@ class HomeTab extends StatelessWidget {
       //           leading: const Icon(Icons.online_prediction),
       //           title: Text(MySearchDelegate().products[index]));
       //     }),
+
     );
   }
 }

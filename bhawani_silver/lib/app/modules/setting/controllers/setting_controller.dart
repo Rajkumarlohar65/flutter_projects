@@ -10,4 +10,10 @@ class SettingController extends GetxController {
     themeMode.value = newMode;
   }
 
+  @override
+  void onClose() {
+    themeMode = themeMode.value as Rx<ThemeMode>;
+    super.onClose();
+  }
+
 }

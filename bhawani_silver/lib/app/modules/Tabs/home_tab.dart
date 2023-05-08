@@ -1,7 +1,9 @@
+import 'package:bhawani_silver/app/modules/home/controllers/home_controller.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:bhawani_silver/app/widgets/dialog_box_widget/image_dialog_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -10,9 +12,10 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<HomeController>();
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('products').snapshots(),
+        stream: controller.productsStream,
         builder: (context, productSnapShot) {
           if (productSnapShot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -31,6 +34,7 @@ class HomeTab extends StatelessWidget {
                   final description = productDocs[index]['description'] ?? '';
                   final price = productDocs[index]['price'] ?? '';
                   final image = productDocs[index]['image'] ?? '';
+                  final productId = productDocs[index].id;
 
                   return GestureDetector(
                     onTap: () {
@@ -38,7 +42,8 @@ class HomeTab extends StatelessWidget {
                         'name': name,
                         'price': price,
                         'description': description,
-                        'image': image
+                        'image': image,
+                        'productId': productId
                       });
                     },
                     child: SizedBox(
@@ -60,6 +65,7 @@ class HomeTab extends StatelessWidget {
                                     imageUrl: image,
                                     width: 100,
                                     fit: BoxFit.cover,
+                                    cacheManager: DefaultCacheManager(),
                                   )),
                             ),
                             const SizedBox(

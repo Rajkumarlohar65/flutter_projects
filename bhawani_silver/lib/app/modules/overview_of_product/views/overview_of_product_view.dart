@@ -11,29 +11,25 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
   const OverviewOfProductView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> arguments = Get.arguments;
-    final String name = arguments['name'];
-    final int price = arguments['price'];
-    final String description = arguments['description'];
-    final String image = arguments['image'];
+
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(name),
+        title: Text(controller.name),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CachedNetworkImage(imageUrl: image),
+            CachedNetworkImage(imageUrl: controller.image),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    name,
+                    controller.name,
                     style: const TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
@@ -41,7 +37,7 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    description,
+                    controller.description,
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.grey[700],
@@ -49,7 +45,7 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    '\$$price',
+                    '\$${controller.price}',
                     style: const TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,

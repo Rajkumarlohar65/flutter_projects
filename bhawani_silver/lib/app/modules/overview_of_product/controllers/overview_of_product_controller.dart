@@ -1,23 +1,22 @@
 import 'package:get/get.dart';
 
 class OverviewOfProductController extends GetxController {
-  //TODO: Implement OverviewOfProductController
 
-  final count = 0.obs;
+  late final Map<String, dynamic> arguments;
+  late final String name;
+  late final int price;
+  late final String description;
+  late final String image;
+  late final String productId;
+
   @override
   void onInit() {
-    super.onInit();
+    arguments = Get.arguments;
+    name = arguments['name'];
+    price = arguments['price'];
+    description = arguments['description'];
+    image = arguments['image'];
+    productId = arguments['productId'];
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

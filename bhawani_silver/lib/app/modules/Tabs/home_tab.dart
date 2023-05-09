@@ -1,4 +1,3 @@
-import 'package:bhawani_silver/app/modules/home/controllers/home_controller.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:bhawani_silver/app/widgets/dialog_box_widget/image_dialog_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,10 +11,9 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-        stream: controller.productsStream.value,
+        stream: FirebaseFirestore.instance.collection('products').snapshots(),
         builder: (context, productSnapShot) {
           if (productSnapShot.connectionState == ConnectionState.waiting) {
             return const Center(

@@ -15,7 +15,7 @@ class HomeTab extends StatelessWidget {
     final controller = Get.find<HomeController>();
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-        stream: controller.productsStream,
+        stream: controller.productsStream.value,
         builder: (context, productSnapShot) {
           if (productSnapShot.connectionState == ConnectionState.waiting) {
             return const Center(

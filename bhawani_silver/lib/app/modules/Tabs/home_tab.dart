@@ -27,7 +27,7 @@ class HomeTab extends StatelessWidget {
             );
           } else {
             final productDocs = productSnapShot.data!.docs;
-            return ListView.builder(
+            return ListView.separated(
                 itemCount: productDocs.length,
                 itemBuilder: (context, index) {
                   final name = productDocs[index]['name'] ?? '';
@@ -49,7 +49,6 @@ class HomeTab extends StatelessWidget {
                     child: SizedBox(
                       height: 150,
                       child: ListTile(
-                        contentPadding: const EdgeInsets.only(bottom: 20),
                         title: Row(
                           children: [
                             GestureDetector(
@@ -85,7 +84,7 @@ class HomeTab extends StatelessWidget {
                       ),
                     ),
                   );
-                });
+                }, separatorBuilder: (BuildContext context, int index) =>const SizedBox(height: 5,),);
           }
         },
       ),

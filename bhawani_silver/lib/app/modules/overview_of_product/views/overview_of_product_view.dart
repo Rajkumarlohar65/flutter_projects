@@ -5,31 +5,32 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../data/model/product.dart';
 import '../controllers/overview_of_product_controller.dart';
 
 class OverviewOfProductView extends GetView<OverviewOfProductController> {
   const OverviewOfProductView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
+    final Product product = controller.product;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.name),
+        title: Text(product.name),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CachedNetworkImage(imageUrl: controller.image),
+            CachedNetworkImage(imageUrl: product.image),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    controller.name,
+                    product.name,
                     style: const TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
@@ -37,7 +38,7 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    controller.description,
+                    product.description,
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.grey[700],
@@ -45,7 +46,7 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    '\$${controller.price}',
+                    '\$${product.price}',
                     style: const TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,

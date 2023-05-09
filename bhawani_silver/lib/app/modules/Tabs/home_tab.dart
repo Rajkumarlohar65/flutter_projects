@@ -6,6 +6,8 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../../data/model/product.dart';
+
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
 
@@ -25,64 +27,62 @@ class HomeTab extends StatelessWidget {
             );
           } else {
             final productDocs = productSnapShot.data!.docs;
+            final products =
+                productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
             return ListView.separated(
-                itemCount: productDocs.length,
-                itemBuilder: (context, index) {
-                  final name = productDocs[index]['name'] ?? '';
-                  final description = productDocs[index]['description'] ?? '';
-                  final price = productDocs[index]['price'] ?? '';
-                  final image = productDocs[index]['image'] ?? '';
-                  final productId = productDocs[index].id;
+              itemCount: productDocs.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
 
-                  return GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.OVERVIEW_OF_PRODUCT, arguments: {
-                        'name': name,
-                        'price': price,
-                        'description': description,
-                        'image': image,
-                        'productId': productId
-                      });
-                    },
-                    child: SizedBox(
-                      height: 150,
-                      child: ListTile(
-                        title: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        ImageDialogWidget(image_url: image,));
-                              },
-                              child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child: CachedNetworkImage(
-                                    imageUrl: image,
-                                    width: 100,
-                                    fit: BoxFit.cover,
-                                    cacheManager: DefaultCacheManager(),
-                                  )),
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(name),
-                                const SizedBox(height: 8),
-                                Text('price : ${price.toString()} Rs'),
-                              ],
-                            )
-                          ],
-                        ),
+                return GestureDetector(
+                  onTap: () {
+                    Get.toNamed(Routes.OVERVIEW_OF_PRODUCT, arguments: product);
+                  },
+                  child: SizedBox(
+                    height: 150,
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => ImageDialogWidget(
+                                        image_url: product.image,
+                                      ));
+                            },
+                            child: AspectRatio(
+                                aspectRatio: 1,
+                                child: CachedNetworkImage(
+                                  imageUrl: product.image,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                  cacheManager: DefaultCacheManager(),
+                                )),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(product.name),
+                              const SizedBox(height: 8),
+                              Text('price : ${product.price} Rs'),
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                  );
-                }, separatorBuilder: (BuildContext context, int index) =>const SizedBox(height: 5,),);
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(
+                height: 5,
+              ),
+            );
           }
         },
       ),
@@ -93,7 +93,6 @@ class HomeTab extends StatelessWidget {
       //           leading: const Icon(Icons.online_prediction),
       //           title: Text(MySearchDelegate().products[index]));
       //     }),
-
     );
   }
 }

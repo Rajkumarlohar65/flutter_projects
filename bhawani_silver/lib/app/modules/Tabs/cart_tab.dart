@@ -9,7 +9,11 @@ class CartTab extends StatelessWidget {
   Widget build(BuildContext context) {
     var uid = FirebaseAuth.instance.currentUser!.uid;
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('users').doc(uid).collection('cart').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('cart')
+          .snapshots(),
       builder: (context, cartSnapShot) {
         if (cartSnapShot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -31,21 +35,27 @@ class CartTab extends StatelessWidget {
                       final productId = cartDocs[index]['product_id'] ?? '';
                       final quantity = cartDocs[index]['quantity'] ?? '';
                       return FutureBuilder<DocumentSnapshot>(
-                        future: FirebaseFirestore.instance.collection('products').doc(productId).get(),
+                        future: FirebaseFirestore.instance
+                            .collection('products')
+                            .doc(productId)
+                            .get(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return const SizedBox();
                           } else if (!snapshot.hasData) {
                             return const Center(
                               child: Text('No data available'),
                             );
                           } else {
-                            final productData = snapshot.data!.data() as Map<String, dynamic>?;
+                            final productData =
+                                snapshot.data!.data() as Map<String, dynamic>?;
                             final productName = productData?['name'] ?? '';
                             final productPrice = productData?['price'] ?? '';
                             final productImageUrl = productData?['image'] ?? '';
                             return Card(
-                              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
                                 child: Row(
@@ -64,20 +74,31 @@ class CartTab extends StatelessWidget {
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Text(productName, style: Theme.of(context).textTheme.titleLarge),
+                                          Text(productName,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge),
                                           const SizedBox(height: 8),
-                                          Text('Price: \$${productPrice.toStringAsFixed(2)}'),
+                                          Text(
+                                              'Price: \$${productPrice.toStringAsFixed(2)}'),
                                           const SizedBox(height: 8),
                                           Text('Quantity: $quantity'),
                                         ],
                                       ),
                                     ),
                                     IconButton(
-                                      icon: const Icon(Icons.remove_circle_outline),
+                                      icon: const Icon(
+                                          Icons.remove_circle_outline),
                                       onPressed: () {
-                                        FirebaseFirestore.instance.collection('users').doc(uid).collection('cart').doc(cartDocs[index].id).delete();
+                                        FirebaseFirestore.instance
+                                            .collection('users')
+                                            .doc(uid)
+                                            .collection('cart')
+                                            .doc(cartDocs[index].id)
+                                            .delete();
                                       },
                                     ),
                                   ],

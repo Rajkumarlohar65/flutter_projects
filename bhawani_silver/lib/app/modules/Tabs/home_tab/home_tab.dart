@@ -1,3 +1,4 @@
+import 'package:bhawani_silver/app/modules/Tabs/home_tab/home_tab_controller.dart';
 import 'package:bhawani_silver/app/routes/app_pages.dart';
 import 'package:bhawani_silver/app/widgets/dialog_box_widget/image_dialog_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,16 +7,16 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../data/model/product.dart';
+import '../../../data/model/product.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends GetView<HomeTabController> {
   const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('products').snapshots(),
+        stream: controller.productStream,
         builder: (context, productSnapShot) {
           if (productSnapShot.connectionState == ConnectionState.waiting) {
             return const Center(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CategoryTab extends StatelessWidget{
+class CategoryTab extends StatelessWidget {
   const CategoryTab({super.key});
 
   @override
@@ -8,9 +8,7 @@ class CategoryTab extends StatelessWidget{
     return const Scaffold(
       body: Center(
         child: Text("Category"),
-
       ),
     );
   }
-
 }

@@ -1,4 +1,3 @@
-import 'package:bhawani_silver/app/data/firebase/Authentication/authentication_helper.dart';
 import 'package:bhawani_silver/app/widgets/button_widget/logout_button_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,7 @@ class AccountTab extends StatelessWidget {
                     const Icon(Icons.email),
                     const SizedBox(width: 16),
                     Text(
-                        FirebaseAuth.instance.currentUser!.email ?? '',
+                      FirebaseAuth.instance.currentUser!.email ?? '',
                       style: const TextStyle(fontSize: 16),
                     ),
                   ],
@@ -47,14 +46,11 @@ class AccountTab extends StatelessWidget {
               ],
             ),
           ),
-
           const Spacer(),
           const Padding(
             padding: EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: LogOutButtonWidget()
-            ),
+            child:
+                SizedBox(width: double.infinity, child: LogOutButtonWidget()),
           ),
         ],
       ),

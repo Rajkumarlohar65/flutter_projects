@@ -1,6 +1,8 @@
+import 'package:bhawani_silver/app/modules/Tabs/account_tab/account_tab_binding.dart';
+import 'package:bhawani_silver/app/modules/Tabs/cart_tab/cart_tab_binding.dart';
+import 'package:bhawani_silver/app/modules/Tabs/category_tab/category_tab_binding.dart';
+import 'package:bhawani_silver/app/modules/Tabs/home_tab/home_tab_binding.dart';
 import 'package:get/get.dart';
-
-import '../data/firebase/Authentication/authentication_helper.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -26,6 +28,7 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const HomeView(),
       binding: HomeBinding(),
+      bindings: [HomeTabBinding(), CategoryTabBinding(), CartTabBinding(), AccountTabBinding()]
     ),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
@@ -34,7 +37,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LOGIN,
-      page: () => LoginView(),
+      page: () => const LoginView(),
       binding: LoginBinding(),
     ),
     GetPage(

@@ -1,11 +1,11 @@
-import 'package:bhawani_silver/app/modules/Tabs/category_tab.dart';
-import 'package:bhawani_silver/app/modules/Tabs/home_tab.dart';
+import 'package:bhawani_silver/app/modules/Tabs/category_tab/category_tab.dart';
+import 'package:bhawani_silver/app/modules/Tabs/home_tab/home_tab.dart';
 import 'package:bhawani_silver/app/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/values/app_string.dart';
-import '../../Tabs/account_tab.dart';
-import '../../Tabs/cart_tab.dart';
+import '../../Tabs/account_tab/account_tab.dart';
+import '../../Tabs/cart_tab/cart_tab.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {

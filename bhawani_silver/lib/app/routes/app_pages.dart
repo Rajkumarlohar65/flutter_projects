@@ -1,14 +1,17 @@
-import 'package:bhawani_silver/app/modules/Tabs/account_tab/account_tab_binding.dart';
-import 'package:bhawani_silver/app/modules/Tabs/cart_tab/cart_tab_binding.dart';
-import 'package:bhawani_silver/app/modules/Tabs/category_tab/category_tab_binding.dart';
-import 'package:bhawani_silver/app/modules/Tabs/home_tab/home_tab_binding.dart';
 import 'package:get/get.dart';
+
+import '../modules/Tabs/account_tab/account_tab_binding.dart';
+import '../modules/Tabs/cart_tab/cart_tab_binding.dart';
+import '../modules/Tabs/category_tab/category_tab_binding.dart';
+import '../modules/Tabs/home_tab/home_tab_binding.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/overview_of_product/bindings/overview_of_product_binding.dart';
 import '../modules/overview_of_product/views/overview_of_product_view.dart';
+import '../modules/search_results/bindings/search_results_binding.dart';
+import '../modules/search_results/views/search_results_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -25,11 +28,15 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-      bindings: [HomeTabBinding(), CategoryTabBinding(), CartTabBinding(), AccountTabBinding()]
-    ),
+        name: _Paths.HOME,
+        page: () => const HomeView(),
+        binding: HomeBinding(),
+        bindings: [
+          HomeTabBinding(),
+          CategoryTabBinding(),
+          CartTabBinding(),
+          AccountTabBinding()
+        ]),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
       page: () => const SplashScreenView(),
@@ -54,6 +61,11 @@ class AppPages {
       name: _Paths.OVERVIEW_OF_PRODUCT,
       page: () => const OverviewOfProductView(),
       binding: OverviewOfProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_RESULTS,
+      page: () => const SearchResultsView(),
+      binding: SearchResultsBinding(),
     ),
   ];
 }

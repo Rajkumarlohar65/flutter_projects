@@ -87,13 +87,6 @@ class HomeTab extends GetView<HomeTabController> {
           }
         },
       ),
-      // ListView.builder(
-      //     itemCount: MySearchDelegate().products.length,
-      //     itemBuilder: (context, int index) {
-      //       return ListTile(
-      //           leading: const Icon(Icons.online_prediction),
-      //           title: Text(MySearchDelegate().products[index]));
-      //     }),
     );
   }
 }

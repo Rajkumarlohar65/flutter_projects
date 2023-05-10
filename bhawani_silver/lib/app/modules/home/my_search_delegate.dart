@@ -142,6 +142,11 @@ class MySearchDelegate extends SearchDelegate {
                             width: 100,
                             fit: BoxFit.cover,
                             cacheManager: DefaultCacheManager(),
+                            placeholder: (context, imageUrl){
+                              return  const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
                           )),
                       const SizedBox(
                         width: 16,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -61,14 +62,17 @@ class CartTab extends StatelessWidget {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       width: 80,
                                       height: 80,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(productImageUrl),
-                                          fit: BoxFit.cover,
-                                        ),
+                                      child: CachedNetworkImage(
+                                        imageUrl: productImageUrl,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, imageUrl){
+                                          return  const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
                                       ),
                                     ),
                                     const SizedBox(width: 16),

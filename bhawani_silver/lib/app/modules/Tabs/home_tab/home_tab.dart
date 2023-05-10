@@ -7,6 +7,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../../../core/values/app_color.dart';
 import '../../../data/model/product.dart';
 
 class HomeTab extends GetView<HomeTabController> {
@@ -59,6 +60,11 @@ class HomeTab extends GetView<HomeTabController> {
                                   width: 100,
                                   fit: BoxFit.cover,
                                   cacheManager: DefaultCacheManager(),
+                                  placeholder: (context, imageUrl) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
                                 )),
                           ),
                           const SizedBox(

@@ -10,8 +10,6 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/overview_of_product/bindings/overview_of_product_binding.dart';
 import '../modules/overview_of_product/views/overview_of_product_view.dart';
-import '../modules/search_results/bindings/search_results_binding.dart';
-import '../modules/search_results/views/search_results_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -61,11 +59,6 @@ class AppPages {
       name: _Paths.OVERVIEW_OF_PRODUCT,
       page: () => const OverviewOfProductView(),
       binding: OverviewOfProductBinding(),
-    ),
-    GetPage(
-      name: _Paths.SEARCH_RESULTS,
-      page: () => const SearchResultsView(),
-      binding: SearchResultsBinding(),
     ),
   ];
 }

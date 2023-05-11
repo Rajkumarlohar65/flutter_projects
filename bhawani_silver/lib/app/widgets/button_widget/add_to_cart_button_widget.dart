@@ -6,18 +6,18 @@ import 'package:get/get.dart';
 
 import '../../data/model/product.dart';
 
-class AddToCartButtonWidget extends StatelessWidget {
+class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
   const AddToCartButtonWidget({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<OverviewOfProductController>();
     final Product product = controller.product;
 
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async{
         try {
-          FireStoreServices.addCart(product.productId, 1);
+          await FireStoreServices.addCart(product.productId, 1);
           Utils().showSuccessToast('${product.name} added to cart');
         } catch (e) {
           Utils().showErrorSnackBar("Error", e.toString());

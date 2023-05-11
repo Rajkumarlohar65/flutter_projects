@@ -5,9 +5,9 @@ class HomeTabController extends GetxController {
   late final Stream<QuerySnapshot> productStream;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    super.onInit();
     productStream =
         FirebaseFirestore.instance.collection('products').snapshots();
-    super.onInit();
   }
 }

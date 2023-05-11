@@ -1,20 +1,16 @@
+import 'package:bhawani_silver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class CartTab extends StatelessWidget {
+class CartTab extends GetView<CartTabController> {
   const CartTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var uid = FirebaseAuth.instance.currentUser!.uid;
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('cart')
-          .snapshots(),
+      stream: controller.productStream,
       builder: (context, cartSnapShot) {
         if (cartSnapShot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -96,10 +92,10 @@ class CartTab extends StatelessWidget {
                                     IconButton(
                                       icon: const Icon(
                                           Icons.remove_circle_outline),
-                                      onPressed: () {
-                                        FirebaseFirestore.instance
+                                      onPressed: () async {
+                                        await FirebaseFirestore.instance
                                             .collection('users')
-                                            .doc(uid)
+                                            .doc(controller.uid)
                                             .collection('cart')
                                             .doc(cartDocs[index].id)
                                             .delete();

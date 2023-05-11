@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import '../../core/values/app_color.dart';
 import '../../core/values/app_string.dart';
 import '../../data/model/product.dart';
 import '../../routes/app_pages.dart';
@@ -143,8 +145,9 @@ class MySearchDelegate extends SearchDelegate {
                             fit: BoxFit.cover,
                             cacheManager: DefaultCacheManager(),
                             placeholder: (context, imageUrl){
-                              return  const Center(
-                                child: CircularProgressIndicator(),
+                              return  const SpinKitFadingCircle(
+                                size: 20,
+                                color: AppColor.blueColor,
                               );
                             },
                           )),

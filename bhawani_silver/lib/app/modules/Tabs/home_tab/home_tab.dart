@@ -4,6 +4,7 @@ import 'package:bhawani_silver/app/widgets/dialog_box_widget/image_dialog_widget
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -62,7 +63,10 @@ class HomeTab extends GetView<HomeTabController> {
                                   cacheManager: DefaultCacheManager(),
                                   placeholder: (context, imageUrl) {
                                     return const Center(
-                                      child: CircularProgressIndicator(),
+                                      child: SpinKitFadingCircle(
+                                        size: 20,
+                                        color: AppColor.blueColor,
+                                      ),
                                     );
                                   },
                                 )),

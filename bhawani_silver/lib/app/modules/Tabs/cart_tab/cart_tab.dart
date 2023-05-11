@@ -2,7 +2,10 @@ import 'package:bhawani_silver/app/modules/Tabs/cart_tab/cart_tab_controller.dar
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+
+import '../../../core/values/app_color.dart';
 
 class CartTab extends GetView<CartTabController> {
   const CartTab({Key? key}) : super(key: key);
@@ -66,7 +69,10 @@ class CartTab extends GetView<CartTabController> {
                                         fit: BoxFit.cover,
                                         placeholder: (context, imageUrl){
                                           return  const Center(
-                                            child: CircularProgressIndicator(),
+                                            child: SpinKitFadingCircle(
+                                            size: 20,
+                                            color: AppColor.blueColor,
+                                          ),
                                           );
                                         },
                                       ),

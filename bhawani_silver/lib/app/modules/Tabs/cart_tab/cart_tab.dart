@@ -42,11 +42,16 @@ class CartTab extends GetView<CartTabController> {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return const SizedBox();
-                          } else if (!snapshot.hasData) {
-                            return const Center(
-                              child: Text('No data available'),
-                            );
+                            if (index == 0) {
+                              return const SizedBox(
+                                child: SpinKitFadingCircle(
+                                  size: 20,
+                                  color: AppColor.blueColor,
+                                ),
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
                           } else {
                             final productData =
                                 snapshot.data!.data() as Map<String, dynamic>?;
@@ -62,21 +67,55 @@ class CartTab extends GetView<CartTabController> {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: CachedNetworkImage(
-                                        imageUrl: productImageUrl,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, imageUrl) {
-                                          return const Center(
-                                            child: SpinKitFadingCircle(
-                                              size: 20,
-                                              color: AppColor.blueColor,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 100,
+                                          height: 100,
+                                          child: CachedNetworkImage(
+                                            imageUrl: productImageUrl,
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, imageUrl) {
+                                              return const Center(
+                                                child: SpinKitFadingCircle(
+                                                  size: 20,
+                                                  color: AppColor.blueColor,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            IconButton(
+                                              icon: const Icon(Icons.remove),
+                                              onPressed: () {
+                                                if (quantity > 1) {
+                                                  controller.decrementQuantity(
+                                                      cartDocs[index].id);
+                                                }
+                                              },
                                             ),
-                                          );
-                                        },
-                                      ),
+                                            Text(
+                                              '$quantity',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium,
+                                            ),
+                                            IconButton(
+                                              icon: const Icon(Icons.add),
+                                              onPressed: () {
+                                                controller.incrementQuantity(
+                                                    cartDocs[index].id);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(width: 16),
                                     Expanded(
@@ -99,40 +138,17 @@ class CartTab extends GetView<CartTabController> {
                                                 .textTheme
                                                 .titleMedium,
                                           ),
-                                          const SizedBox(height: 8),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              IconButton(
-                                                icon: const Icon(Icons.remove),
+                                          const SizedBox(height: 45),
+                                          SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
                                                 onPressed: () {
-                                                  if (quantity > 1) {
-                                                    controller
-                                                        .decrementQuantity(
-                                                            cartDocs[index].id);
-                                                  }
-                                                },
-                                              ),
-                                              Text(
-                                                'Quantity: $quantity',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                              ),
-                                              IconButton(
-                                                icon: const Icon(Icons.add),
-                                                onPressed: () {
-                                                  controller.incrementQuantity(
-                                                      cartDocs[index].id);
-                                                },
-                                              ),
-                                            ],
-                                          ),
+                                                  controller.deleteItem(cartDocs[index].id);
+                                                }, child: const Text('Remove')),
+                                          )
                                         ],
                                       ),
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -143,11 +159,6 @@ class CartTab extends GetView<CartTabController> {
                     },
                   ),
                 ),
-                if (cartSnapShot.connectionState == ConnectionState.waiting)
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: CircularProgressIndicator(),
-                  ),
               ],
             );
           }

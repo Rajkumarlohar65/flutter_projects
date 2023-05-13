@@ -1,6 +1,5 @@
 import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
-import 'package:BhawaniSilver/app/widgets/button_widget/add_to_cart_button_widget.dart';
 import 'package:BhawaniSilver/app/widgets/dialog_box_widget/image_dialog_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -79,9 +78,12 @@ class HomeTab extends GetView<HomeTabController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(product.name),
+                              Text(
+                                product.name,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
                               const SizedBox(height: 8),
-                              Text('price : ${product.price} Rs'),
+                              Text('Price: \$${product.price}'),
                             ],
                           )
                         ],

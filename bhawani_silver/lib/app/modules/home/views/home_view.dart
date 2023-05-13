@@ -1,5 +1,6 @@
 import 'package:BhawaniSilver/app/modules/Tabs/category_tab/category_tab.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab.dart';
+import 'package:BhawaniSilver/app/modules/Tabs/my_orders_tab/my_orders_tab.dart';
 import 'package:BhawaniSilver/app/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class HomeView extends GetView<HomeController> {
           children: const [
             HomeTab(),
             CategoryTab(),
+            MyOrdersTab(),
             CartTab(),
             AccountTab()
           ],
@@ -36,8 +38,9 @@ class HomeView extends GetView<HomeController> {
               items: const [
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: AppString.homeNav),
                 BottomNavigationBarItem(icon: Icon(Icons.category), label: AppString.categoryNav),
+                BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: AppString.myOrdersNav),
                 BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: AppString.cartNav),
-                BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: AppString.accountNav)
+                BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: AppString.accountNav),
               ],
               onTap: controller.changeTabIndex,
               currentIndex: controller.currentIndex,

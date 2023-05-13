@@ -43,6 +43,7 @@ class AppString{
 // Home Page
   static const homeNav = 'Home';
   static const categoryNav = 'Category';
+  static const myOrdersNav = 'My Orders';
   static const cartNav = 'Cart';
   static const accountNav = 'Account';
 

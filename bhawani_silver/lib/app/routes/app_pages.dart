@@ -1,3 +1,4 @@
+import 'package:BhawaniSilver/app/modules/Tabs/my_orders_tab/my_oders_tab_binding.dart';
 import 'package:get/get.dart';
 
 import '../modules/Tabs/account_tab/account_tab_binding.dart';
@@ -32,6 +33,7 @@ class AppPages {
         bindings: [
           HomeTabBinding(),
           CategoryTabBinding(),
+          MyOrdersTabBinding(),
           CartTabBinding(),
           AccountTabBinding()
         ]),

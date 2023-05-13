@@ -16,8 +16,8 @@ Future<void> main() async{
   );
   await GetStorage.init();
 
-  final initialTheme = SettingController();
-  initialTheme.initializeTheme();
+  final setTheme = SettingController();
+  setTheme.loadThemeFromStorage();
 
   runApp(
     GetMaterialApp(

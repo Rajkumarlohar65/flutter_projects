@@ -8,17 +8,17 @@ class SettingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    readInitialValue();
+    selectedThemeValue();
   }
 
   void changeThemeMode(ThemeMode newMode) {
     Get.changeThemeMode(newMode);
     themeMode.value = newMode;
-    GetStorage().write('selectedValue', newMode.toString()); // Store as String
+    GetStorage().write('selectedThemeMode', newMode.toString()); // Store as String
   }
 
-  void readInitialValue() {
-    final storedValue = GetStorage().read('selectedValue');
+  void selectedThemeValue() {
+    final storedValue = GetStorage().read('selectedThemeMode');
     if (storedValue != null) {
       themeMode.value = _convertStringToThemeMode(storedValue);
     } else {
@@ -39,7 +39,7 @@ class SettingController extends GetxController {
     }
   }
 
-  void initializeTheme() {
+  void loadThemeFromStorage() {
     final box = GetStorage();
     const key = 'key';
     final savedTheme = box.read(key);

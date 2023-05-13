@@ -44,7 +44,7 @@ class ThemeDialogWidget extends StatelessWidget {
               groupValue: controller.themeMode.value,
               onChanged: (value) {
                 controller.changeThemeMode(ThemeMode.system);
-                box.write(key, 'System');
+                box.write(key, 'System default');
               },
             ),
           ],

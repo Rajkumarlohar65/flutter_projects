@@ -1,5 +1,5 @@
-import 'package:bhawani_silver/app/widgets/button_widget/add_to_cart_button_widget.dart';
-import 'package:bhawani_silver/app/widgets/button_widget/buy_now_button_widget.dart';
+import 'package:BhawaniSilver/app/widgets/button_widget/add_to_cart_button_widget.dart';
+import 'package:BhawaniSilver/app/widgets/button_widget/buy_now_button_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
-import 'package:bhawani_silver/app/core/values/app_string.dart';
-import 'package:bhawani_silver/app/widgets/list_tile_widget/theme_list_tile.dart';
+import 'package:BhawaniSilver/app/core/values/app_string.dart';
+import 'package:BhawaniSilver/app/widgets/list_tile_widget/theme_list_tile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

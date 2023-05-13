@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/modules/signup/controllers/signup_controller.dart';
+import 'package:BhawaniSilver/app/modules/signup/controllers/signup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';

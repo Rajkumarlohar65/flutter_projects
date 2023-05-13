@@ -1,6 +1,6 @@
-import 'package:bhawani_silver/app/modules/Tabs/category_tab/category_tab.dart';
-import 'package:bhawani_silver/app/modules/Tabs/home_tab/home_tab.dart';
-import 'package:bhawani_silver/app/widgets/search_bar_widget.dart';
+import 'package:BhawaniSilver/app/modules/Tabs/category_tab/category_tab.dart';
+import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab.dart';
+import 'package:BhawaniSilver/app/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/values/app_string.dart';

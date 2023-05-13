@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bhawani_silver/app/data/firebase/Authentication/authentication_helper.dart';
-import 'package:bhawani_silver/app/routes/app_pages.dart';
+import 'package:BhawaniSilver/app/data/firebase/Authentication/authentication_helper.dart';
+import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class SplashScreenController extends GetxController {

@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/core/values/app_string.dart';
+import 'package:BhawaniSilver/app/core/values/app_string.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

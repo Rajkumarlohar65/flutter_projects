@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/data/firebase/firestore/firestore_services.dart';
+import 'package:BhawaniSilver/app/data/firebase/firestore/firestore_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';

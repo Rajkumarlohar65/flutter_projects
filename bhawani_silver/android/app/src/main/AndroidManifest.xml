@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bhawani.bhawani_silver">
    <application
-        android:label="bhawani_silver"
+        android:label="BhawaniSilver"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

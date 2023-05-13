@@ -1,5 +1,5 @@
-import 'package:bhawani_silver/app/core/theme/app_theme.dart';
-import 'package:bhawani_silver/app/modules/setting/controllers/setting_controller.dart';
+import 'package:BhawaniSilver/app/core/theme/app_theme.dart';
+import 'package:BhawaniSilver/app/modules/setting/controllers/setting_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

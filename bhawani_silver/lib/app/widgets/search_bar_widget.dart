@@ -1,5 +1,5 @@
-import 'package:bhawani_silver/app/core/values/app_string.dart';
-import 'package:bhawani_silver/app/widgets/icon_button_widget/more_option_button_widget.dart';
+import 'package:BhawaniSilver/app/core/values/app_string.dart';
+import 'package:BhawaniSilver/app/widgets/icon_button_widget/more_option_button_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../modules/home/my_search_delegate.dart';

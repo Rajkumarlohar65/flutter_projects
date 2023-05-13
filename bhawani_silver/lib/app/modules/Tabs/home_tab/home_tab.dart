@@ -1,6 +1,6 @@
-import 'package:bhawani_silver/app/modules/Tabs/home_tab/home_tab_controller.dart';
-import 'package:bhawani_silver/app/routes/app_pages.dart';
-import 'package:bhawani_silver/app/widgets/dialog_box_widget/image_dialog_widget.dart';
+import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab_controller.dart';
+import 'package:BhawaniSilver/app/routes/app_pages.dart';
+import 'package:BhawaniSilver/app/widgets/dialog_box_widget/image_dialog_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';

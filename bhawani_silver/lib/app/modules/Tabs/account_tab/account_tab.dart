@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/widgets/button_widget/logout_button_widget.dart';
+import 'package:BhawaniSilver/app/widgets/button_widget/logout_button_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
-import 'package:bhawani_silver/app/core/utils/utils.dart';
-import 'package:bhawani_silver/app/data/firebase/firestore/firestore_services.dart';
-import 'package:bhawani_silver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
+import 'package:BhawaniSilver/app/core/utils/utils.dart';
+import 'package:BhawaniSilver/app/data/firebase/firestore/firestore_services.dart';
+import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

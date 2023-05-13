@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/modules/login/controllers/login_controller.dart';
+import 'package:BhawaniSilver/app/modules/login/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

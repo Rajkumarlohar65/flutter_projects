@@ -9,20 +9,25 @@ import '../../data/model/product.dart';
 class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
   const AddToCartButtonWidget({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final Product product = controller.product;
+    final fireStoreServices = FireStoreServices();
 
     return ElevatedButton(
       onPressed: () async{
-        try {
-          await FireStoreServices.addCart(product.productId, 1);
+      try {
+        final productExists = await fireStoreServices.isProductInCart(product.productId);
+        if (!productExists) {
+          await FireStoreServices.addToCart(product.productId, 1);
           Utils().showSuccessToast('${product.name} added to cart');
-        } catch (e) {
-          Utils().showErrorSnackBar("Error", e.toString());
+        } else {
+          Utils().showSuccessToast('${product.name} is already in the cart');
         }
-      },
+      } catch (e) {
+        Utils().showErrorSnackBar("Error", e.toString());
+      }
+    },
       child: const Text('Add to Cart'),
     );
   }

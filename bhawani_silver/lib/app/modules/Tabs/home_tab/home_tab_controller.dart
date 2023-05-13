@@ -10,4 +10,5 @@ class HomeTabController extends GetxController {
     productStream =
         FirebaseFirestore.instance.collection('products').snapshots();
   }
+
 }

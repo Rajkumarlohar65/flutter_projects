@@ -56,23 +56,24 @@ class CartTab extends GetView<CartTabController> {
                             return Card(
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 8),
+                              elevation: 4,
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
-                                      width: 80,
-                                      height: 80,
+                                      width: 100,
+                                      height: 100,
                                       child: CachedNetworkImage(
                                         imageUrl: productImageUrl,
                                         fit: BoxFit.cover,
-                                        placeholder: (context, imageUrl){
-                                          return  const Center(
+                                        placeholder: (context, imageUrl) {
+                                          return const Center(
                                             child: SpinKitFadingCircle(
-                                            size: 20,
-                                            color: AppColor.blueColor,
-                                          ),
+                                              size: 20,
+                                              color: AppColor.blueColor,
+                                            ),
                                           );
                                         },
                                       ),
@@ -83,30 +84,55 @@ class CartTab extends GetView<CartTabController> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(productName,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge),
+                                          Text(
+                                            productName,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                           const SizedBox(height: 8),
                                           Text(
-                                              'Price: \$${productPrice.toStringAsFixed(2)}'),
+                                            'Price: \$${productPrice.toStringAsFixed(2)}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                          ),
                                           const SizedBox(height: 8),
-                                          Text('Quantity: $quantity'),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(Icons.remove),
+                                                onPressed: () {
+                                                  if (quantity > 1) {
+                                                    controller
+                                                        .decrementQuantity(
+                                                            cartDocs[index].id);
+                                                  }
+                                                },
+                                              ),
+                                              Text(
+                                                'Quantity: $quantity',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium,
+                                              ),
+                                              IconButton(
+                                                icon: const Icon(Icons.add),
+                                                onPressed: () {
+                                                  controller.incrementQuantity(
+                                                      cartDocs[index].id);
+                                                },
+                                              ),
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     ),
-                                    IconButton(
-                                      icon: const Icon(
-                                          Icons.remove_circle_outline),
-                                      onPressed: () async {
-                                        await FirebaseFirestore.instance
-                                            .collection('users')
-                                            .doc(controller.uid)
-                                            .collection('cart')
-                                            .doc(cartDocs[index].id)
-                                            .delete();
-                                      },
-                                    ),
+
                                   ],
                                 ),
                               ),

@@ -1,4 +1,4 @@
-import 'package:bhawani_silver/app/core/utils/utils.dart';
+import 'package:bhawani_silver/app/data/firebase/firestore/firestore_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -16,5 +16,19 @@ class CartTabController extends GetxController {
         .snapshots();
 
     super.onInit();
+  }
+
+  // Method to increment the quantity
+  void incrementQuantity(String cartItemId) {
+    FireStoreServices.incrementCartQuantity(cartItemId);
+  }
+
+  // Method to decrement the quantity
+  void decrementQuantity(String cartItemId) {
+    FireStoreServices.decrementCartQuantity(cartItemId);
+  }
+
+  void deleteItem(String cartItemId) {
+    FireStoreServices.deleteFromCart(cartItemId);
   }
 }

@@ -31,4 +31,5 @@ class CartTabController extends GetxController {
   void deleteItem(String cartItemId) {
     FireStoreServices.deleteFromCart(cartItemId);
   }
+
 }

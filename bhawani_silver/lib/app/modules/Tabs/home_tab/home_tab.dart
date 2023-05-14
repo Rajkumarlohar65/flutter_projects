@@ -78,9 +78,12 @@ class HomeTab extends GetView<HomeTabController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                product.name,
-                                style: Theme.of(context).textTheme.titleLarge,
+                              SizedBox(
+                                width: 200,
+                                child: Text(
+                                  product.name,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               Text('Price: \$${product.price}'),

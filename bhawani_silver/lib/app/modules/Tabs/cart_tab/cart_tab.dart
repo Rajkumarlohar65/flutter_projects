@@ -26,14 +26,37 @@ class CartTab extends GetView<CartTabController> {
               child: Text('No items in cart.'),
             );
           } else {
+            double subtotal = 0;
             return Column(
               children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  color: Colors.grey[200],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Subtotal: \$${subtotal.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Perform checkout action
+                        },
+                        child: const Text('Checkout'),
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: cartDocs.length,
                     itemBuilder: (context, index) {
-                      final productId = cartDocs[index]['product_id'] ?? '';
-                      final quantity = cartDocs[index]['quantity'] ?? '';
+                      final cart = cartDocs[index];
+                      final productId = cart['product_id'] ?? '';
+                      final quantity = cart['quantity'] ?? '';
                       return FutureBuilder<DocumentSnapshot>(
                         future: FirebaseFirestore.instance
                             .collection('products')
@@ -58,6 +81,7 @@ class CartTab extends GetView<CartTabController> {
                             final productName = productData?['name'] ?? '';
                             final productPrice = productData?['price'] ?? '';
                             final productImageUrl = productData?['image'] ?? '';
+
                             return Card(
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 8),
@@ -96,7 +120,7 @@ class CartTab extends GetView<CartTabController> {
                                               onPressed: () {
                                                 if (quantity > 1) {
                                                   controller.decrementQuantity(
-                                                      cartDocs[index].id);
+                                                      cart.id);
                                                 }
                                               },
                                             ),
@@ -109,8 +133,8 @@ class CartTab extends GetView<CartTabController> {
                                             IconButton(
                                               icon: const Icon(Icons.add),
                                               onPressed: () {
-                                                controller.incrementQuantity(
-                                                    cartDocs[index].id);
+                                                controller
+                                                    .incrementQuantity(cart.id);
                                               },
                                             ),
                                           ],
@@ -143,8 +167,10 @@ class CartTab extends GetView<CartTabController> {
                                             width: double.infinity,
                                             child: ElevatedButton(
                                                 onPressed: () {
-                                                  controller.deleteItem(cartDocs[index].id);
-                                                }, child: const Text('Remove')),
+                                                  controller
+                                                      .deleteItem(cart.id);
+                                                },
+                                                child: const Text('Remove')),
                                           )
                                         ],
                                       ),

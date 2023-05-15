@@ -7,8 +7,11 @@ class HomeTabController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    productStream =
-        FirebaseFirestore.instance.collection('products').snapshots();
+    await _initializeProductStream();
+  }
+
+  Future<void> _initializeProductStream() async {
+    productStream = FirebaseFirestore.instance.collection('products').snapshots();
   }
 
 }

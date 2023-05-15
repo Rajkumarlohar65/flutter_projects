@@ -10,8 +10,11 @@ import '../../data/model/product.dart';
 import '../../routes/app_pages.dart';
 
 class MySearchDelegate extends SearchDelegate {
-  final CollectionReference productsCollection =
-      FirebaseFirestore.instance.collection('products');
+  Future<QuerySnapshot> getProducts() async {
+    final productsCollection =
+    FirebaseFirestore.instance.collection('products');
+    return await productsCollection.get();
+  }
 
   @override
   String get searchFieldLabel => AppString.searchDelegateHint;
@@ -50,7 +53,7 @@ class MySearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return FutureBuilder<QuerySnapshot>(
-      future: productsCollection.get(),
+      future: getProducts(),
       builder:
           (BuildContext context, AsyncSnapshot<QuerySnapshot> productSnapShot) {
         if (productSnapShot.hasError) {
@@ -106,10 +109,7 @@ class MySearchDelegate extends SearchDelegate {
       );
     }
     return FutureBuilder<QuerySnapshot>(
-      future: productsCollection
-          .where('name', isGreaterThanOrEqualTo: query)
-          .where('name', isLessThan: '${query}z')
-          .get(),
+      future: _getProductSnapshot(),
       builder:
           (BuildContext context, AsyncSnapshot<QuerySnapshot> productSnapShot) {
         if (productSnapShot.hasError) {
@@ -144,8 +144,8 @@ class MySearchDelegate extends SearchDelegate {
                             width: 100,
                             fit: BoxFit.cover,
                             cacheManager: DefaultCacheManager(),
-                            placeholder: (context, imageUrl){
-                              return  const SpinKitFadingCircle(
+                            placeholder: (context, imageUrl) {
+                              return const SpinKitFadingCircle(
                                 size: 20,
                                 color: AppColor.blueColor,
                               );
@@ -158,7 +158,7 @@ class MySearchDelegate extends SearchDelegate {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(product.name),
+                          SizedBox(width: 200, child: Text(product.name)),
                           const SizedBox(height: 8),
                           Text('price : ${product.price} Rs'),
                         ],
@@ -177,5 +177,21 @@ class MySearchDelegate extends SearchDelegate {
   @override
   void showResults(BuildContext context) {
     super.showResults(context);
+  }
+
+  final CollectionReference productsCollection =
+  FirebaseFirestore.instance.collection('products');
+
+  Future<QuerySnapshot> _getProductSnapshot() async {
+    try {
+      final snapshot = await productsCollection
+          .where('name', isGreaterThanOrEqualTo: query)
+          .where('name', isLessThan: '${query}z')
+          .get();
+      return snapshot;
+    } catch (e) {
+      print('Error getting product snapshot: $e');
+      throw e;
+    }
   }
 }

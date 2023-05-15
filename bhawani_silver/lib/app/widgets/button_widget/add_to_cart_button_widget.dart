@@ -5,6 +5,7 @@ import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overvi
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/values/app_color.dart';
 import '../../data/model/product.dart';
 
 class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
@@ -17,6 +18,11 @@ class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
     final fireStoreServices = FireStoreServices();
 
     return ElevatedButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
+          foregroundColor: MaterialStateProperty.all(AppColor.blackColor),
+          minimumSize:
+              MaterialStateProperty.all<Size>(const Size(double.infinity, 50))),
       onPressed: () async {
         try {
           final productExists =

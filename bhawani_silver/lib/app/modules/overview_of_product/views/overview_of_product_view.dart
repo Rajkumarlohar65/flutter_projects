@@ -1,3 +1,4 @@
+import 'package:BhawaniSilver/app/core/values/app_color.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/add_to_cart_button_widget.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/buy_now_button_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -23,7 +24,12 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CachedNetworkImage(imageUrl: product.image),
+            Container(
+                color: AppColor.greyColor,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: CachedNetworkImage(imageUrl: product.image),
+                )),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -39,9 +45,9 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                   const SizedBox(height: 8.0),
                   Text(
                     product.description,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16.0,
-                      color: Colors.grey[700],
+                      color: AppColor.greyColor,
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -56,7 +62,6 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                   const AddToCartButtonWidget(),
                   const SizedBox(height: 8.0),
                   const BuyNowButtonWidget()
-
                 ],
               ),
             ),

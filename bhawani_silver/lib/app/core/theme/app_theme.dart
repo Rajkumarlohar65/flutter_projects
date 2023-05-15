@@ -12,6 +12,10 @@ class AppTheme {
         iconTheme: IconThemeData(color: AppColor.blackColor)
       ),
 
+      listTileTheme: const ListTileThemeData(
+          textColor: AppColor.blackColor
+      ),
+
     );
   }
 
@@ -19,10 +23,35 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
 
-      // AppBar Theme
+    // AppBar Theme
       appBarTheme: const AppBarTheme(
-        titleTextStyle: TextStyle(color: Colors.white)
-      )
+        titleTextStyle: TextStyle(color: Colors.white),
+        backgroundColor: AppColor.blackColor
+      ),
+
+      scaffoldBackgroundColor: AppColor.blackColor,
+
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AppColor.blackColor,
+        unselectedItemColor: AppColor.greyColor,
+        selectedItemColor: Colors.cyan
+      ),
+
+      listTileTheme: const ListTileThemeData(
+          tileColor: AppColor.greyColor,
+        textColor: AppColor.whiteColor
+      ),
+
+      cardTheme: const CardTheme(
+        color: AppColor.greyColor,
+      ),
+
+      dialogBackgroundColor: AppColor.greyColor,
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan),
+        foregroundColor: MaterialStateProperty.all<Color>(AppColor.whiteColor)),
+      ),
 
     );
   }

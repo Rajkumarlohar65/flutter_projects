@@ -58,8 +58,6 @@ class HomeTab extends GetView<HomeTabController> {
                                 aspectRatio: 1,
                                 child: CachedNetworkImage(
                                   imageUrl: product.image,
-                                  width: 100,
-                                  fit: BoxFit.cover,
                                   cacheManager: DefaultCacheManager(),
                                   placeholder: (context, imageUrl) {
                                     return const Center(
@@ -74,20 +72,23 @@ class HomeTab extends GetView<HomeTabController> {
                           const SizedBox(
                             width: 16,
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 200,
-                                child: Text(
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
                                   product.name,
-                                  style: Theme.of(context).textTheme.titleLarge,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge?.copyWith(color: AppColor.blackColor),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text('Price: \$${product.price}'),
-                            ],
+                                const SizedBox(height: 8),
+                                Text('Price: \$${product.price}'),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -97,7 +98,7 @@ class HomeTab extends GetView<HomeTabController> {
               },
               separatorBuilder: (BuildContext context, int index) =>
                   const SizedBox(
-                height: 5,
+                height: 7,
               ),
             );
           }

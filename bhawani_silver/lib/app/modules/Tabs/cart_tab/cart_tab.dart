@@ -33,20 +33,27 @@ class CartTab extends GetView<CartTabController> {
                     final subtotal = controller.cartSubtotal.value;
                     return Container(
                       padding: const EdgeInsets.all(16),
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Subtotal: \$${subtotal.toStringAsFixed(2)}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 20
                             ),
                           ),
+
+                          const SizedBox(height: 15,),
                           ElevatedButton(
                             onPressed: () {
                               // Perform checkout action
                             },
-                            child: const Text('Checkout'),
+                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
+                              foregroundColor: MaterialStateProperty.all(AppColor.blackColor),
+                              minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 50))),
+
+                            child: const Text('Procced to Buy'),
                           ),
                         ],
                       ),
@@ -87,8 +94,8 @@ class CartTab extends GetView<CartTabController> {
 
                               return Card(
                                 margin: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                elevation: 4,
+                                    horizontal: 8, vertical: 4),
+                                elevation: 10,
                                 child: Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Row(
@@ -156,16 +163,13 @@ class CartTab extends GetView<CartTabController> {
                                               productName,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .titleLarge,
+                                                  .titleLarge?.copyWith(color: AppColor.blackColor),
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             const SizedBox(height: 8),
                                             Text(
                                               'Price: \$${productPrice.toStringAsFixed(2)}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium,
                                             ),
                                             const SizedBox(height: 45),
                                             SizedBox(

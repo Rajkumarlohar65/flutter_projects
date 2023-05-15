@@ -17,26 +17,26 @@ class CartTabController extends GetxController {
         .collection('cart')
         .snapshots();
 
-    calculateCartSubtotal();
+    await calculateCartSubtotal();
 
     super.onInit();
   }
 
   // Method to increment the quantity
-  void incrementQuantity(String cartItemId) {
-    FireStoreServices.incrementCartQuantity(cartItemId);
-    calculateCartSubtotal();
+  Future<void> incrementQuantity(String cartItemId) async {
+    await FireStoreServices.incrementCartQuantity(cartItemId);
+    await calculateCartSubtotal();
   }
 
   // Method to decrement the quantity
-  void decrementQuantity(String cartItemId) {
-    FireStoreServices.decrementCartQuantity(cartItemId);
-    calculateCartSubtotal();
+  Future<void> decrementQuantity(String cartItemId) async {
+    await FireStoreServices.decrementCartQuantity(cartItemId);
+    await calculateCartSubtotal();
   }
 
-  void deleteItem(String cartItemId) {
-    FireStoreServices.deleteFromCart(cartItemId);
-    calculateCartSubtotal();
+  Future<void> deleteItem(String cartItemId) async {
+    await FireStoreServices.deleteFromCart(cartItemId);
+    await calculateCartSubtotal();
   }
 
   static Future<double> getPriceById(String productId) async {

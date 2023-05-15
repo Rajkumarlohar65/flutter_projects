@@ -1,5 +1,6 @@
 import 'package:BhawaniSilver/app/core/utils/utils.dart';
 import 'package:BhawaniSilver/app/data/firebase/firestore/firestore_services.dart';
+import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,23 +12,26 @@ class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
 
   @override
   Widget build(BuildContext context) {
+    final newController = Get.find<CartTabController>();
     final Product product = controller.product;
     final fireStoreServices = FireStoreServices();
 
     return ElevatedButton(
-      onPressed: () async{
-      try {
-        final productExists = await fireStoreServices.isProductInCart(product.productId);
-        if (!productExists) {
-          await FireStoreServices.addToCart(product.productId, 1);
-          Utils().showSuccessToast('${product.name} added to cart');
-        } else {
-          Utils().showSuccessToast('${product.name} is already in the cart');
+      onPressed: () async {
+        try {
+          final productExists =
+              await fireStoreServices.isProductInCart(product.productId);
+          if (!productExists) {
+            await FireStoreServices.addToCart(product.productId, 1);
+            Utils().showSuccessToast('${product.name} added to cart');
+            newController.calculateCartSubtotal();
+          } else {
+            Utils().showSuccessToast('${product.name} is already in the cart');
+          }
+        } catch (e) {
+          Utils().showErrorSnackBar("Error", e.toString());
         }
-      } catch (e) {
-        Utils().showErrorSnackBar("Error", e.toString());
-      }
-    },
+      },
       child: const Text('Add to Cart'),
     );
   }

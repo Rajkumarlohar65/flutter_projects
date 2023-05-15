@@ -7,6 +7,8 @@ class CartTabController extends GetxController {
   late final Stream<QuerySnapshot> productStream;
   var uid = FirebaseAuth.instance.currentUser!.uid;
 
+  var cartSubtotal = 0.0.obs;
+
   @override
   Future<void> onInit() async {
     productStream = FirebaseFirestore.instance
@@ -15,21 +17,61 @@ class CartTabController extends GetxController {
         .collection('cart')
         .snapshots();
 
+    calculateCartSubtotal();
+
     super.onInit();
   }
 
   // Method to increment the quantity
   void incrementQuantity(String cartItemId) {
     FireStoreServices.incrementCartQuantity(cartItemId);
+    calculateCartSubtotal();
   }
 
   // Method to decrement the quantity
   void decrementQuantity(String cartItemId) {
     FireStoreServices.decrementCartQuantity(cartItemId);
+    calculateCartSubtotal();
   }
 
   void deleteItem(String cartItemId) {
     FireStoreServices.deleteFromCart(cartItemId);
+    calculateCartSubtotal();
   }
 
+  static Future<double> getPriceById(String productId) async {
+    final DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('products')
+        .doc(productId)
+        .get();
+    final data = snapshot.data() as Map<String, dynamic>?; // Explicitly cast to Map<String, dynamic>
+    if (data != null) {
+      final price = data['price'];
+      if (price is num) {
+        return price.toDouble();
+      }
+    }
+    return 0.0; // Return 0 if the product with the given ID is not found or if the price is not a valid number
+  }
+
+  Future<void> calculateCartSubtotal() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('cart')
+        .get();
+
+    double subtotal = 0.0;
+
+    for (final cartItem in cartSnapshot.docs) {
+      final productId = (cartItem.data() as Map<String, dynamic>?)?['product_id'];
+      final quantity = (cartItem.data() as Map<String, dynamic>?)?['quantity'];
+
+      final double price = await getPriceById(productId);
+      subtotal += price * quantity;
+    }
+
+    cartSubtotal.value = subtotal;
+  }
 }

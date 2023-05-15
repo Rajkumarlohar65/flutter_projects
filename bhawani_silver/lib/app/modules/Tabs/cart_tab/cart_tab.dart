@@ -26,30 +26,31 @@ class CartTab extends GetView<CartTabController> {
               child: Text('No items in cart.'),
             );
           } else {
-            double subtotal = 0;
             return Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  color: Colors.grey[200],
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Subtotal: \$${subtotal.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                Obx(() {
+                  final subtotal = controller.cartSubtotal.value;
+                  return Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Subtotal: \$${subtotal.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Perform checkout action
-                        },
-                        child: const Text('Checkout'),
-                      ),
-                    ],
-                  ),
-                ),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Perform checkout action
+                          },
+                          child: const Text('Checkout'),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
                 Expanded(
                   child: ListView.builder(
                     itemCount: cartDocs.length,

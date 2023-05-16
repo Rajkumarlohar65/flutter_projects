@@ -46,7 +46,7 @@ class CartTab extends GetView<CartTabController> {
                               foregroundColor:
                                   MaterialStateProperty.all(AppColor.blackColor),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                   const Size(double.infinity, 50))
+                                   const Size(double.infinity, 40))
                           ),
                           child: const Text('Proceed to Buy'),
                         ),
@@ -56,22 +56,19 @@ class CartTab extends GetView<CartTabController> {
                         children: [
                           Obx(() {
                             final subtotal = controller.cartSubtotal.value;
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 50),
-                              child: Container(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Subtotal: \$${subtotal.toStringAsFixed(2)}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                  ],
-                                ),
+                            return Container(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Subtotal: \$${subtotal.toStringAsFixed(2)}',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                ],
                               ),
                             );
                           })

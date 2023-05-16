@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/animation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';;
 import 'package:get/get.dart';
 
 class HomeTabController extends GetxController {

@@ -27,42 +27,62 @@ class CartTab extends GetView<CartTabController> {
                 child: Text('No items in cart.'),
               );
             } else {
-              return Column(
-                children: [
-                  Obx(() {
-                    final subtotal = controller.cartSubtotal.value;
-                    return Container(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    expandedHeight: 200,
+                    pinned: true,
+                    flexibleSpace: FlexibleSpaceBar(
+                      centerTitle:true,
+                      title: Padding(
+                        padding: const EdgeInsets.only(right: 10, left: 10, top: 40),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Perform checkout action
+                          },
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(AppColor.yellowColor),
+                              foregroundColor:
+                                  MaterialStateProperty.all(AppColor.blackColor),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                   const Size(double.infinity, 50))
+                          ),
+                          child: const Text('Proceed to Buy'),
+                        ),
+                      ),
+                      background: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Subtotal: \$${subtotal.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20
-                            ),
-                          ),
-
-                          const SizedBox(height: 15,),
-                          ElevatedButton(
-                            onPressed: () {
-                              // Perform checkout action
-                            },
-                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
-                              foregroundColor: MaterialStateProperty.all(AppColor.blackColor),
-                              minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 50))),
-
-                            child: const Text('Procced to Buy'),
-                          ),
+                          Obx(() {
+                            final subtotal = controller.cartSubtotal.value;
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 50),
+                              child: Container(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Subtotal: \$${subtotal.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          })
                         ],
                       ),
-                    );
-                  }),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: cartDocs.length,
-                      itemBuilder: (context, index) {
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: const EdgeInsets.only(),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
                         final cart = cartDocs[index];
                         final productId = cart['product_id'] ?? '';
                         final quantity = cart['quantity'] ?? '';
@@ -163,7 +183,10 @@ class CartTab extends GetView<CartTabController> {
                                               productName,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .titleLarge?.copyWith(color: AppColor.blackColor),
+                                                  .titleLarge
+                                                  ?.copyWith(
+                                                      color:
+                                                          AppColor.blackColor),
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -191,7 +214,7 @@ class CartTab extends GetView<CartTabController> {
                             }
                           },
                         );
-                      },
+                      }, childCount: cartDocs.length),
                     ),
                   ),
                 ],

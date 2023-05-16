@@ -4,7 +4,6 @@ import 'package:BhawaniSilver/app/modules/Tabs/my_orders_tab/my_orders_tab.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/values/app_string.dart';
-import '../../../widgets/search_bar_widget.dart';
 import '../../Tabs/account_tab/account_tab.dart';
 import '../../Tabs/cart_tab/cart_tab.dart';
 import '../controllers/home_controller.dart';
@@ -15,9 +14,6 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (controller) {
       return Scaffold(
-        // appBar: SearchBarWidget(
-        //   key: key,
-        // ),
         body: IndexedStack(
           index: controller.currentIndex,
           children: const [

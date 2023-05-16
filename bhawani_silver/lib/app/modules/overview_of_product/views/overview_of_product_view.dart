@@ -11,62 +11,69 @@ import '../controllers/overview_of_product_controller.dart';
 
 class OverviewOfProductView extends GetView<OverviewOfProductController> {
   const OverviewOfProductView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final Product product = controller.product;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(product.name),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: Text(product.name),
+            expandedHeight: 400,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
                 color: AppColor.greyColor,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: CachedNetworkImage(imageUrl: product.image),
-                )),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    product.name,
-                    style: const TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    product.description,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: AppColor.greyColor,
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Text(
-                    '\$${product.price}',
-                    style: const TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const AddToCartButtonWidget(),
-                  const SizedBox(height: 8.0),
-                  const BuyNowButtonWidget()
-                ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(16.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      product.name,
+                      style: const TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      product.description,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        color: AppColor.greyColor,
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Text(
+                      '\$${product.price}',
+                      style: const TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    const AddToCartButtonWidget(),
+                    const SizedBox(height: 8.0),
+                    const BuyNowButtonWidget(),
+                    const SizedBox(height: 16.0),
+                  ],
+                ),
+              ]),
+            ),
+          ),
+        ],
       ),
     );
   }

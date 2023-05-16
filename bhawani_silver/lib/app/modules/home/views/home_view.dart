@@ -15,9 +15,9 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (controller) {
       return Scaffold(
-        appBar: SearchBarWidget(
-          key: key,
-        ),
+        // appBar: SearchBarWidget(
+        //   key: key,
+        // ),
         body: IndexedStack(
           index: controller.currentIndex,
           children: const [

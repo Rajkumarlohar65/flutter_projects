@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
-import 'package:BhawaniSilver/app/widgets/dialog_box_widget/image_dialog_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -97,79 +96,62 @@ class HomeTab extends GetView<HomeTabController> {
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.only(),
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final product = products[index];
-                        return GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.OVERVIEW_OF_PRODUCT,
-                                arguments: product);
-                          },
-                          child: SizedBox(
-                            height: 150,
-                            child: ListTile(
-                              title: Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => ImageDialogWidget(
-                                          image_url: product.image,
-                                        ),
-                                      );
-                                    },
-                                    child: AspectRatio(
-                                      aspectRatio: 1,
-                                      child: CachedNetworkImage(
-                                        imageUrl: product.image,
-                                        cacheManager: DefaultCacheManager(),
-                                        placeholder: (context, imageUrl) {
-                                          return const Center(
-                                            child: SpinKitFadingCircle(
-                                              size: 20,
-                                              color: AppColor.blueColor,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          product.name,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge
-                                              ?.copyWith(
-                                                color: AppColor.blackColor,
-                                              ),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Text('Price: \$${product.price}'),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                  sliver: SliverGrid.count(
+                    crossAxisCount: 2, // Number of columns in the grid
+                    childAspectRatio: 0.75, // Aspect ratio of each card
+                    children: List.generate(products.length, (index) {
+                      final product = products[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.OVERVIEW_OF_PRODUCT, arguments: product);
+                        },
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        );
-                      },
-                      childCount: products.length,
-                    ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AspectRatio(
+                                aspectRatio: 1,
+                                child: CachedNetworkImage(
+                                  imageUrl: product.image,
+                                  cacheManager: DefaultCacheManager(),
+                                  placeholder: (context, imageUrl) {
+                                    return const Center(
+                                      child: SpinKitFadingCircle(
+                                        size: 20,
+                                        color: AppColor.blueColor,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      product.name,
+                                      style: Theme.of(context).textTheme.titleMedium,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Price: \$${product.price}',
+                                      style: Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                 ),
               ],

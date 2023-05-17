@@ -33,7 +33,7 @@ class CartTab extends GetView<CartTabController> {
                     expandedHeight: 200,
                     pinned: true,
                     flexibleSpace: FlexibleSpaceBar(
-                      centerTitle:true,
+                      centerTitle: true,
                       title: Padding(
                         padding: const EdgeInsets.only(right: 10, left: 10),
                         child: ElevatedButton(
@@ -41,13 +41,12 @@ class CartTab extends GetView<CartTabController> {
                             // Perform checkout action
                           },
                           style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(AppColor.yellowColor),
-                              foregroundColor:
-                                  MaterialStateProperty.all(AppColor.blackColor),
+                              backgroundColor: MaterialStateProperty.all(
+                                  AppColor.yellowColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  AppColor.blackColor),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                   const Size(double.infinity, 40))
-                          ),
+                                  const Size(double.infinity, 40))),
                           child: const Text('Proceed to Buy'),
                         ),
                       ),
@@ -84,133 +83,139 @@ class CartTab extends GetView<CartTabController> {
                         final productId = cart['product_id'] ?? '';
                         final quantity = cart['quantity'] ?? '';
                         return FutureBuilder<DocumentSnapshot>(
-                          future: FirebaseFirestore.instance
-                              .collection('products')
-                              .doc(productId)
-                              .get(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              if (index == 0) {
-                                return const SizedBox(
-                                  child: SpinKitFadingCircle(
-                                    size: 20,
-                                    color: AppColor.blueColor,
-                                  ),
-                                );
+                            future: FirebaseFirestore.instance
+                                .collection('products')
+                                .doc(productId)
+                                .get(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                if (index == 0) {
+                                  return const SizedBox(
+                                    child: SpinKitFadingCircle(
+                                      size: 20,
+                                      color: AppColor.blueColor,
+                                    ),
+                                  );
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
                               } else {
-                                return const SizedBox.shrink();
-                              }
-                            } else {
-                              final productData = snapshot.data!.data()
-                                  as Map<String, dynamic>?;
-                              final productName = productData?['name'] ?? '';
-                              final productPrice = productData?['price'] ?? '';
-                              final productImageUrl =
-                                  productData?['image'] ?? '';
+                                final productData = snapshot.data!.data()
+                                    as Map<String, dynamic>?;
+                                final productName = productData?['name'] ?? '';
+                                final productPrice =
+                                    productData?['price'] ?? '';
+                                final productImageUrl =
+                                    productData?['image'] ?? '';
 
-                              return Card(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 4),
-                                elevation: 10,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 100,
-                                            height: 100,
-                                            child: CachedNetworkImage(
-                                              imageUrl: productImageUrl,
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, imageUrl) {
-                                                return const Center(
-                                                  child: SpinKitFadingCircle(
-                                                    size: 20,
-                                                    color: AppColor.blueColor,
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              IconButton(
-                                                icon: const Icon(Icons.remove),
-                                                onPressed: () {
-                                                  if (quantity > 1) {
-                                                    controller
-                                                        .decrementQuantity(
-                                                            cart.id);
-                                                  }
+                                return Card(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 4),
+                                  elevation: 10,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 100,
+                                              height: 100,
+                                              child: CachedNetworkImage(
+                                                imageUrl: productImageUrl,
+                                                fit: BoxFit.cover,
+                                                placeholder:
+                                                    (context, imageUrl) {
+                                                  return const Center(
+                                                    child: SpinKitFadingCircle(
+                                                      size: 20,
+                                                      color: AppColor.blueColor,
+                                                    ),
+                                                  );
                                                 },
                                               ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                IconButton(
+                                                  icon:
+                                                      const Icon(Icons.remove),
+                                                  onPressed: () {
+                                                    if (quantity > 1) {
+                                                      controller
+                                                          .decrementQuantity(
+                                                              cart.id);
+                                                    }
+                                                  },
+                                                ),
+                                                Text(
+                                                  '$quantity',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge,
+                                                ),
+                                                IconButton(
+                                                  icon: const Icon(Icons.add),
+                                                  onPressed: () {
+                                                    controller
+                                                        .incrementQuantity(
+                                                            cart.id);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(width: 16),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
                                               Text(
-                                                '$quantity',
+                                                productName,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineSmall,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                'Price: \$${productPrice.toStringAsFixed(2)}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium,
                                               ),
-                                              IconButton(
-                                                icon: const Icon(Icons.add),
-                                                onPressed: () {
-                                                  controller.incrementQuantity(
-                                                      cart.id);
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(width: 16),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              productName,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge
-                                                  ?.copyWith(
-                                                      color:
-                                                          AppColor.blackColor),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            const SizedBox(height: 8),
-                                            Text(
-                                              'Price: \$${productPrice.toStringAsFixed(2)}',
-                                            ),
-                                            const SizedBox(height: 45),
-                                            SizedBox(
-                                              width: double.infinity,
-                                              child: ElevatedButton(
+                                              const SizedBox(height: 48),
+                                              SizedBox(
+                                                width: double.infinity,
+                                                child: ElevatedButton(
                                                   onPressed: () {
                                                     controller
                                                         .deleteItem(cart.id);
                                                   },
-                                                  child: const Text('Remove')),
-                                            )
-                                          ],
+                                                  child: const Text('Remove'),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }
-                          },
-                        );
+                                );
+                              }
+                            });
                       }, childCount: cartDocs.length),
                     ),
                   ),

@@ -38,12 +38,12 @@ class AppTheme {
       ),
 
       listTileTheme: const ListTileThemeData(
-          tileColor: AppColor.greyColor,
+          // tileColor: AppColor.greyColor,
         textColor: AppColor.whiteColor
       ),
 
       cardTheme: const CardTheme(
-        color: AppColor.greyColor,
+        // color: AppColor.greyColor,
       ),
 
       dialogBackgroundColor: AppColor.greyColor,

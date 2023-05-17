@@ -3,7 +3,8 @@ import 'package:BhawaniSilver/app/widgets/button_widget/logout_button_widget.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
+import '../../../core/values/app_color.dart';
 
 class AccountTab extends StatelessWidget {
   const AccountTab({Key? key}) : super(key: key);
@@ -11,61 +12,107 @@ class AccountTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Account Information',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                Row(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.person),
-                    const SizedBox(width: 16),
+                    const SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: CircleAvatar(
+                        backgroundColor: AppColor.greyColor,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       FirebaseAuth.instance.currentUser!.displayName ?? '',
-                      style: const TextStyle(fontSize: 16),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(Icons.email),
-                    const SizedBox(width: 16),
                     Text(
                       FirebaseAuth.instance.currentUser!.email ?? '',
-                      style: const TextStyle(fontSize: 16),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(onPressed: (){
-                Get.toNamed(Routes.SETTING);
-              }, child: const Text('Settings')),
+          SliverPadding(
+            padding: const EdgeInsets.only(),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Card(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 4),
+                    elevation: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.edit),
+                          const SizedBox(width: 20,),
+                          Text('Profile Info', style: Theme.of(context).textTheme.titleLarge),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10,),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, bottom: 5),
+                    child: Text('Settings', style: Theme.of(context).textTheme.titleLarge,),
+                  ),
+
+                  Card(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 4),
+                    elevation: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.edit),
+                          const SizedBox(width: 20,),
+                          Text('Profile Info', style: Theme.of(context).textTheme.titleLarge),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child:
-                SizedBox(width: double.infinity, child: LogOutButtonWidget()),
           ),
         ],
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.toNamed(Routes.SETTING);
+                },
+                child: const Text('Settings'),
+              ),
+            ),
+            const SizedBox(width: double.infinity, child: LogOutButtonWidget()),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

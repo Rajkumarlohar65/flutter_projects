@@ -13,15 +13,13 @@ class LogOutButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
+    return ElevatedButton(
       onPressed: () {
         AuthenticationHelper().signOut().then((result) {
           Get.offAllNamed(Routes.LOGIN);
           Utils().showSuccessToast(AppString.logOutSuccessSnackBarMessage);
         });
-      },
-      label: const Text(AppString.logOutButton),
-      icon: const Icon(Icons.logout),
+      }, child: const Text('LOG OUT'),
     );
   }
 }

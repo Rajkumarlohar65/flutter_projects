@@ -1,8 +1,10 @@
+import 'package:BhawaniSilver/app/modules/profile_info/controllers/profile_info_controller.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/logout_button_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ProfileInfoView extends StatelessWidget {
+class ProfileInfoView extends GetView<ProfileInfoController> {
   const ProfileInfoView({Key? key}) : super(key: key);
 
   @override
@@ -20,13 +22,13 @@ class ProfileInfoView extends StatelessWidget {
                 ListTile(
                   title: const Text('Name'),
                   subtitle: Text(
-                    FirebaseAuth.instance.currentUser!.displayName ?? '',
+                    controller.username,
                   ),
                 ),
                 ListTile(
                   title: const Text('Email'),
                   subtitle: Text(
-                    FirebaseAuth.instance.currentUser!.email ?? '',
+                    controller.email
                   ),
                 ),
               ]),

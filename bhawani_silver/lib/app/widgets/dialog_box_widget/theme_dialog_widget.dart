@@ -1,4 +1,4 @@
-import 'package:BhawaniSilver/app/modules/setting/controllers/setting_controller.dart';
+import 'package:BhawaniSilver/app/modules/Tabs/account_tab/account_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,7 +13,7 @@ class ThemeDialogWidget extends StatelessWidget {
     final box = GetStorage();
     const key = 'key';
 
-    final controller = Get.find<SettingController>();
+    final controller = Get.find<AccountTabController>();
     return Obx(() {
       return AlertDialog(
         title: const Text(AppString.selectATheme),

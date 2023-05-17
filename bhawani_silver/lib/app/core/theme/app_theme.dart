@@ -37,17 +37,6 @@ class AppTheme {
         selectedItemColor: Colors.cyan
       ),
 
-      listTileTheme: const ListTileThemeData(
-          // tileColor: AppColor.greyColor,
-        textColor: AppColor.whiteColor
-      ),
-
-      cardTheme: const CardTheme(
-        // color: AppColor.greyColor,
-      ),
-
-      dialogBackgroundColor: AppColor.greyColor,
-
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan),
         foregroundColor: MaterialStateProperty.all<Color>(AppColor.whiteColor)),

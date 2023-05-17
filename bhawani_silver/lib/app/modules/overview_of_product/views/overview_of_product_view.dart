@@ -24,12 +24,9 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
             expandedHeight: 400,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                color: AppColor.greyColor,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: CachedNetworkImage(imageUrl: product.image),
-                ),
+              background: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: CachedNetworkImage(imageUrl: product.image),
               ),
             ),
           ),

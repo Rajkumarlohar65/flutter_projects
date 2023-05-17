@@ -35,7 +35,7 @@ class CartTab extends GetView<CartTabController> {
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle:true,
                       title: Padding(
-                        padding: const EdgeInsets.only(right: 10, left: 10, top: 40),
+                        padding: const EdgeInsets.only(right: 10, left: 10),
                         child: ElevatedButton(
                           onPressed: () {
                             // Perform checkout action

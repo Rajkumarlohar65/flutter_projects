@@ -1,6 +1,9 @@
+import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/logout_button_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class AccountTab extends StatelessWidget {
   const AccountTab({Key? key}) : super(key: key);
@@ -47,6 +50,15 @@ class AccountTab extends StatelessWidget {
             ),
           ),
           const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(onPressed: (){
+                Get.toNamed(Routes.SETTING);
+              }, child: const Text('Settings')),
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child:

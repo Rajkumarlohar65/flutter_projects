@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../core/values/app_color.dart';
+import '../../../core/values/app_string.dart';
 import '../../../data/model/product.dart';
 import '../../home/my_search_delegate.dart';
 
@@ -44,21 +45,35 @@ class HomeTab extends GetView<HomeTabController> {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  title: Row(
-                    children: [
-                      const Expanded(child: Text("Bhawani Silver")),
-                      InkWell(
-                        child: const Icon(Icons.search),
-                        onTap: () {
-                          showSearch(
-                              context: context, delegate: MySearchDelegate());
-                        },
-                      ),
-                    ],
-                  ),
-                  expandedHeight: 200,
+                  expandedHeight: 300,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    title: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                            AppString.splashAppName,
+                            style: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? const TextStyle(
+                                    color: Colors
+                                        .white) // Set text color to white for dark mode
+                                : const TextStyle(color: Colors.black),
+                          )),
+                          InkWell(
+                            child: const Icon(Icons.search),
+                            onTap: () {
+                              showSearch(
+                                  context: context,
+                                  delegate: MySearchDelegate());
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                     background: Padding(
                       padding: const EdgeInsets.only(bottom: 5),
                       child: Obx(() => InkWell(
@@ -68,9 +83,13 @@ class HomeTab extends GetView<HomeTabController> {
                               Get.toNamed(Routes.OVERVIEW_OF_PRODUCT,
                                   arguments: product);
                             },
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  products[controller.currentIndex.value].image,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 50),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    products[controller.currentIndex.value]
+                                        .image,
+                              ),
                             ),
                           )),
                     ),

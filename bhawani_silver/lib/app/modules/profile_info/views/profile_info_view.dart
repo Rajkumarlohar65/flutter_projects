@@ -1,6 +1,5 @@
 import 'package:BhawaniSilver/app/modules/profile_info/controllers/profile_info_controller.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/logout_button_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,13 +21,13 @@ class ProfileInfoView extends GetView<ProfileInfoController> {
                 ListTile(
                   title: const Text('Name'),
                   subtitle: Text(
-                    controller.username,
+                    controller.username.value,
                   ),
                 ),
                 ListTile(
                   title: const Text('Email'),
                   subtitle: Text(
-                    controller.email
+                    controller.email.value
                   ),
                 ),
               ]),

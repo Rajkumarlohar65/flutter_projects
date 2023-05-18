@@ -52,18 +52,13 @@ class HomeTab extends GetView<HomeTabController> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Row(
                         children: [
-                          Expanded(
+                          const Expanded(
                               child: Text(
                             AppString.splashAppName,
-                            style: Theme.of(context).brightness ==
-                                    Brightness.dark
-                                ? const TextStyle(
-                                    color: Colors
-                                        .white) // Set text color to white for dark mode
-                                : const TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.cyan),
                           )),
                           InkWell(
-                            child: const Icon(Icons.search),
+                            child: const Icon(Icons.search, color: AppColor.greyColor,),
                             onTap: () {
                               showSearch(
                                   context: context,
@@ -135,14 +130,14 @@ class HomeTab extends GetView<HomeTabController> {
                                   children: [
                                     Text(
                                       product.name,
-                                      style: Theme.of(context).textTheme.titleMedium,
+                                      style: Theme.of(context).textTheme.titleLarge,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
                                       'Price: \$${product.price}',
-                                      style: Theme.of(context).textTheme.bodyText2,
+                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColor.greyColor),
                                     ),
                                   ],
                                 ),

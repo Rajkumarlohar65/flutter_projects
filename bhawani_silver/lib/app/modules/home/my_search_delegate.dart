@@ -167,7 +167,8 @@ class MySearchDelegate extends SearchDelegate {
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             const SizedBox(height: 8),
-                            Text('price : ${product.price} Rs'),
+                            Text('price : ${product.price} Rs',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColor.greyColor),),
                           ],
                         ),
                       )

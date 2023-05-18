@@ -148,7 +148,7 @@ class CartTab extends GetView<CartTabController> {
                                               children: [
                                                 IconButton(
                                                   icon:
-                                                      const Icon(Icons.remove),
+                                                      const Icon(Icons.remove,color: AppColor.greyColor,),
                                                   onPressed: () {
                                                     if (quantity > 1) {
                                                       controller
@@ -161,10 +161,10 @@ class CartTab extends GetView<CartTabController> {
                                                   '$quantity',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .titleLarge,
+                                                      .titleMedium,
                                                 ),
                                                 IconButton(
-                                                  icon: const Icon(Icons.add),
+                                                  icon: const Icon(Icons.add, color: AppColor.greyColor,),
                                                   onPressed: () {
                                                     controller
                                                         .incrementQuantity(
@@ -185,16 +185,14 @@ class CartTab extends GetView<CartTabController> {
                                                 productName,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headlineSmall,
+                                                    .titleLarge,
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               const SizedBox(height: 8),
                                               Text(
                                                 'Price: \$${productPrice.toStringAsFixed(2)}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
+                                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColor.greyColor),
                                               ),
                                               const SizedBox(height: 48),
                                               SizedBox(

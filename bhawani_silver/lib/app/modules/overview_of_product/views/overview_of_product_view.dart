@@ -56,7 +56,7 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                     Text(
                       '\$${product.price}',
                       style: const TextStyle(
-                        fontSize: 24.0,
+                        fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

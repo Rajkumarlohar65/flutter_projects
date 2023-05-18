@@ -10,10 +10,11 @@ import '../../data/model/product.dart';
 import '../../routes/app_pages.dart';
 
 class MySearchDelegate extends SearchDelegate {
+  final CollectionReference productsCollection =
+  FirebaseFirestore.instance.collection('products');
+
   Future<QuerySnapshot> getProducts() async {
-    final productsCollection =
-        FirebaseFirestore.instance.collection('products');
-    return await productsCollection.get();
+    return productsCollection.get();
   }
 
   @override
@@ -70,9 +71,9 @@ class MySearchDelegate extends SearchDelegate {
         final List suggestions = query.isEmpty
             ? recentSearches
             : products
-                .where((product) =>
-                    product.toLowerCase().contains(query.toLowerCase()))
-                .toList();
+            .where((product) =>
+            product.toLowerCase().contains(query.toLowerCase()))
+            .toList();
 
         return ListView.builder(
           itemCount: suggestions.length,
@@ -122,7 +123,7 @@ class MySearchDelegate extends SearchDelegate {
 
         final productDocs = productSnapShot.data!.docs;
         final products =
-            productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
+        productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
 
         return ListView.builder(
           itemCount: products.length,
@@ -138,20 +139,21 @@ class MySearchDelegate extends SearchDelegate {
                   title: Row(
                     children: [
                       AspectRatio(
-                          aspectRatio: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: CachedNetworkImage(
-                              imageUrl: product.image,
-                              cacheManager: DefaultCacheManager(),
-                              placeholder: (context, imageUrl) {
-                                return const SpinKitFadingCircle(
-                                  size: 20,
-                                  color: AppColor.blueColor,
-                                );
-                              },
-                            ),
-                          )),
+                        aspectRatio: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 5),
+                          child: CachedNetworkImage(
+                            imageUrl: product.image,
+                            cacheManager: DefaultCacheManager(),
+                            placeholder: (context, imageUrl) {
+                              return const SpinKitFadingCircle(
+                                size: 20,
+                                color: AppColor.blueColor,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         width: 16,
                       ),
@@ -160,9 +162,10 @@ class MySearchDelegate extends SearchDelegate {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(product.name,
-                                style:
-                                    Theme.of(context).textTheme.titleLarge),
+                            Text(
+                              product.name,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
                             const SizedBox(height: 8),
                             Text('price : ${product.price} Rs'),
                           ],
@@ -183,9 +186,6 @@ class MySearchDelegate extends SearchDelegate {
   void showResults(BuildContext context) {
     super.showResults(context);
   }
-
-  final CollectionReference productsCollection =
-      FirebaseFirestore.instance.collection('products');
 
   Future<QuerySnapshot> _getProductSnapshot() async {
     try {

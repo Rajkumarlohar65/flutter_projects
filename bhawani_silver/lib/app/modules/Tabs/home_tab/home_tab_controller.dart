@@ -8,7 +8,6 @@ class HomeTabController extends GetxController {
   @override
   Future<void> onInit() async {
     await _initializeProductStream();
-
     super.onInit();
   }
 

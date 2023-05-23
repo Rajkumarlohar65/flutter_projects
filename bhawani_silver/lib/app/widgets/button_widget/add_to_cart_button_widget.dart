@@ -9,7 +9,7 @@ import '../../core/values/app_color.dart';
 import '../../data/model/product.dart';
 
 class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
-  const AddToCartButtonWidget({super.key});
+  const AddToCartButtonWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,28 +17,37 @@ class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
     final Product product = controller.product;
     final fireStoreServices = FireStoreServices();
 
-    return ElevatedButton(
-      style: ButtonStyle(
+    return Obx(
+      () => ElevatedButton(
+        style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
           foregroundColor: MaterialStateProperty.all(AppColor.blackColor),
           minimumSize:
-              MaterialStateProperty.all<Size>(const Size(double.infinity, 50))),
-      onPressed: () async {
-        try {
-          final productExists =
-              await fireStoreServices.isProductInCart(product.productId);
-          if (!productExists) {
-            await FireStoreServices.addToCart(product.productId, 1);
-            Utils().showSuccessToast('${product.name} added to cart');
-            newController.calculateCartSubtotal();
-          } else {
-            Utils().showSuccessToast('${product.name} is already in the cart');
-          }
-        } catch (e) {
-          Utils().showErrorSnackBar("Error", e.toString());
-        }
-      },
-      child: const Text('Add to Cart'),
+              MaterialStateProperty.all<Size>(const Size(double.infinity, 50)),
+        ),
+        onPressed: controller.isLoading.value
+            ? null
+            : () async {
+                try {
+                  controller.setLoading(true);
+                  final productExists = await fireStoreServices
+                      .isProductInCart(product.productId);
+                  if (!productExists) {
+                    await FireStoreServices.addToCart(product.productId, 1);
+                    Utils().showSuccessToast('${product.name} added to cart');
+                    newController.calculateCartSubtotal();
+                  } else {
+                    Utils().showSuccessToast(
+                        '${product.name} is already in the cart');
+                  }
+                } catch (e) {
+                  Utils().showErrorSnackBar("Error", e.toString());
+                } finally {
+                  controller.setLoading(false);
+                }
+              },
+        child: const Text('Add to Cart'),
+      ),
     );
   }
 }

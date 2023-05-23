@@ -14,6 +14,7 @@ class Utils{
   }
 
   void showSuccessToast(String message){
+    Fluttertoast.cancel();
     Fluttertoast.showToast(
         msg: message,
         gravity: ToastGravity.BOTTOM,

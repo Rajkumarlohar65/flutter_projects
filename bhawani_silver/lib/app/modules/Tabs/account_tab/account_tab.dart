@@ -1,6 +1,6 @@
+import 'package:BhawaniSilver/app/data/model/userModel.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/account_tab/account_tab_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,9 +13,7 @@ class AccountTab extends GetView<AccountTabController> {
 
   @override
   Widget build(BuildContext context) {
-    String username = FirebaseAuth.instance.currentUser!.displayName ?? '';
-    String email = FirebaseAuth.instance.currentUser!.email ?? '';
-    String firstCapital = username.isNotEmpty ? username[0].toUpperCase() : '';
+    String firstCapital = UserModel.name!.isNotEmpty ? UserModel.name![0].toUpperCase() : '';
 
     return Scaffold(
       body: CustomScrollView(
@@ -40,11 +38,11 @@ class AccountTab extends GetView<AccountTabController> {
                       height: 10,
                     ),
                     Text(
-                      username,
+                      '${UserModel.name}',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
-                      email,
+                      '${UserModel.email}',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
@@ -81,7 +79,7 @@ class AccountTab extends GetView<AccountTabController> {
                                     style:
                                         Theme.of(context).textTheme.titleLarge),
                                 Text(
-                                  email,
+                                  '${UserModel.email}',
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],

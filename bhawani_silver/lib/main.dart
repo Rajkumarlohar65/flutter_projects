@@ -1,5 +1,7 @@
 import 'package:BhawaniSilver/app/core/theme/app_theme.dart';
+import 'package:BhawaniSilver/app/data/model/userModel.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/account_tab/account_tab_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +15,7 @@ Future<void> main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   await GetStorage.init();
 
   final setTheme = AccountTabController();

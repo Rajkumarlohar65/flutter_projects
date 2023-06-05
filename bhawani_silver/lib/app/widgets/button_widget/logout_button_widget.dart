@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:BhawaniSilver/app/data/model/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../data/firebase/Authentication/authentication_helper.dart';
 import '../../core/utils/utils.dart';
@@ -16,6 +15,7 @@ class LogOutButtonWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         AuthenticationHelper().signOut().then((result) {
+          UserModel.clearData();
           Get.offAllNamed(Routes.LOGIN);
           Utils().showSuccessToast(AppString.logOutSuccessSnackBarMessage);
         });

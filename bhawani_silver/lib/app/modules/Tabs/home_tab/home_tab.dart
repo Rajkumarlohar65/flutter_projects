@@ -26,6 +26,10 @@ class HomeTab extends GetView<HomeTabController> {
             return const Center(
               child: CircularProgressIndicator(),
             );
+          } else if (productSnapShot.hasError) {
+            return Center(
+              child: Text('Error: ${productSnapShot.error}'),
+            );
           } else if (!productSnapShot.hasData) {
             return const Center(
               child: Text('No data available'),
@@ -34,12 +38,19 @@ class HomeTab extends GetView<HomeTabController> {
             final productDocs = productSnapShot.data!.docs;
             final products =
                 productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
+
+            // Make sure there are products available before using them
+            if (products.isEmpty) {
+              return const Center(
+                child: Text('No products available'),
+              );
+            }
+
             int currentIndex = 0;
 
             Timer.periodic(const Duration(seconds: 10), (timer) {
               currentIndex = (currentIndex + 1) % products.length;
-              controller.updateCurrentIndex(
-                  currentIndex); // Update the index in the controller
+              controller.updateCurrentIndex(currentIndex);
             });
             return CustomScrollView(
               slivers: [
@@ -58,7 +69,10 @@ class HomeTab extends GetView<HomeTabController> {
                             style: TextStyle(color: Colors.cyan),
                           )),
                           InkWell(
-                            child: const Icon(Icons.search, color: AppColor.greyColor,),
+                            child: const Icon(
+                              Icons.search,
+                              color: AppColor.greyColor,
+                            ),
                             onTap: () {
                               showSearch(
                                   context: context,
@@ -98,7 +112,8 @@ class HomeTab extends GetView<HomeTabController> {
                       final product = products[index];
                       return GestureDetector(
                         onTap: () {
-                          Get.toNamed(Routes.OVERVIEW_OF_PRODUCT, arguments: product);
+                          Get.toNamed(Routes.OVERVIEW_OF_PRODUCT,
+                              arguments: product);
                         },
                         child: Card(
                           elevation: 2,
@@ -130,14 +145,19 @@ class HomeTab extends GetView<HomeTabController> {
                                   children: [
                                     Text(
                                       product.name,
-                                      style: Theme.of(context).textTheme.titleLarge,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
                                       'Price: \$${product.price}',
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColor.greyColor),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(color: AppColor.greyColor),
                                     ),
                                   ],
                                 ),

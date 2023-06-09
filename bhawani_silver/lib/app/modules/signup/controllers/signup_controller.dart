@@ -26,7 +26,7 @@ class SignupController extends GetxController {
     AuthenticationHelper().signUp(name: name, email: email, password: password)
         .then((result){
       if(result == null){
-        Get.offAllNamed(Routes.HOME);
+        Get.offAllNamed(Routes.VERIFY_EMAIL_PAGE);
         Utils().showSuccessToast(AppString.signUpSuccessToastMessage);
         isLoading.value = false;
       }

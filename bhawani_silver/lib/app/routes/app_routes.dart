@@ -11,6 +11,7 @@ abstract class Routes {
   static const OVERVIEW_OF_PRODUCT = _Paths.OVERVIEW_OF_PRODUCT;
   static const SEARCH_RESULTS = _Paths.SEARCH_RESULTS;
   static const PROFILE_INFO = _Paths.PROFILE_INFO;
+  static const VERIFY_EMAIL_PAGE = _Paths.VERIFY_EMAIL_PAGE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const OVERVIEW_OF_PRODUCT = '/overview-of-product';
   static const SEARCH_RESULTS = '/search-results';
   static const PROFILE_INFO = '/profile-info';
+  static const VERIFY_EMAIL_PAGE = '/verify-email-page';
 }

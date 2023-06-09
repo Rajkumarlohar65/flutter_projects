@@ -17,6 +17,8 @@ import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 import '../modules/splash_screen/bindings/splash_screen_binding.dart';
 import '../modules/splash_screen/views/splash_screen_view.dart';
+import '../modules/verify_email_page/bindings/verify_email_page_binding.dart';
+import '../modules/verify_email_page/views/verify_email_page_view.dart';
 
 part 'app_routes.dart';
 
@@ -61,6 +63,11 @@ class AppPages {
       name: _Paths.PROFILE_INFO,
       page: () => const ProfileInfoView(),
       binding: ProfileInfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.VERIFY_EMAIL_PAGE,
+      page: () => const VerifyEmailPageView(),
+      binding: VerifyEmailPageBinding(),
     ),
   ];
 }

@@ -1,8 +1,11 @@
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../data/firebase/Authentication/authentication_helper.dart';
+import '../../../data/model/userModel.dart';
 import '../controllers/verify_email_page_controller.dart';
 
 class VerifyEmailPageView extends GetView<VerifyEmailPageController> {
@@ -52,10 +55,21 @@ class VerifyEmailPageView extends GetView<VerifyEmailPageController> {
                     ElevatedButton(
                       onPressed: () {
                         // Resend verification email
-                        controller.runVerificationProcess();
+                        controller.canResendEmail.value
+                            ? controller.sendVerificationEmail()
+                            : null;
                       },
                       child: const Text('Resend Verification Email'),
                     ),
+                    ElevatedButton(
+                        onPressed: () {
+                          User? currentUser =
+                              FirebaseAuth.instance.currentUser;
+
+                          currentUser?.delete();
+                          Get.offAllNamed(Routes.LOGIN);
+                        },
+                        child: const Text('Cancel'))
                   ],
                 ),
               ),

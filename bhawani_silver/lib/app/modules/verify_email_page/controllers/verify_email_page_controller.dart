@@ -8,11 +8,16 @@ import '../../../data/firebase/firestore/firestore_services.dart';
 
 class VerifyEmailPageController extends GetxController {
   RxBool isEmailVerified = false.obs;
+  RxBool canResendEmail = false.obs;
   Timer? timer;
 
   @override
   void onInit() {
-    runVerificationProcess();
+    isEmailVerified.value = FirebaseAuth.instance.currentUser!.emailVerified;
+    if(!isEmailVerified.value){
+      sendVerificationEmail();
+      timer = Timer.periodic(const Duration(seconds: 3), (timer) => checkEmailVerified());
+    }
   }
 
   @override
@@ -25,6 +30,10 @@ class VerifyEmailPageController extends GetxController {
     try{
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
+
+      canResendEmail.value = false;
+      await Future.delayed(const Duration(seconds: 5));
+      canResendEmail.value = true;
     }
     catch(e){
       Utils().showErrorSnackBar("message", e.toString());
@@ -32,24 +41,20 @@ class VerifyEmailPageController extends GetxController {
   }
 
   Future checkEmailVerified() async {
-    await FirebaseAuth.instance.currentUser!.reload();
-    isEmailVerified.value = FirebaseAuth.instance.currentUser!.emailVerified;
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      await currentUser.reload();
+      isEmailVerified.value = currentUser.emailVerified;
 
-    if(isEmailVerified.value){
-      String? name =  FirebaseAuth.instance.currentUser!.displayName;
-      String? email =  FirebaseAuth.instance.currentUser!.email;
-      String? uid =  FirebaseAuth.instance.currentUser!.uid;
+      if (isEmailVerified.value) {
+        String? name = currentUser.displayName;
+        String? email = currentUser.email;
+        String? uid = currentUser.uid;
 
-      await FireStoreServices.saveUser(name: name, email: email, uid: uid);
-      timer!.cancel();
+        await FireStoreServices.saveUser(name: name, email: email, uid: uid);
+        timer!.cancel();
+      }
     }
   }
 
-  Future runVerificationProcess() async {
-    isEmailVerified.value = FirebaseAuth.instance.currentUser!.emailVerified;
-    if(!isEmailVerified.value){
-      sendVerificationEmail();
-      timer = Timer.periodic(const Duration(seconds: 3), (timer) => checkEmailVerified());
-    }
-  }
 }

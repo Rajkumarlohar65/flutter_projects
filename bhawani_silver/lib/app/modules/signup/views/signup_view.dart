@@ -69,9 +69,9 @@ class SignupView extends GetView<SignupController> {
               child: const SignUpButtonWidget(),
             ),
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text(AppString.loginNewUserText),
               NavigateSignUpToLoginButton(),
             ],

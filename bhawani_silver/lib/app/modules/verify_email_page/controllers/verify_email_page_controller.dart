@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 
 import '../../../core/utils/utils.dart';
 import '../../../data/firebase/firestore/firestore_services.dart';
+import '../../../data/model/userModel.dart';
 
 class VerifyEmailPageController extends GetxController {
   RxBool isEmailVerified = false.obs;
   RxBool canResendEmail = false.obs;
+  RxInt countdown = 60.obs;
   Timer? timer;
 
   @override
@@ -26,19 +28,39 @@ class VerifyEmailPageController extends GetxController {
     timer?.cancel();
   }
 
+  Future<void> deleteCurrentUser() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      try {
+        await currentUser.delete();
+        UserModel.clearData();
+      } catch (e) {
+        print('Error deleting user: $e');
+      }
+    }
+  }
+
   Future sendVerificationEmail() async {
-    try{
+    countdown.value = 60;
+    try {
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
 
       canResendEmail.value = false;
-      await Future.delayed(const Duration(seconds: 5));
+
+      // Start reverse countdown
+      while (countdown.value > 0) {
+        await Future.delayed(const Duration(seconds: 1));
+        countdown.value--;
+      }
+
       canResendEmail.value = true;
-    }
-    catch(e){
+
+    } catch (e) {
       Utils().showErrorSnackBar("message", e.toString());
     }
   }
+
 
   Future checkEmailVerified() async {
     User? currentUser = FirebaseAuth.instance.currentUser;

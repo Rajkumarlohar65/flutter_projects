@@ -5,7 +5,7 @@ import '../../../core/utils/utils.dart';
 
 class FireStoreServices {
 
-  static saveUser(String name, String email, uid) async {
+  static saveUser({required name, required email, required uid}) async {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)

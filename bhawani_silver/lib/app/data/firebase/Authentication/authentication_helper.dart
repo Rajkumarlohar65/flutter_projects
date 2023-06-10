@@ -17,7 +17,6 @@ class AuthenticationHelper {
 
       await currentUser!.updateDisplayName(name);
       await currentUser!.updateEmail(email);
-      await FireStoreServices.saveUser(name, email, currentUser?.uid);
 
       return null;
     } on FirebaseAuthException catch (e) {

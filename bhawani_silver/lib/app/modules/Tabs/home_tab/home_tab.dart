@@ -1,6 +1,7 @@
-import 'dart:async';
 import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -45,13 +46,6 @@ class HomeTab extends GetView<HomeTabController> {
                 child: Text('No products available'),
               );
             }
-
-            int currentIndex = 0;
-
-            Timer.periodic(const Duration(seconds: 10), (timer) {
-              currentIndex = (currentIndex + 1) % products.length;
-              controller.updateCurrentIndex(currentIndex);
-            });
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
@@ -84,22 +78,32 @@ class HomeTab extends GetView<HomeTabController> {
                     ),
                     background: Padding(
                       padding: const EdgeInsets.only(bottom: 5),
-                      child: Obx(() => InkWell(
+                      child: Obx(() => CarouselSlider(
+                        options: CarouselOptions(
+                          height: 300, // Set the desired height of the carousel
+                          initialPage: controller.currentIndex.value,
+                          enableInfiniteScroll: true, // Set whether to enable infinite scroll
+                          autoPlay: true, // Set whether to enable auto-play
+                          autoPlayInterval: const Duration(seconds: 5), // Set the auto-play interval
+                          onPageChanged: (index, reason) {
+                            controller.updateCurrentIndex(index);
+                          },
+                        ),
+                        items: products.map((product) {
+                          return InkWell(
                             onTap: () {
-                              final product =
-                                  products[controller.currentIndex.value];
-                              Get.toNamed(Routes.OVERVIEW_OF_PRODUCT,
-                                  arguments: product);
+                              final product = products[controller.currentIndex.value];
+                              Get.toNamed(Routes.OVERVIEW_OF_PRODUCT, arguments: product);
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 50),
                               child: CachedNetworkImage(
-                                imageUrl:
-                                    products[controller.currentIndex.value]
-                                        .image,
+                                imageUrl: product.image,
                               ),
                             ),
-                          )),
+                          );
+                        }).toList(),
+                      )),
                     ),
                   ),
                 ),

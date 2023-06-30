@@ -25,3 +25,11 @@
 ![Account Tab](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/Account%20Tab.jpg)
 
 ![profile Screen](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/profile.jpg)
+
+## Tech Stack
+
+**Application:** Flutter (Cross Platform)
+
+**Database:** Cloud Firestore
+
+**Authentication:** Firebase Email Authentication

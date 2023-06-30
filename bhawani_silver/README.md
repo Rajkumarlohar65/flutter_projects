@@ -2,8 +2,6 @@
 # Bhawani Silver
 
 •Shop stunning jewelry pieces with our user-friendly ecommerce app. Discover a curated collection of rings, necklaces, bracelets, and earrings for effortless style.
-
-
 ## Screenshots
 
 ![Splash Screen](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/Splash%20Screen.jpg)
@@ -26,6 +24,15 @@
 
 ![profile Screen](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/profile.jpg)
 
+## Features
+
+- Light/dark mode toggle
+- Email Authentication
+- Live previews
+- Fullscreen mode
+- Cross platform
+
+
 ## Tech Stack
 
 **Application:** Flutter (Cross Platform)
@@ -33,3 +40,9 @@
 **Database:** Cloud Firestore
 
 **Authentication:** Firebase Email Authentication
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at rajkumarlohar65@gmail.com
+

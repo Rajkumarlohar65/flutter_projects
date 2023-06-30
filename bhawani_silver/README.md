@@ -1,16 +1,19 @@
-# bhawani_silver
 
-A new Flutter project.
+# Bhawani Silver
 
-## Getting Started
+•Shop stunning jewelry pieces with our user-friendly ecommerce app. Discover a curated collection of rings, necklaces, bracelets, and earrings for effortless style.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![Splash Screen](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/Splash%20Screen.jpg)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Home Tab](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/Home%20Tab.jpg)
+
+![Product OverView](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/Product%20OverView%20Screen.jpg)
+
+![Search Bar](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/Search%20Delegate.jpg)
+
+![Search Product](https://github.com/Rajkumarlohar65/Bhawani-Silver-ScreenShots/blob/main/Search%20product.jpg)
+
+

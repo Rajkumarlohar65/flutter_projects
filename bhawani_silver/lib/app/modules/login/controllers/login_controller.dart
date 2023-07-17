@@ -18,7 +18,8 @@ class LoginController extends GetxController {
 
   void loginUser(){
     isLoading.value = true;
-    AuthenticationHelper().signIn(email: email, password: password)
+
+    AuthenticationHelper().signIn(email: email?.trim(), password: password)
         .then((result) {
       if(result == null){
         Get.offAllNamed(Routes.HOME);

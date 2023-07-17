@@ -23,7 +23,7 @@ class SignupController extends GetxController {
   void createAccount(){
     isLoading.value = true;
 
-    AuthenticationHelper().signUp(name: name, email: email, password: password)
+    AuthenticationHelper().signUp(name: name, email: email?.trim(), password: password)
         .then((result){
       if(result == null){
         Get.offAllNamed(Routes.VERIFY_EMAIL_PAGE);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../../core/values/app_color.dart';
+import '../../routes/app_pages.dart';
 
 class BuyNowButtonWidget extends StatelessWidget {
   const BuyNowButtonWidget({super.key});
@@ -17,7 +18,7 @@ class BuyNowButtonWidget extends StatelessWidget {
           minimumSize: MaterialStateProperty.all<Size>(
               const Size(double.infinity, 50))),
       onPressed: () {
-        // TODO: Implement "Add to Cart" functionality.
+        Get.toNamed(Routes.ADDRESS);
       },
       child: const Text('Buy Now'),
     );

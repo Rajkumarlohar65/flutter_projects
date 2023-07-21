@@ -12,6 +12,8 @@ abstract class Routes {
   static const SEARCH_RESULTS = _Paths.SEARCH_RESULTS;
   static const PROFILE_INFO = _Paths.PROFILE_INFO;
   static const VERIFY_EMAIL_PAGE = _Paths.VERIFY_EMAIL_PAGE;
+  static const ADDRESS = _Paths.ADDRESS;
+  static const PAYMENT = _Paths.PAYMENT;
 }
 
 abstract class _Paths {
@@ -25,4 +27,6 @@ abstract class _Paths {
   static const SEARCH_RESULTS = '/search-results';
   static const PROFILE_INFO = '/profile-info';
   static const VERIFY_EMAIL_PAGE = '/verify-email-page';
+  static const ADDRESS = '/address';
+  static const PAYMENT = '/payment';
 }

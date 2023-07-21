@@ -36,6 +36,7 @@ class FireStoreServices {
         .doc().set({'product_id': productId, 'quantity': quantity});
   }
 
+
   Future<bool> isProductInCart(String productId) async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final snapshot = await FirebaseFirestore.instance

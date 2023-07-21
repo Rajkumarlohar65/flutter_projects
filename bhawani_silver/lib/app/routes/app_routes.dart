@@ -14,6 +14,7 @@ abstract class Routes {
   static const VERIFY_EMAIL_PAGE = _Paths.VERIFY_EMAIL_PAGE;
   static const ADDRESS = _Paths.ADDRESS;
   static const PAYMENT = _Paths.PAYMENT;
+  static const SELECT_ADDRESS = _Paths.SELECT_ADDRESS;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const VERIFY_EMAIL_PAGE = '/verify-email-page';
   static const ADDRESS = '/address';
   static const PAYMENT = '/payment';
+  static const SELECT_ADDRESS = '/select-address';
 }

@@ -18,7 +18,7 @@ class BuyNowButtonWidget extends StatelessWidget {
           minimumSize: MaterialStateProperty.all<Size>(
               const Size(double.infinity, 50))),
       onPressed: () {
-        Get.toNamed(Routes.ADDRESS);
+        Get.toNamed(Routes.SELECT_ADDRESS);
       },
       child: const Text('Buy Now'),
     );

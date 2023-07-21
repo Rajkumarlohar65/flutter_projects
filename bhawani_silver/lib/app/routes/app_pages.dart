@@ -17,6 +17,8 @@ import '../modules/payment/bindings/payment_binding.dart';
 import '../modules/payment/views/payment_view.dart';
 import '../modules/profile_info/bindings/profile_info_binding.dart';
 import '../modules/profile_info/views/profile_info_view.dart';
+import '../modules/select_address/bindings/select_address_binding.dart';
+import '../modules/select_address/views/select_address_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 import '../modules/splash_screen/bindings/splash_screen_binding.dart';
@@ -82,6 +84,11 @@ class AppPages {
       name: _Paths.PAYMENT,
       page: () => const PaymentView(),
       binding: PaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_ADDRESS,
+      page: () => const SelectAddressView(),
+      binding: SelectAddressBinding(),
     ),
   ];
 }

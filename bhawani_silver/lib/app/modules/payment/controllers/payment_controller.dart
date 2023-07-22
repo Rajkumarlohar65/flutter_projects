@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-class PaymentController extends GetxController {
-  //TODO: Implement PaymentController
+import '../../../data/model/product.dart';
 
-  final count = 0.obs;
+class PaymentController extends GetxController {
+
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +19,4 @@ class PaymentController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }

@@ -6,7 +6,7 @@ import '../../../data/model/address.dart';
 
 class SelectAddressController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  RxList<Address> _addresses = RxList<Address>([]);
+  final RxList<Address> _addresses = RxList<Address>([]);
 
   List<Address> get addresses => _addresses;
 

@@ -14,11 +14,11 @@ class SelectAddressView extends GetView<SelectAddressController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Address'),
+        title: const Text('Select Address'),
       ),
       body: Obx(() {
         if (controller.addresses.isEmpty) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else {
@@ -29,16 +29,18 @@ class SelectAddressView extends GetView<SelectAddressController> {
               return AddressCardWidget(
                 address: address,
                 onSelect: () {
-                  Get.toNamed(Routes.PAYMENT);
+                  Get.toNamed(Routes.PAYMENT, arguments: address);
                 },
               );
             },
           );
         }
       }),
-      floatingActionButton: FloatingActionButton.extended(onPressed: (){
-        Get.toNamed(Routes.ADDRESS);
-      }, label: Text("Add new Address")),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Get.toNamed(Routes.ADDRESS);
+          },
+          label: const Text("Add new Address")),
     );
   }
 }

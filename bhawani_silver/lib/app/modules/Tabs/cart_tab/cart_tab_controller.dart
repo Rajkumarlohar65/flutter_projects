@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 class CartTabController extends GetxController {
   late final Stream<QuerySnapshot> productStream;
   var uid = FirebaseAuth.instance.currentUser!.uid;
-
   var cartSubtotal = 0.0.obs;
 
   @override

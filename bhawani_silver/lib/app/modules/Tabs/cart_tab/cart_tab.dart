@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../../../core/values/app_color.dart';
+import '../../../routes/app_pages.dart';
 
 class CartTab extends GetView<CartTabController> {
   const CartTab({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class CartTab extends GetView<CartTabController> {
                         padding: const EdgeInsets.only(right: 10, left: 10),
                         child: ElevatedButton(
                           onPressed: () {
-                            // Perform checkout action
+                            Get.toNamed(Routes.SELECT_ADDRESS, arguments: cartDocs);
                           },
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(

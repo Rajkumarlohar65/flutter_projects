@@ -202,7 +202,7 @@ class AddressView extends GetView<AddressController> {
                             controller.saveAddress();
                           }
                         },
-                        child: const Text("Procced to Pay"),
+                        child: const Text("Save Address"),
                       )
                     ],
                   )),

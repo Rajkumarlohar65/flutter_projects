@@ -37,7 +37,7 @@ class AddressController extends GetxController {
         .doc().set({'country': country, 'mobile number': mobileNumber, 'street': street, 'landmark': landmark, 'pincode': pinCode, 'city': city, 'state': state}
     );
     Utils().showSuccessToast("Address Saved");
-    Get.offNamed(Routes.PAYMENT);
+    Get.offNamed(Routes.SELECT_ADDRESS);
   }
 
   @override

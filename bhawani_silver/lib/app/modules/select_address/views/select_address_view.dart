@@ -38,7 +38,7 @@ class SelectAddressView extends GetView<SelectAddressController> {
       }),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Get.toNamed(Routes.ADDRESS);
+            Get.offNamed(Routes.ADDRESS);
           },
           label: const Text("Add new Address")),
     );

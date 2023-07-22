@@ -68,7 +68,7 @@ class PaymentView extends GetView<PaymentController> {
                       subtitle: Text(
                         "\$${myController.product.price.toString()}",
                       ),
-                      trailing: Text("Q:1"),
+                      trailing: const Text("Q:1"),
                     )
                   : ListView.builder(
                       itemCount: cartItems.length,
@@ -88,18 +88,14 @@ class PaymentView extends GetView<PaymentController> {
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              // Show a loading spinner while fetching data
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
+                              // While loading other items, you can just return an empty container
+                              return Container();
                             } else {
                               final productData = snapshot.data!.data()
                                   as Map<String, dynamic>?;
                               final productName = productData?['name'] ?? '';
                               final productPrice = productData?['price'] ?? 0;
                               final productImage = productData?['image'] ?? '';
-                              final productQuantity =
-                                  productData?['quantity'] ?? 0;
 
                               return ListTile(
                                 leading: SizedBox(
@@ -111,7 +107,7 @@ class PaymentView extends GetView<PaymentController> {
                                 subtitle: Text(
                                   "\$${productPrice.toStringAsFixed(2)}",
                                 ),
-                                trailing: Text("Q:${quantity}"),
+                                trailing: Text("Q:$quantity"),
                               );
                             }
                           },

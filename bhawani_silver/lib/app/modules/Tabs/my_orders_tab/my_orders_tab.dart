@@ -1,6 +1,7 @@
 import 'package:BhawaniSilver/app/modules/Tabs/my_orders_tab/my_oders_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class MyOrdersTab extends GetView<MyOrdersTabController> {
   const MyOrdersTab({super.key});
@@ -10,12 +11,23 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             expandedHeight: 200,
             pinned: true, // The app bar will remain visible as the user scrolls
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title: Text("My orders", style: TextStyle(color: Colors.amberAccent),),
+              title: Text("My orders", style: TextStyle(color: Colors.grey),),
+              background: Container(
+                color: Colors.white, // Set background color as per your preference
+                child: Center(
+                  child: Lottie.asset(
+                    'animations/animation1.json', // Replace this with your Lottie animation file path
+                    width: 200, // Set the width and height of the animation as per your preference
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
           ),
           StreamBuilder<List<Map<String, dynamic>>>(

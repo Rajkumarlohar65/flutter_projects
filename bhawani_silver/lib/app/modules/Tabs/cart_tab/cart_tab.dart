@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../core/values/app_color.dart';
 import '../../../routes/app_pages.dart';
@@ -24,8 +25,13 @@ class CartTab extends GetView<CartTabController> {
           } else {
             final cartDocs = cartSnapShot.data!.docs;
             if (cartDocs.isEmpty) {
-              return const Center(
-                child: Text('No items in cart.'),
+              return Center(
+                child: Lottie.asset(
+                  'animations/empty_cart.json', // Replace this with your Lottie animation file path
+                  width: 300, // Set the width and height of the animation as per your preference
+                  height: 300,
+                  reverse: true
+                ),
               );
             } else {
               return CustomScrollView(

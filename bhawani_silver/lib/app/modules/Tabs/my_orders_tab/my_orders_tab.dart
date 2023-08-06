@@ -1,10 +1,12 @@
 import 'package:BhawaniSilver/app/modules/Tabs/my_orders_tab/my_oders_tab_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class MyOrdersTab extends GetView<MyOrdersTabController> {
-  const MyOrdersTab({super.key});
+  const MyOrdersTab({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +15,19 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
         slivers: [
           SliverAppBar(
             expandedHeight: 200,
-            pinned: true, // The app bar will remain visible as the user scrolls
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title: Text("My orders", style: TextStyle(color: Colors.grey),),
+              title: const Text(
+                "My orders",
+                style: TextStyle(color: Colors.grey),
+              ),
               background: Container(
-                color: Colors.white, // Set background color as per your preference
+                color: Colors.white,
                 child: Center(
                   child: Lottie.asset(
-                    'animations/animation1.json', // Replace this with your Lottie animation file path
-                    width: 200, // Set the width and height of the animation as per your preference
+                    'animations/delivery_boy.json',
+                    width: 200,
                     height: 200,
                     fit: BoxFit.cover,
                   ),
@@ -31,49 +36,52 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
             ),
           ),
           StreamBuilder<List<Map<String, dynamic>>>(
-            stream: controller.getOrderStream(), // Use the stream to get real-time data
+            stream: controller.getOrderStream(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                // While data is loading, show a loading indicator
                 return const SliverFillRemaining(
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
                 );
               } else if (snapshot.hasError || snapshot.data == null) {
-                // Handle error or no data case
                 return const SliverFillRemaining(
                   child: Center(
                     child: Text('Error loading orders'),
                   ),
                 );
               } else if (snapshot.data!.isEmpty) {
-                // If there are no orders, display a message
-                return const SliverFillRemaining(
+                return SliverFillRemaining(
                   child: Center(
-                    child: Text('No orders found'),
+                    child: Column(
+                      children: [
+                        Lottie.asset(
+                          'animations/empty_orders.json',
+                          width: 300,
+                          height: 300,
+                          fit: BoxFit.cover,
+                        ),
+                        const Text("No Order found"),
+                      ],
+                    ),
                   ),
                 );
               } else {
-                // If data is available, display the orders in a SliverList
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
-                        (context, index) {
+                    (context, index) {
                       final order = snapshot.data![index];
-
-                      // Extract data from the 'order' map
                       final shippingAddress = order['shippingAddress'];
                       final productDetails = order['productDetails'];
-                      // final subtotal = order['subtotal'];
-                      // final discount = order['discount'];
                       final total = order['total'];
+                      final orderId = order['orderId'];
 
-                      // Create an order card widget
                       return buildOrderCard(
                         orderNumber: index + 1,
                         shippingAddress: shippingAddress,
                         totalAmount: total.toDouble(),
                         productDetails: productDetails,
+                        onDelete: () => _deleteOrder(orderId),
                       );
                     },
                     childCount: snapshot.data!.length,
@@ -87,12 +95,12 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
     );
   }
 
-  // Build a custom Order card widget
   Widget buildOrderCard({
     required int orderNumber,
     required Map<String, dynamic> shippingAddress,
     required Map<String, dynamic> productDetails,
     required double totalAmount,
+    required VoidCallback onDelete,
   }) {
     return Card(
       margin: const EdgeInsets.all(8),
@@ -130,9 +138,36 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
             subtitle: Text('\$${totalAmount.toStringAsFixed(2)}'),
           ),
           const SizedBox(height: 8),
-          // You can add more details like order items, status, etc. here
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: onDelete,
+                child: const Text("Cancel Order"),
+              ),
+            ],
+          ),
         ],
       ),
     );
+  }
+
+  void _deleteOrder(String orderId) {
+    // Your code to delete the order from Firebase goes here
+    // You can use the controller or any other method to delete the order
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('orders')
+        .doc(orderId)
+        .delete()
+        .then((_) {
+      // Order successfully deleted
+      print('Order deleted successfully');
+    }).catchError((error) {
+      // Failed to delete the order
+      print('Error deleting order: $error');
+    });
   }
 }

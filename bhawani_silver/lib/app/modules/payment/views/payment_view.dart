@@ -206,27 +206,41 @@ class PaymentView extends GetView<PaymentController> {
 
               final uid = FirebaseAuth.instance.currentUser!.uid;
 
-              // Store the order data in the 'orders' collection in Firebase
+// Store the order data in the 'orders' collection in Firebase
               FirebaseFirestore.instance
                   .collection('users')
                   .doc(uid)
                   .collection('orders')
                   .add(orderData)
                   .then((docRef) {
-                // Order data successfully stored in Firebase
-                print('Order data stored with ID: ${docRef.id}');
-                // Show a success dialog or navigate to a success page if needed
-                Get.snackbar(
-                    'Payment Successful', 'Thank you for your purchase!',
-                    snackPosition: SnackPosition.BOTTOM);
-                Get.offAllNamed(Routes.HOME);
+                // Get the document ID of the newly added order
+                final orderId = docRef.id;
+
+                // Update the document with the orderId as its ID
+                docRef.update({
+                  'orderId': orderId,
+                }).then((_) {
+                  // Order data successfully stored with orderId in Firebase
+                  print('Order data stored with ID: $orderId');
+                  // Show a success dialog or navigate to a success page if needed
+                  Get.snackbar('Payment Successful', 'Thank you for your purchase!',
+                      snackPosition: SnackPosition.BOTTOM);
+                  Get.offAllNamed(Routes.HOME);
+                }).catchError((error) {
+                  // Handle any errors that occurred while updating the document
+                  print('Error updating order data: $error');
+                  // Show an error dialog or display an error message if needed
+                  Get.snackbar('Error', 'Failed to process your order.',
+                      snackPosition: SnackPosition.BOTTOM);
+                });
               }).catchError((error) {
-                // Handle any errors that occurred while storing the data
+                // Handle any errors that occurred while adding the order data
                 print('Error storing order data: $error');
                 // Show an error dialog or display an error message if needed
                 Get.snackbar('Error', 'Failed to process your order.',
                     snackPosition: SnackPosition.BOTTOM);
               });
+
             },
             child: const Text('Pay Now'),
           ),

@@ -1,11 +1,10 @@
+import 'package:BhawaniSilver/app/data/model/address.dart';
+import 'package:BhawaniSilver/app/modules/select_address/controllers/select_address_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:BhawaniSilver/app/widgets/card_widget/address_card_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
-import '../../../data/model/address.dart';
-import '../controllers/select_address_controller.dart';
 
 class SelectAddressView extends GetView<SelectAddressController> {
   const SelectAddressView({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class SelectAddressView extends GetView<SelectAddressController> {
       body: Obx(() {
         if (controller.addresses.isEmpty) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Text("No Addresses Found"),
           );
         } else {
           return ListView.builder(

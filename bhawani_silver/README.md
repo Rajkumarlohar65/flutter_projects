@@ -41,6 +41,9 @@
 
 **Authentication:** Firebase Email Authentication
 
+## Note
+**Running in Web**                   
+**command:** flutter run -d chrome --web-renderer html
 
 ## Feedback
 

@@ -4,6 +4,7 @@ import 'package:BhawaniSilver/app/modules/Tabs/account_tab/account_tab_controlle
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,6 +21,8 @@ Future<void> main() async{
 
   final setTheme = AccountTabController();
   setTheme.loadThemeFromStorage();
+
+  Stripe.publishableKey = 'pk_test_51Nd5I0SArhJ5v6asFYLhXVwPovXheHmTQFbKQN7M0AYkB8lpY3CdN9xEc2zngmodn21y1Ob12jTtnnogRXashsI000NmXUkVwu';
 
   runApp(
     GetMaterialApp(

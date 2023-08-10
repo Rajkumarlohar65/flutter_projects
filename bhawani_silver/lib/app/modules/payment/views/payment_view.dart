@@ -58,7 +58,7 @@ class PaymentView extends GetView<PaymentController> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
-          Expanded(
+          Flexible(
             child: Card(
               elevation: 4,
               margin: const EdgeInsets.all(16),
@@ -172,74 +172,77 @@ class PaymentView extends GetView<PaymentController> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               // Implement the payment logic here
 
               // Assuming you have the required data like 'selectedAddress' and 'myController' (if not, modify accordingly)
-              final orderData = {
-                'shippingAddress': {
-                  'street': selectedAddress.street,
-                  'city': selectedAddress.city,
-                  'state': selectedAddress.state,
-                  'pinCode': selectedAddress.pinCode,
-                  'country': selectedAddress.country,
-                },
-                'productDetails': myController != null
-                    ? {
-                        'name': myController.product.name,
-                        'price': myController.product.price,
-                      }
-                    : {
-                        'name':
-                            '', // Set the name to an empty string if myController is null
-                        'price':
-                            0, // Set the price to 0 if myController is null
-                      },
-                'subtotal': myController?.product.price ??
-                    ctc.cartSubtotal
-                        .value, // Or ctc.cartSubtotal.value if myController is null
-                'discount': discount,
-                'total': myController?.product.price ??
-                    ctc.cartSubtotal.value -
-                        discount, // Or ctc.cartSubtotal.value - discount if myController is null
-              };
+//               final orderData = {
+//                 'shippingAddress': {
+//                   'street': selectedAddress.street,
+//                   'city': selectedAddress.city,
+//                   'state': selectedAddress.state,
+//                   'pinCode': selectedAddress.pinCode,
+//                   'country': selectedAddress.country,
+//                 },
+//                 'productDetails': myController != null
+//                     ? {
+//                         'name': myController.product.name,
+//                         'price': myController.product.price,
+//                       }
+//                     : {
+//                         'name':
+//                             '', // Set the name to an empty string if myController is null
+//                         'price':
+//                             0, // Set the price to 0 if myController is null
+//                       },
+//                 'subtotal': myController?.product.price ??
+//                     ctc.cartSubtotal
+//                         .value, // Or ctc.cartSubtotal.value if myController is null
+//                 'discount': discount,
+//                 'total': myController?.product.price ??
+//                     ctc.cartSubtotal.value -
+//                         discount, // Or ctc.cartSubtotal.value - discount if myController is null
+//               };
+//
+//               final uid = FirebaseAuth.instance.currentUser!.uid;
+//
+// // Store the order data in the 'orders' collection in Firebase
+//               FirebaseFirestore.instance
+//                   .collection('users')
+//                   .doc(uid)
+//                   .collection('orders')
+//                   .add(orderData)
+//                   .then((docRef) {
+//                 // Get the document ID of the newly added order
+//                 final orderId = docRef.id;
+//
+//                 // Update the document with the orderId as its ID
+//                 docRef.update({
+//                   'orderId': orderId,
+//                 }).then((_) async {
+//                   // Order data successfully stored with orderId in Firebase
+//                   print('Order data stored with ID: $orderId');
+//                   // Show a success dialog or navigate to a success page if needed
+//                   // Get.snackbar('Payment Successful', 'Thank you for your purchase!',
+//                   //     snackPosition: SnackPosition.BOTTOM);
+//                   // Get.offAllNamed(Routes.HOME);
+//                   await controller.makePayment();
+//                 }).catchError((error) {
+//                   // Handle any errors that occurred while updating the document
+//                   print('Error updating order data: $error');
+//                   // Show an error dialog or display an error message if needed
+//                   Get.snackbar('Error', 'Failed to process your order.',
+//                       snackPosition: SnackPosition.BOTTOM);
+//                 });
+//               }).catchError((error) {
+//                 // Handle any errors that occurred while adding the order data
+//                 print('Error storing order data: $error');
+//                 // Show an error dialog or display an error message if needed
+//                 Get.snackbar('Error', 'Failed to process your order.',
+//                     snackPosition: SnackPosition.BOTTOM);
+//               });
 
-              final uid = FirebaseAuth.instance.currentUser!.uid;
-
-// Store the order data in the 'orders' collection in Firebase
-              FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(uid)
-                  .collection('orders')
-                  .add(orderData)
-                  .then((docRef) {
-                // Get the document ID of the newly added order
-                final orderId = docRef.id;
-
-                // Update the document with the orderId as its ID
-                docRef.update({
-                  'orderId': orderId,
-                }).then((_) {
-                  // Order data successfully stored with orderId in Firebase
-                  print('Order data stored with ID: $orderId');
-                  // Show a success dialog or navigate to a success page if needed
-                  Get.snackbar('Payment Successful', 'Thank you for your purchase!',
-                      snackPosition: SnackPosition.BOTTOM);
-                  Get.offAllNamed(Routes.HOME);
-                }).catchError((error) {
-                  // Handle any errors that occurred while updating the document
-                  print('Error updating order data: $error');
-                  // Show an error dialog or display an error message if needed
-                  Get.snackbar('Error', 'Failed to process your order.',
-                      snackPosition: SnackPosition.BOTTOM);
-                });
-              }).catchError((error) {
-                // Handle any errors that occurred while adding the order data
-                print('Error storing order data: $error');
-                // Show an error dialog or display an error message if needed
-                Get.snackbar('Error', 'Failed to process your order.',
-                    snackPosition: SnackPosition.BOTTOM);
-              });
+            await controller.makePayment();
 
             },
             child: const Text('Pay Now'),

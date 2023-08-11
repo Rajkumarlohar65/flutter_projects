@@ -135,7 +135,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
           const SizedBox(height: 8),
           ListTile(
             title: const Text('Total Amount'),
-            subtitle: Text('\$${totalAmount.toStringAsFixed(2)}'),
+            subtitle: Text('₹${totalAmount.toStringAsFixed(2)}'),
           ),
           const SizedBox(height: 8),
           Row(

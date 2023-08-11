@@ -1,11 +1,8 @@
-import 'package:BhawaniSilver/app/data/model/product.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import 'package:BhawaniSilver/app/modules/select_address/controllers/select_address_controller.dart';
-import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -69,7 +66,7 @@ class PaymentView extends GetView<PaymentController> {
                       ),
                       title: Text(myController.product.name),
                       subtitle: Text(
-                        "\$${myController.product.price.toString()}",
+                        "₹${myController.product.price.toString()}",
                       ),
                       trailing: const Text("Q:1"),
                     )
@@ -108,7 +105,7 @@ class PaymentView extends GetView<PaymentController> {
                                     )),
                                 title: Text(productName),
                                 subtitle: Text(
-                                  "\$${productPrice.toStringAsFixed(2)}",
+                                  "₹${productPrice.toStringAsFixed(2)}",
                                 ),
                                 trailing: Text("Q:$quantity"),
                               );
@@ -126,19 +123,19 @@ class PaymentView extends GetView<PaymentController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Subtotal: \$${myController.product.price.toString()}',
+                          'Subtotal: ₹${myController.product.price.toString()}',
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Discount: \$${discount.toStringAsFixed(2)}',
+                          'Discount: ₹${discount.toStringAsFixed(2)}',
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 10),
                         const Divider(),
                         const SizedBox(height: 10),
                         Text(
-                          'Total: \$${myController.product.price - discount}',
+                          'Total: ₹${myController.product.price - discount}',
                           style: const TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
@@ -148,19 +145,19 @@ class PaymentView extends GetView<PaymentController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Subtotal: \$${ctc.cartSubtotal.value.toString()}',
+                          'Subtotal: ₹${ctc.cartSubtotal.value.toString()}',
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Discount: \$$discount',
+                          'Discount: ₹$discount',
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 10),
                         const Divider(),
                         const SizedBox(height: 10),
                         Text(
-                          'Total: \$${ctc.cartSubtotal.value - discount}',
+                          'Total: ₹${ctc.cartSubtotal.value - discount}',
                           style: const TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
@@ -173,77 +170,19 @@ class PaymentView extends GetView<PaymentController> {
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
             onPressed: () async {
-              // Implement the payment logic here
+              try{
+                await controller.makePayment();
+                controller.saveOrder();
 
-              // Assuming you have the required data like 'selectedAddress' and 'myController' (if not, modify accordingly)
-//               final orderData = {
-//                 'shippingAddress': {
-//                   'street': selectedAddress.street,
-//                   'city': selectedAddress.city,
-//                   'state': selectedAddress.state,
-//                   'pinCode': selectedAddress.pinCode,
-//                   'country': selectedAddress.country,
-//                 },
-//                 'productDetails': myController != null
-//                     ? {
-//                         'name': myController.product.name,
-//                         'price': myController.product.price,
-//                       }
-//                     : {
-//                         'name':
-//                             '', // Set the name to an empty string if myController is null
-//                         'price':
-//                             0, // Set the price to 0 if myController is null
-//                       },
-//                 'subtotal': myController?.product.price ??
-//                     ctc.cartSubtotal
-//                         .value, // Or ctc.cartSubtotal.value if myController is null
-//                 'discount': discount,
-//                 'total': myController?.product.price ??
-//                     ctc.cartSubtotal.value -
-//                         discount, // Or ctc.cartSubtotal.value - discount if myController is null
-//               };
-//
-//               final uid = FirebaseAuth.instance.currentUser!.uid;
-//
-// // Store the order data in the 'orders' collection in Firebase
-//               FirebaseFirestore.instance
-//                   .collection('users')
-//                   .doc(uid)
-//                   .collection('orders')
-//                   .add(orderData)
-//                   .then((docRef) {
-//                 // Get the document ID of the newly added order
-//                 final orderId = docRef.id;
-//
-//                 // Update the document with the orderId as its ID
-//                 docRef.update({
-//                   'orderId': orderId,
-//                 }).then((_) async {
-//                   // Order data successfully stored with orderId in Firebase
-//                   print('Order data stored with ID: $orderId');
-//                   // Show a success dialog or navigate to a success page if needed
-//                   // Get.snackbar('Payment Successful', 'Thank you for your purchase!',
-//                   //     snackPosition: SnackPosition.BOTTOM);
-//                   // Get.offAllNamed(Routes.HOME);
-//                   await controller.makePayment();
-//                 }).catchError((error) {
-//                   // Handle any errors that occurred while updating the document
-//                   print('Error updating order data: $error');
-//                   // Show an error dialog or display an error message if needed
-//                   Get.snackbar('Error', 'Failed to process your order.',
-//                       snackPosition: SnackPosition.BOTTOM);
-//                 });
-//               }).catchError((error) {
-//                 // Handle any errors that occurred while adding the order data
-//                 print('Error storing order data: $error');
-//                 // Show an error dialog or display an error message if needed
-//                 Get.snackbar('Error', 'Failed to process your order.',
-//                     snackPosition: SnackPosition.BOTTOM);
-//               });
-
-            await controller.makePayment();
-
+              }catch(error){
+                // Handle errors during payment or Firestore operations
+                print('Error processing payment and saving order: $error');
+                Get.snackbar(
+                  'Error',
+                  'Failed to process your order.',
+                  snackPosition: SnackPosition.BOTTOM,
+                );
+              }
             },
             child: const Text('Pay Now'),
           ),

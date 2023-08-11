@@ -56,7 +56,7 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                           ),
                           const SizedBox(height: 16.0),
                           Text(
-                            '\$${product.price}',
+                            '₹${product.price}',
                             style: const TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,

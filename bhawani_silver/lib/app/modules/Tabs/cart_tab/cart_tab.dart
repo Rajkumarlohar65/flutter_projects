@@ -69,7 +69,7 @@ class CartTab extends GetView<CartTabController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Subtotal: \$${subtotal.toStringAsFixed(2)}',
+                                    'Subtotal: ₹${subtotal.toStringAsFixed(2)}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20),
@@ -198,7 +198,7 @@ class CartTab extends GetView<CartTabController> {
                                               ),
                                               const SizedBox(height: 8),
                                               Text(
-                                                'Price: \$${productPrice.toStringAsFixed(2)}',
+                                                'Price: ₹${productPrice.toStringAsFixed(2)}',
                                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColor.greyColor),
                                               ),
                                               const SizedBox(height: 48),

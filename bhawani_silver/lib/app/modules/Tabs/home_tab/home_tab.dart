@@ -157,7 +157,7 @@ class HomeTab extends GetView<HomeTabController> {
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
-                                      'Price: \$${product.price}',
+                                      'Price: ₹${product.price}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium

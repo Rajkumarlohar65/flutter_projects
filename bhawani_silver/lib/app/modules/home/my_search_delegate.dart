@@ -129,7 +129,7 @@ class MySearchDelegate extends SearchDelegate {
           itemCount: products.length,
           itemBuilder: (BuildContext context, int index) {
             final product = products[index];
-            return GestureDetector(
+            return InkWell(
               onTap: () {
                 Get.toNamed(Routes.OVERVIEW_OF_PRODUCT, arguments: product);
               },
@@ -138,19 +138,22 @@ class MySearchDelegate extends SearchDelegate {
                 child: ListTile(
                   title: Row(
                     children: [
-                      AspectRatio(
-                        aspectRatio: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
-                          child: CachedNetworkImage(
-                            imageUrl: product.image,
-                            cacheManager: DefaultCacheManager(),
-                            placeholder: (context, imageUrl) {
-                              return const SpinKitFadingCircle(
-                                size: 20,
-                                color: AppColor.blueColor,
-                              );
-                            },
+                      SizedBox(
+                        width: 100, // Set a fixed width for the leading item
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 5),
+                            child: CachedNetworkImage(
+                              imageUrl: product.image,
+                              cacheManager: DefaultCacheManager(),
+                              placeholder: (context, imageUrl) {
+                                return const SpinKitFadingCircle(
+                                  size: 20,
+                                  color: AppColor.blueColor,
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -167,8 +170,13 @@ class MySearchDelegate extends SearchDelegate {
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             const SizedBox(height: 8),
-                            Text('price : ${product.price} Rs',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColor.greyColor),),
+                            Text(
+                              'price : ${product.price} Rs',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(color: AppColor.greyColor),
+                            ),
                           ],
                         ),
                       )
@@ -179,7 +187,8 @@ class MySearchDelegate extends SearchDelegate {
             );
           },
         );
-      },
+
+          },
     );
   }
 

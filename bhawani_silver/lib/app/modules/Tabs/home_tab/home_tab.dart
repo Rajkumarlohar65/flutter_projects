@@ -114,7 +114,7 @@ class HomeTab extends GetView<HomeTabController> {
                     childAspectRatio: 0.75, // Aspect ratio of each card
                     children: List.generate(products.length, (index) {
                       final product = products[index];
-                      return GestureDetector(
+                      return InkWell(
                         onTap: () {
                           Get.toNamed(Routes.OVERVIEW_OF_PRODUCT,
                               arguments: product);

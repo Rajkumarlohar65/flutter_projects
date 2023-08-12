@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../core/values/app_color.dart';
 import '../../core/values/app_string.dart';
 import '../../data/model/product.dart';
@@ -23,7 +24,7 @@ class MySearchDelegate extends SearchDelegate {
   @override
   TextStyle get searchFieldStyle => const TextStyle(fontSize: 18.0);
 
-  List<String> recentSearches = ['chain', 'kada', 'pen'];
+  List<String> recentSearches = ['kada', 'pen'];
 
   @override
   Widget? buildLeading(BuildContext context) {
@@ -124,6 +125,18 @@ class MySearchDelegate extends SearchDelegate {
         final productDocs = productSnapShot.data!.docs;
         final products =
         productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
+
+        if (products.isEmpty) {
+          // Display a message when no products are found
+          return Center(
+            child: Lottie.asset(
+              'animations/not_found.json', // Replace this with your Lottie animation file path
+              width:  250, // Set the width and height of the animation as per your preference
+              height: 250,
+              reverse: true
+              ),
+          );
+        }
 
         return ListView.builder(
           itemCount: products.length,

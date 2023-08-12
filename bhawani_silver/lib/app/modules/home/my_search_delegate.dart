@@ -63,7 +63,7 @@ class MySearchDelegate extends SearchDelegate {
         }
 
         if (productSnapShot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
 
         final productDocs = productSnapShot.data!.docs;
@@ -119,7 +119,7 @@ class MySearchDelegate extends SearchDelegate {
         }
 
         if (productSnapShot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
 
         final productDocs = productSnapShot.data!.docs;

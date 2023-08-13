@@ -15,6 +15,8 @@ import '../modules/overview_of_product/bindings/overview_of_product_binding.dart
 import '../modules/overview_of_product/views/overview_of_product_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
 import '../modules/payment/views/payment_view.dart';
+import '../modules/payment_confirmation/bindings/payment_confirmation_binding.dart';
+import '../modules/payment_confirmation/views/payment_confirmation_view.dart';
 import '../modules/profile_info/bindings/profile_info_binding.dart';
 import '../modules/profile_info/views/profile_info_view.dart';
 import '../modules/select_address/bindings/select_address_binding.dart';
@@ -89,6 +91,11 @@ class AppPages {
       name: _Paths.SELECT_ADDRESS,
       page: () => const SelectAddressView(),
       binding: SelectAddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT_CONFIRMATION,
+      page: () => const PaymentConfirmationView(),
+      binding: PaymentConfirmationBinding(),
     ),
   ];
 }

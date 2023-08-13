@@ -172,8 +172,6 @@ class PaymentView extends GetView<PaymentController> {
             onPressed: () async {
               try{
                 await controller.makePayment();
-                controller.saveOrder();
-
               }catch(error){
                 // Handle errors during payment or Firestore operations
                 print('Error processing payment and saving order: $error');

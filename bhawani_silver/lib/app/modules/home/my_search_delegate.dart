@@ -130,7 +130,7 @@ class MySearchDelegate extends SearchDelegate {
           // Display a message when no products are found
           return Center(
             child: Lottie.asset(
-              'animations/not_found.json', // Replace this with your Lottie animation file path
+              'assets/animations/not_found.json', // Replace this with your Lottie animation file path
               width:  250, // Set the width and height of the animation as per your preference
               height: 250,
               reverse: true

@@ -27,7 +27,7 @@ class CartTab extends GetView<CartTabController> {
             if (cartDocs.isEmpty) {
               return Center(
                 child: Lottie.asset(
-                  'animations/empty_cart.json', // Replace this with your Lottie animation file path
+                  'assets/animations/empty_cart.json', // Replace this with your Lottie animation file path
                   width: 300, // Set the width and height of the animation as per your preference
                   height: 300,
                   reverse: true

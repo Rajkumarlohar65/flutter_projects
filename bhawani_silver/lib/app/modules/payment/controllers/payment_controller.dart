@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
+
 class PaymentController extends GetxController {
   Map<String, dynamic>? paymentIntentData;
   final double discount = 50.0;
@@ -40,9 +42,10 @@ class PaymentController extends GetxController {
 
   Future<void> displayPaymentSheet() async {
     try {
-      await Stripe.instance
-          .presentPaymentSheet()
-          .then((value) => print("Payment Successfully"));
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        print("Payment Successfully");
+        saveOrder();
+      });
       print("Done");
     } catch (e) {
       print("Failed");
@@ -124,10 +127,8 @@ class PaymentController extends GetxController {
         // Order data successfully stored with orderId in Firebase
         print('Order data stored with ID: $orderId');
         // Show a success dialog or navigate to a success page if needed
-        // Get.snackbar('Payment Successful', 'Thank you for your purchase!',
-        //     snackPosition: SnackPosition.BOTTOM);
-        // Get.offAllNamed(Routes.HOME);
-        await makePayment();
+
+        Get.offAllNamed(Routes.PAYMENT_CONFIRMATION);
       }).catchError((error) {
         // Handle any errors that occurred while updating the document
         print('Error updating order data: $error');

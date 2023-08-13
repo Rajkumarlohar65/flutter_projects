@@ -31,7 +31,7 @@ class VerifyEmailPageView extends GetView<VerifyEmailPageController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Lottie.asset(
-                      'animations/verification_mail_sent.json',
+                      'assets/animations/verification_mail_sent.json',
                       width: 300,
                       height: 300,
                       fit: BoxFit.cover,

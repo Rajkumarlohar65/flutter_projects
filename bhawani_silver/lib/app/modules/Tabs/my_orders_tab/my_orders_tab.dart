@@ -34,7 +34,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Lottie.asset(
-                          'animations/empty_orders.json',
+                          'assets/animations/empty_orders.json',
                           width: 300,
                           height: 300,
                           fit: BoxFit.cover,
@@ -58,7 +58,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                       color: Colors.white,
                       child: Center(
                         child: Lottie.asset(
-                          'animations/delivery_boy.json',
+                          'assets/animations/delivery_boy.json',
                           width: 200,
                           height: 200,
                           fit: BoxFit.cover,

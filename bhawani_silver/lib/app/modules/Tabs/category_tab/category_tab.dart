@@ -8,7 +8,7 @@ class CategoryTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Lottie.asset(
-          'animations/work_in_progress.json', // Replace this with your Lottie animation file path
+          'assets/animations/work_in_progress.json', // Replace this with your Lottie animation file path
           width: 1000, // Set the width and height of the animation as per your preference
           height: 1000,
           reverse: true

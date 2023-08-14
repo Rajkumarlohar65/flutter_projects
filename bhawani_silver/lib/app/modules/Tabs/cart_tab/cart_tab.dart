@@ -1,3 +1,4 @@
+import 'package:BhawaniSilver/app/core/utils/utils.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,7 +15,9 @@ class CartTab extends GetView<CartTabController> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
+      backgroundColor: isDarkTheme ? Colors.black : AppColor.cartTabBackgroundColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
         builder: (context, cartSnapShot) {
@@ -27,11 +30,11 @@ class CartTab extends GetView<CartTabController> {
             if (cartDocs.isEmpty) {
               return Center(
                 child: Lottie.asset(
-                  'assets/animations/empty_cart.json', // Replace this with your Lottie animation file path
-                  width: 300, // Set the width and height of the animation as per your preference
-                  height: 300,
-                  reverse: true
-                ),
+                    'assets/animations/empty_cart.json', // Replace this with your Lottie animation file path
+                    width:
+                        300, // Set the width and height of the animation as per your preference
+                    height: 300,
+                    reverse: true),
               );
             } else {
               return CustomScrollView(
@@ -39,13 +42,15 @@ class CartTab extends GetView<CartTabController> {
                   SliverAppBar(
                     expandedHeight: 200,
                     pinned: true,
+                    backgroundColor: isDarkTheme ? Colors.black : AppColor.cartTabBackgroundColor,
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true,
                       title: Padding(
                         padding: const EdgeInsets.only(right: 10, left: 10),
                         child: ElevatedButton(
                           onPressed: () {
-                            Get.toNamed(Routes.SELECT_ADDRESS, arguments: cartDocs);
+                            Get.toNamed(Routes.SELECT_ADDRESS,
+                                arguments: cartDocs);
                           },
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
@@ -117,9 +122,11 @@ class CartTab extends GetView<CartTabController> {
                                     productData?['image'] ?? '';
 
                                 return Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 4),
-                                  elevation: 10,
                                   child: Padding(
                                     padding: const EdgeInsets.all(16),
                                     child: Row(
@@ -153,30 +160,44 @@ class CartTab extends GetView<CartTabController> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                IconButton(
-                                                  icon:
-                                                      const Icon(Icons.remove,color: AppColor.greyColor,),
-                                                  onPressed: () {
-                                                    if (quantity > 1) {
-                                                      controller
-                                                          .decrementQuantity(
-                                                              cart.id);
-                                                    }
-                                                  },
+                                                SizedBox(
+                                                  width: 40,
+                                                  child: OutlinedButton(
+                                                    onPressed: () {
+                                                      if (quantity > 1) {
+                                                        controller
+                                                            .decrementQuantity(
+                                                                cart.id);
+                                                      }
+                                                    },
+                                                    style:
+                                                    OutlinedButton.styleFrom(
+                                                      foregroundColor: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor// Text color for dark mode
+                                                    ), child: const Text("-"),
+                                                  ),
                                                 ),
+                                                const SizedBox(width: 10,),
                                                 Text(
                                                   '$quantity',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleMedium,
                                                 ),
-                                                IconButton(
-                                                  icon: const Icon(Icons.add, color: AppColor.greyColor,),
-                                                  onPressed: () {
-                                                    controller
-                                                        .incrementQuantity(
-                                                            cart.id);
-                                                  },
+                                                const SizedBox(width: 10,),
+                                                SizedBox(
+                                                  width: 40,
+                                                  child: OutlinedButton(
+                                                    onPressed: () {
+                                                      controller
+                                                          .incrementQuantity(
+                                                              cart.id);
+                                                    },
+                                                    style:
+                                                        OutlinedButton.styleFrom(
+                                                      foregroundColor: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor
+                                                    ),
+                                                    child: const Text('+'),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -199,17 +220,27 @@ class CartTab extends GetView<CartTabController> {
                                               const SizedBox(height: 8),
                                               Text(
                                                 'Price: ₹${productPrice.toStringAsFixed(2)}',
-                                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColor.greyColor),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium
+                                                    ?.copyWith(
+                                                        color:
+                                                            AppColor.greyColor),
                                               ),
-                                              const SizedBox(height: 48),
+                                              const SizedBox(height: 56),
                                               SizedBox(
                                                 width: double.infinity,
-                                                child: ElevatedButton(
+                                                child: OutlinedButton(
                                                   onPressed: () {
-                                                    controller
-                                                        .deleteItem(cart.id);
+                                                    controller.deleteItem(
+                                                        cart.id);
                                                   },
-                                                  child: const Text('Remove'),
+                                                  style: OutlinedButton
+                                                      .styleFrom(
+                                                    foregroundColor: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor
+                                                  ),
+                                                  child:
+                                                      const Text('Delete'),
                                                 ),
                                               ),
                                             ],

@@ -11,6 +11,8 @@ class AppColor{
   static const Color blueColor = Color(0xFF008CFF);
   static const Color yellowColor = Color(0xFFFFEB3B);
   static const Color orangeColor = Color(0xFFFF9800);
+  static const Color cartTabBackgroundColor = Color(0xFFD6D8F2);
+  static const Color homeTabAppBarColor = Color(0xFFECCBC0);
   static const Color greyColor = Colors.grey;
 
 

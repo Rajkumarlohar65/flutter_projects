@@ -1,12 +1,12 @@
+import 'package:BhawaniSilver/app/core/values/app_color.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import 'package:BhawaniSilver/app/modules/select_address/controllers/select_address_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-
 import '../../../data/model/address.dart';
 import '../controllers/payment_controller.dart';
 
@@ -166,24 +166,36 @@ class PaymentView extends GetView<PaymentController> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Padding(
+        child: Container(
+          width: double.infinity,
+          height: 65, // Adjust the height as needed
           padding: const EdgeInsets.all(16.0),
-          child: ElevatedButton(
-            onPressed: () async {
-              try{
-                await controller.makePayment();
-              }catch(error){
-                // Handle errors during payment or Firestore operations
-                print('Error processing payment and saving order: $error');
-                Get.snackbar(
-                  'Error',
-                  'Failed to process your order.',
-                  snackPosition: SnackPosition.BOTTOM,
-                );
-              }
-            },
-            child: const Text('Pay Now'),
-          ),
+          child: Obx(() {
+            return controller.isLoading.value
+                ? const SpinKitThreeBounce(
+                    size: 20,
+                    color: AppColor.blueColor,
+                  )
+                : ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        controller.isLoading.value = true;
+                        await controller.makePayment();
+                      } catch (error) {
+                        // Handle errors during payment or Firestore operations
+                        print(
+                            'Error processing payment and saving order: $error');
+                        Get.snackbar(
+                          'Error',
+                          'Failed to process your order.',
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                        controller.isLoading.value = false;
+                      }
+                    },
+                    child: const Text('Pay Now'),
+                  );
+          }),
         ),
       ),
     );

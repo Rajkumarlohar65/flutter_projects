@@ -41,18 +41,17 @@ class PaymentConfirmationView extends GetView<PaymentConfirmationController> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 50,),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to the home screen manually
-                Get.toNamed(Routes.HOME); // Replace with the actual home screen
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.green, // Change the text color here
-              ),
-              child: const Text('Go to Home'),
-            ),
+
           ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: TextButton(
+          onPressed: () {
+            Get.offAllNamed(
+                Routes.HOME);
+          },
+          child: const Text("Done", style: TextStyle(color: Colors.green,)),
         ),
       ),
     );

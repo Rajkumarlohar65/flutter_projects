@@ -8,12 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../routes/app_pages.dart';
 
 class PaymentController extends GetxController {
   Map<String, dynamic>? paymentIntentData;
   final double discount = 50.0;
+  RxBool isLoading = false.obs;
 
   final ctc = Get.find<CartTabController>();
   // Retrieve the selected address data passed from the SelectAddressView
@@ -45,10 +47,13 @@ class PaymentController extends GetxController {
       await Stripe.instance.presentPaymentSheet().then((value) {
         print("Payment Successfully");
         saveOrder();
+        isLoading.value = false;
       });
+      showSuccessAnimation();
       print("Done");
     } catch (e) {
       print("Failed");
+      isLoading.value = false;
       print(e);
     }
   }
@@ -143,5 +148,26 @@ class PaymentController extends GetxController {
       Get.snackbar('Error', 'Failed to process your order.',
           snackPosition: SnackPosition.BOTTOM);
     });
+  }
+
+  void showSuccessAnimation() {
+    Get.dialog(
+      Center(
+        child: Lottie.asset(
+          'assets/animations/pay_button_loading.json', // Path to your animation
+          height: 200,
+          width: 200,
+          repeat: true,
+        ),
+      ),
+      barrierColor: Colors.white,
+      barrierDismissible: false
+    );
+  }
+
+  @override
+  void onClose() {
+    isLoading.value = false;
+    super.onClose();
   }
 }

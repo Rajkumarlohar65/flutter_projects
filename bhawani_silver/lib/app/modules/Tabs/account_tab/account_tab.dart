@@ -16,6 +16,7 @@ class AccountTab extends GetView<AccountTabController> {
     String firstCapital = UserModel.name!.isNotEmpty ? UserModel.name![0].toUpperCase() : '';
 
     return Scaffold(
+      backgroundColor: AppColor.cardBackgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -61,6 +62,9 @@ class AccountTab extends GetView<AccountTabController> {
                   InkWell(
                     onTap: () => Get.toNamed(Routes.PROFILE_INFO),
                     child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       margin:
                           const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       child: Padding(
@@ -105,6 +109,9 @@ class AccountTab extends GetView<AccountTabController> {
                           builder: (context) => const ThemeDialogWidget());
                     },
                     child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       margin: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       child: Padding(

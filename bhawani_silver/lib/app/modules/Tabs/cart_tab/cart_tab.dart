@@ -48,7 +48,8 @@ class CartTab extends GetView<CartTabController> {
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true,
                       title: Padding(
-                        padding: const EdgeInsets.only(right: 10, left: 10, top: 35, bottom: 0),
+                        padding: const EdgeInsets.only(
+                            right: 10, left: 10, top: 35, bottom: 0),
                         child: ElevatedButton(
                           onPressed: () {
                             Get.toNamed(Routes.SELECT_ADDRESS,
@@ -170,15 +171,16 @@ class CartTab extends GetView<CartTabController> {
                                                       }
                                                     },
                                                     style: OutlinedButton.styleFrom(
+                                                      backgroundColor: AppColor.cardBackgroundColor,
                                                         foregroundColor: isDarkTheme
                                                             ? AppColor
                                                                 .whiteColor
                                                             : AppColor
                                                                 .blackColor // Text color for dark mode
                                                         ),
-                                                    child: const Text("-"),
+                                                      child: const Text("-"),
+                                                    ),
                                                   ),
-                                                ),
                                                 const SizedBox(
                                                   width: 10,
                                                 ),
@@ -200,6 +202,7 @@ class CartTab extends GetView<CartTabController> {
                                                               cart.id);
                                                     },
                                                     style: OutlinedButton.styleFrom(
+                                                        backgroundColor: AppColor.cardBackgroundColor,
                                                         foregroundColor:
                                                             isDarkTheme
                                                                 ? AppColor

@@ -59,15 +59,12 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                       "My orders",
                       style: TextStyle(color: Colors.grey),
                     ),
-                    background: Container(
-                      color: Colors.white,
-                      child: Center(
-                        child: Lottie.asset(
-                          'assets/animations/delivery_boy.json',
-                          width: 200,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        ),
+                    background: Center(
+                      child: Lottie.asset(
+                        'assets/animations/delivery_boy.json',
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

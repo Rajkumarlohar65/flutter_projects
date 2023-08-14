@@ -10,18 +10,21 @@ class BuyNowButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<OverviewOfProductController>();
-    return ElevatedButton(
-      style: ButtonStyle(
-          backgroundColor:
-          MaterialStateProperty.all(AppColor.orangeColor),
-          foregroundColor: MaterialStateProperty.all(
-              AppColor.blackColor),
-          minimumSize: MaterialStateProperty.all<Size>(
-              const Size(double.infinity, 50))),
-      onPressed: () {
-        Get.toNamed(Routes.SELECT_ADDRESS, arguments: controller.product);
-      },
-      child: const Text('Buy Now'),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(25),
+      child: ElevatedButton(
+        style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all(AppColor.orangeColor),
+            foregroundColor: MaterialStateProperty.all(
+                AppColor.blackColor),
+            minimumSize: MaterialStateProperty.all<Size>(
+                const Size(double.infinity, 50))),
+        onPressed: () {
+          Get.toNamed(Routes.SELECT_ADDRESS, arguments: controller.product);
+        },
+        child: const Text('Buy Now'),
+      ),
     );
   }
 }

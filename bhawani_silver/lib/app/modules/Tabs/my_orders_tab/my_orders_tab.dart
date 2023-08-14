@@ -4,12 +4,17 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:BhawaniSilver/app/widgets/card_widget/ordered_card_widget.dart';
 
+import '../../../core/values/app_color.dart';
+
 class MyOrdersTab extends GetView<MyOrdersTabController> {
   const MyOrdersTab({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
+      backgroundColor:
+          isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
       body: CustomScrollView(
         slivers: [
           StreamBuilder<List<Map<String, dynamic>>>(
@@ -70,36 +75,39 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
               }
             },
           ),
-          StreamBuilder<List<Map<String, dynamic>>>(
-            stream: controller.getOrderStream(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.data != null && snapshot.data!.isNotEmpty) {
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final order = snapshot.data![index];
-                        final shippingAddress = order['shippingAddress'];
-                        final productDetails = order['productDetails'];
-                        final total = order['total'];
-                        final orderId = order['orderId'];
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 4, bottom: 4),
+            sliver: StreamBuilder<List<Map<String, dynamic>>>(
+              stream: controller.getOrderStream(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  if (snapshot.data != null && snapshot.data!.isNotEmpty) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final order = snapshot.data![index];
+                          final shippingAddress = order['shippingAddress'];
+                          final productDetails = order['productDetails'];
+                          final total = order['total'];
+                          final orderId = order['orderId'];
 
-                        return OrderCardWidget(
-                            context: context,
-                            orderNumber: index + 1,
-                            shippingAddress: shippingAddress,
-                            productDetails: productDetails,
-                            totalAmount: total.toDouble(),
-                            onDelete: () => controller.deleteOrder(orderId));
-                      },
-                      childCount: snapshot.data!.length,
-                    ),
-                  );
+                          return OrderCardWidget(
+                              context: context,
+                              orderNumber: index + 1,
+                              shippingAddress: shippingAddress,
+                              productDetails: productDetails,
+                              totalAmount: total.toDouble(),
+                              onDelete: () => controller.deleteOrder(orderId));
+                        },
+                        childCount: snapshot.data!.length,
+                      ),
+                    );
+                  }
                 }
-              }
-              return SliverList(delegate: SliverChildListDelegate([]));
-            },
-          ),
+                return SliverList(delegate: SliverChildListDelegate([]));
+              },
+            ),
+          )
         ],
       ),
     );

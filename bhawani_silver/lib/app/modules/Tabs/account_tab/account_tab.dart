@@ -63,7 +63,6 @@ class AccountTab extends GetView<AccountTabController> {
                     child: Card(
                       margin:
                           const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      elevation: 10,
                       child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Row(
@@ -108,7 +107,6 @@ class AccountTab extends GetView<AccountTabController> {
                     child: Card(
                       margin: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
-                      elevation: 10,
                       child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Row(

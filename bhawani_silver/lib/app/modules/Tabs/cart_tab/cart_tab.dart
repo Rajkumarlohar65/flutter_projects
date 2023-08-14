@@ -1,4 +1,3 @@
-import 'package:BhawaniSilver/app/core/utils/utils.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +16,8 @@ class CartTab extends GetView<CartTabController> {
   Widget build(BuildContext context) {
     bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: isDarkTheme ? Colors.black : AppColor.cartTabBackgroundColor,
+      backgroundColor:
+          isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
         builder: (context, cartSnapShot) {
@@ -42,11 +42,13 @@ class CartTab extends GetView<CartTabController> {
                   SliverAppBar(
                     expandedHeight: 200,
                     pinned: true,
-                    backgroundColor: isDarkTheme ? Colors.black : AppColor.cartTabBackgroundColor,
+                    backgroundColor: isDarkTheme
+                        ? Colors.black
+                        : AppColor.cardBackgroundColor,
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true,
                       title: Padding(
-                        padding: const EdgeInsets.only(right: 10, left: 10),
+                        padding: const EdgeInsets.only(right: 10, left: 10, top: 35, bottom: 0),
                         child: ElevatedButton(
                           onPressed: () {
                             Get.toNamed(Routes.SELECT_ADDRESS,
@@ -88,7 +90,6 @@ class CartTab extends GetView<CartTabController> {
                     ),
                   ),
                   SliverPadding(
-                    padding: const EdgeInsets.only(),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final cart = cartDocs[index];
@@ -125,8 +126,6 @@ class CartTab extends GetView<CartTabController> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 4),
                                   child: Padding(
                                     padding: const EdgeInsets.all(16),
                                     child: Row(
@@ -170,20 +169,28 @@ class CartTab extends GetView<CartTabController> {
                                                                 cart.id);
                                                       }
                                                     },
-                                                    style:
-                                                    OutlinedButton.styleFrom(
-                                                      foregroundColor: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor// Text color for dark mode
-                                                    ), child: const Text("-"),
+                                                    style: OutlinedButton.styleFrom(
+                                                        foregroundColor: isDarkTheme
+                                                            ? AppColor
+                                                                .whiteColor
+                                                            : AppColor
+                                                                .blackColor // Text color for dark mode
+                                                        ),
+                                                    child: const Text("-"),
                                                   ),
                                                 ),
-                                                const SizedBox(width: 10,),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
                                                 Text(
                                                   '$quantity',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleMedium,
                                                 ),
-                                                const SizedBox(width: 10,),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
                                                 SizedBox(
                                                   width: 40,
                                                   child: OutlinedButton(
@@ -192,10 +199,13 @@ class CartTab extends GetView<CartTabController> {
                                                           .incrementQuantity(
                                                               cart.id);
                                                     },
-                                                    style:
-                                                        OutlinedButton.styleFrom(
-                                                      foregroundColor: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor
-                                                    ),
+                                                    style: OutlinedButton.styleFrom(
+                                                        foregroundColor:
+                                                            isDarkTheme
+                                                                ? AppColor
+                                                                    .whiteColor
+                                                                : AppColor
+                                                                    .blackColor),
                                                     child: const Text('+'),
                                                   ),
                                                 ),
@@ -232,15 +242,17 @@ class CartTab extends GetView<CartTabController> {
                                                 width: double.infinity,
                                                 child: OutlinedButton(
                                                   onPressed: () {
-                                                    controller.deleteItem(
-                                                        cart.id);
+                                                    controller
+                                                        .deleteItem(cart.id);
                                                   },
-                                                  style: OutlinedButton
-                                                      .styleFrom(
-                                                    foregroundColor: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor
-                                                  ),
-                                                  child:
-                                                      const Text('Delete'),
+                                                  style: OutlinedButton.styleFrom(
+                                                      foregroundColor:
+                                                          isDarkTheme
+                                                              ? AppColor
+                                                                  .whiteColor
+                                                              : AppColor
+                                                                  .blackColor),
+                                                  child: const Text('Delete'),
                                                 ),
                                               ),
                                             ],
@@ -254,6 +266,7 @@ class CartTab extends GetView<CartTabController> {
                             });
                       }, childCount: cartDocs.length),
                     ),
+                    padding: const EdgeInsets.only(),
                   ),
                 ],
               );

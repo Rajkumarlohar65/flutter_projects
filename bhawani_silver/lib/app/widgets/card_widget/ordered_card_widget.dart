@@ -1,6 +1,8 @@
 import 'package:BhawaniSilver/app/widgets/dialog_box_widget/cancel_order_dialog.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/values/app_color.dart';
+
 class OrderCardWidget extends StatelessWidget {
   final BuildContext context;
   final int orderNumber;
@@ -20,19 +22,43 @@ class OrderCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Card(
-      margin: const EdgeInsets.all(8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: const EdgeInsets.symmetric(
+          horizontal: 8, vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              'Order $orderNumber',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              children: [
+                Text(
+                  'Order $orderNumber',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                SizedBox(
+                  width: 80,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CancelOrderDialog(onDelete: onDelete);
+                        },
+                      );
+                    },
+                    child: Text("Cancel", style: TextStyle(color: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor),),
+                  ),
+                ),
+              ],
             ),
           ),
           const Divider(),
@@ -54,23 +80,6 @@ class OrderCardWidget extends StatelessWidget {
           ListTile(
             title: const Text('Total Amount'),
             subtitle: Text('₹${totalAmount.toStringAsFixed(2)}'),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CancelOrderDialog(onDelete: onDelete);
-                    },
-                  );
-                },
-                child: const Text("Cancel Order"),
-              ),
-            ],
           ),
         ],
       ),

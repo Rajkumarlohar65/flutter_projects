@@ -27,7 +27,7 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
+                      padding: const EdgeInsets.only(bottom: 5, top: 80),
                       child: CachedNetworkImage(imageUrl: product.image),
                     ),
                   ),

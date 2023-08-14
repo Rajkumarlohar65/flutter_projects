@@ -51,6 +51,8 @@ class AddressView extends GetView<AddressController> {
                               }
                               return null;
                             },
+                            keyboardType: TextInputType.text,
+                            autofillHints: const [AutofillHints.countryName],
                             onSaved: (value) {
                               controller.country = value;
                             },
@@ -68,6 +70,7 @@ class AddressView extends GetView<AddressController> {
                               contentPadding: EdgeInsets.zero,
                             ),
                             keyboardType: TextInputType.phone, // Set keyboard type to allow only numeric input
+                            autofillHints: const [AutofillHints.telephoneNumber],
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Enter Mobile Number";
@@ -100,6 +103,8 @@ class AddressView extends GetView<AddressController> {
                               }
                               return null;
                             },
+                            keyboardType: TextInputType.streetAddress,
+                            autofillHints: const [AutofillHints.streetAddressLevel1],
                             onSaved: (value) {
                               controller.street = value;
                             },
@@ -121,6 +126,8 @@ class AddressView extends GetView<AddressController> {
                               }
                               return null;
                             },
+                            keyboardType: TextInputType.streetAddress,
+                            autofillHints: const [AutofillHints.streetAddressLevel2],
                             onSaved: (value) {
                               controller.landmark = value;
                             },
@@ -133,11 +140,12 @@ class AddressView extends GetView<AddressController> {
                               fontSize: 20,
                             ),
                             decoration: const InputDecoration(
-                              labelText: "Pin Code",
+                              labelText: "Pincode",
                               labelStyle: TextStyle(fontSize: 15),
                               contentPadding: EdgeInsets.zero,
                             ),
-                            keyboardType: TextInputType.phone, // Set keyboard type to allow only numeric input
+                            keyboardType: TextInputType.number, // Set keyboard type to allow only numeric input
+                            autofillHints: const [AutofillHints.postalCode],
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Enter Pin Code";
@@ -164,12 +172,15 @@ class AddressView extends GetView<AddressController> {
                                 labelText: "City",
                                 labelStyle: TextStyle(fontSize: 15),
                                 contentPadding: EdgeInsets.zero),
+                            keyboardType: TextInputType.streetAddress,
+                            autofillHints: const [AutofillHints.addressCity],
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Enter City";
                               }
                               return null;
                             },
+
                             onSaved: (value) {
                               controller.city = value;
                             },
@@ -191,6 +202,8 @@ class AddressView extends GetView<AddressController> {
                               }
                               return null;
                             },
+                            keyboardType: TextInputType.streetAddress,
+                            autofillHints: const [AutofillHints.addressState],
                             onSaved: (value) {
                               controller.state = value;
                             },

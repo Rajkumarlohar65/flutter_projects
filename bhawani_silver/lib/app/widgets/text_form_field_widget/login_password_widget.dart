@@ -28,6 +28,8 @@ class LoginPasswordTextFormField extends StatelessWidget {
               icon: Icon(
                   obscureText.value ? Icons.visibility_off : Icons.visibility)),
         ),
+        keyboardType: TextInputType.visiblePassword,
+        autofillHints: const [AutofillHints.password],
         validator: (value) {
           if (value == null || value.isEmpty) {
             return AppString.loginAlertPasswordNotNull;

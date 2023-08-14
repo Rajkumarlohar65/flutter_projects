@@ -16,6 +16,8 @@ class SignUpEmailTextFormField extends StatelessWidget {
           labelStyle: TextStyle(fontSize: 15),
           contentPadding: EdgeInsets.zero,
       ),
+      keyboardType: TextInputType.emailAddress,
+      autofillHints: const [AutofillHints.email],
       validator: (value) {
         if (value == null || value.isEmpty) {
           return AppString.signUpAlertEmailNotNull;

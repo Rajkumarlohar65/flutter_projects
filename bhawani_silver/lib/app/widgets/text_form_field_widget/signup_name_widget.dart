@@ -6,7 +6,6 @@ import '../../core/values/app_string.dart';
 class SignUpNameTextFormField extends StatelessWidget {
   const SignUpNameTextFormField({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SignupController>();
@@ -17,6 +16,8 @@ class SignUpNameTextFormField extends StatelessWidget {
           labelStyle: TextStyle(fontSize: 15),
           contentPadding: EdgeInsets.zero,
       ),
+      keyboardType: TextInputType.name,
+      autofillHints: const [AutofillHints.name],
       validator: (value) {
         if (value == null || value.isEmpty) {
           return AppString.signUpAlertNameNotNull;

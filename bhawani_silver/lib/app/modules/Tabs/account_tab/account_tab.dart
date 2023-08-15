@@ -13,10 +13,11 @@ class AccountTab extends GetView<AccountTabController> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     String firstCapital = UserModel.name!.isNotEmpty ? UserModel.name![0].toUpperCase() : '';
 
     return Scaffold(
-      backgroundColor: AppColor.cardBackgroundColor,
+      backgroundColor: isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(

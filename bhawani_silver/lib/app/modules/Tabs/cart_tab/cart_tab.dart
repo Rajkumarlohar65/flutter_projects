@@ -155,64 +155,72 @@ class CartTab extends GetView<CartTabController> {
                                               ),
                                             ),
                                             const SizedBox(height: 8),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width: 40,
-                                                  child: OutlinedButton(
-                                                    onPressed: () {
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: isDarkTheme ? Colors.black38 : AppColor.cardBackgroundColor, // Set the border color here
+                                                  width: 1.0, // Set the border width here
+                                                ),
+                                                borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {
                                                       if (quantity > 1) {
                                                         controller
                                                             .decrementQuantity(
                                                                 cart.id);
+                                                      } else {
+                                                        controller
+                                                            .deleteItem(cart.id);
                                                       }
                                                     },
-                                                    style: OutlinedButton.styleFrom(
-                                                      backgroundColor: AppColor.cardBackgroundColor,
-                                                        foregroundColor: isDarkTheme
-                                                            ? AppColor
-                                                                .whiteColor
-                                                            : AppColor
-                                                                .blackColor // Text color for dark mode
-                                                        ),
-                                                      child: const Text("-"),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                        color: isDarkTheme ? Colors.black38 : AppColor.cardBackgroundColor,
+                                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), bottomLeft: Radius.circular(5)) // Adjust the radius as needed
+                                                      ),
+                                                      child: quantity > 1
+                                                          ? const Icon(Icons.remove)                                                        : const Icon(Icons
+                                                              .delete_outline),
                                                     ),
                                                   ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  '$quantity',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium,
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                SizedBox(
-                                                  width: 40,
-                                                  child: OutlinedButton(
-                                                    onPressed: () {
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    '$quantity',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
                                                       controller
                                                           .incrementQuantity(
-                                                              cart.id);
+                                                          cart.id);
                                                     },
-                                                    style: OutlinedButton.styleFrom(
-                                                        backgroundColor: AppColor.cardBackgroundColor,
-                                                        foregroundColor:
-                                                            isDarkTheme
-                                                                ? AppColor
-                                                                    .whiteColor
-                                                                : AppColor
-                                                                    .blackColor),
-                                                    child: const Text('+'),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                        color: isDarkTheme ? Colors.black38 : AppColor.cardBackgroundColor,
+                                                          borderRadius: const BorderRadius.only(topRight: Radius.circular(5), bottomRight: Radius.circular(5)) // Adjust the radius as needed
+                                                      ),
+                                                      child: const Icon(Icons.add),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -243,6 +251,7 @@ class CartTab extends GetView<CartTabController> {
                                               const SizedBox(height: 56),
                                               SizedBox(
                                                 width: double.infinity,
+                                                height: 40,
                                                 child: OutlinedButton(
                                                   onPressed: () {
                                                     controller

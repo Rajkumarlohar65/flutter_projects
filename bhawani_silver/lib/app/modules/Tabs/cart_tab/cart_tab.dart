@@ -248,24 +248,53 @@ class CartTab extends GetView<CartTabController> {
                                                         color:
                                                             AppColor.greyColor),
                                               ),
-                                              const SizedBox(height: 56),
-                                              SizedBox(
-                                                width: double.infinity,
-                                                height: 40,
-                                                child: OutlinedButton(
-                                                  onPressed: () {
-                                                    controller
-                                                        .deleteItem(cart.id);
-                                                  },
-                                                  style: OutlinedButton.styleFrom(
-                                                      foregroundColor:
-                                                          isDarkTheme
-                                                              ? AppColor
-                                                                  .whiteColor
-                                                              : AppColor
-                                                                  .blackColor),
-                                                  child: const Text('Delete'),
-                                                ),
+                                              const SizedBox(height: 61),
+                                              Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 60,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        controller
+                                                            .deleteItem(cart.id);
+                                                      },
+                                                      child: Container(
+                                                        height: 30,
+                                                        width: 40,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            color: isDarkTheme ? Colors.grey : AppColor.cardBackgroundColor, // Set the border color here
+                                                            width: 1.0, // Set the border width here
+                                                          ),
+                                                          borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
+                                                        ),
+                                                        child: const Center(child: Text('Delete')),),
+                                                      ),
+                                                    ),
+
+                                                  const SizedBox(width: 10,),
+
+                                                  SizedBox(
+                                                    width: 100,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        controller
+                                                            .deleteItem(cart.id);
+                                                      },
+                                                      child: Container(
+                                                        height: 30,
+                                                        width: 40,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            color: isDarkTheme ? Colors.grey : AppColor.cardBackgroundColor, // Set the border color here
+                                                            width: 1.0, // Set the border width here
+                                                          ),
+                                                          borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
+                                                        ),
+                                                        child: const Center(child: Text('Save for later')),),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),

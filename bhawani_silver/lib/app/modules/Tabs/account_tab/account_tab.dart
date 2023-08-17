@@ -142,7 +142,7 @@ class AccountTab extends GetView<AccountTabController> {
                                       : controller.themeMode.value ==
                                               ThemeMode.dark
                                           ? Text(AppString.darkTheme, style: Theme.of(context).textTheme.bodySmall)
-                                          : const Text(AppString.systemDefault);
+                                          : Text(AppString.systemDefault, style: Theme.of(context).textTheme.bodySmall);
                                 }),
                               ],
                             ),

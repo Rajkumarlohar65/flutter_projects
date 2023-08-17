@@ -1,4 +1,7 @@
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
+import 'package:BhawaniSilver/app/widgets/button_widget/proceed_to_buy_button_widget.dart';
+import 'package:BhawaniSilver/app/widgets/card_widget/cartCardWidget.dart';
+import 'package:BhawaniSilver/app/widgets/search_bar_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +17,6 @@ class CartTab extends GetView<CartTabController> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
@@ -37,66 +39,54 @@ class CartTab extends GetView<CartTabController> {
             } else {
               return CustomScrollView(
                 slivers: [
-                  SliverAppBar(
-                    expandedHeight: 200,
+                  const SliverAppBar(
+                    expandedHeight: 60,
                     pinned: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      centerTitle: true,
-                      title: Padding(
-                        padding: const EdgeInsets.only(
-                            right: 10, left: 10, top: 35, bottom: 0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Get.toNamed(Routes.SELECT_ADDRESS,
-                                arguments: cartDocs);
-                          },
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  AppColor.yellowColor),
-                              foregroundColor: MaterialStateProperty.all(
-                                  AppColor.blackColor),
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                  const Size(double.infinity, 30))),
-                          child: const Text('Proceed to Buy', style: TextStyle(fontSize: 11),),
-                        ),
-                      ),
-                      background: Column(
+                    title: SearchBarWidget(),
+                  ),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Obx(() {
                             final subtotal = controller.cartSubtotal.value;
                             return Container(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        'Subtotal: ₹',
-                                        style: TextStyle(
-                                          // fontWeight: FontWeight.bold,
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Subtotal: ₹',
+                                          style: TextStyle(
+                                            // fontWeight: FontWeight.bold,
                                             fontSize: 18,
-                                        color: AppColor.whiteColor),
-                                      ),
-                                      Text(
-                                        subtotal.toStringAsFixed(2),
-                                        style: const TextStyle(
+                                            color: AppColor.blackColor,
+                                          ),
+                                        ),
+                                        Text(
+                                          subtotal.toStringAsFixed(2),
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
-                                        color: AppColor.whiteColor),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
+                                            color: AppColor.blackColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ));
                           })
-                        ],
-                      ),
-                    ),
+                        ])
+                  ])),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: _BuyButtonHeaderDelegate(cartDocs: cartDocs),
                   ),
                   SliverPadding(
                     sliver: SliverList(
@@ -131,186 +121,12 @@ class CartTab extends GetView<CartTabController> {
                                 final productImageUrl =
                                     productData?['image'] ?? '';
 
-                                return Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              width: 100,
-                                              height: 100,
-                                              child: CachedNetworkImage(
-                                                imageUrl: productImageUrl,
-                                                fit: BoxFit.cover,
-                                                placeholder:
-                                                    (context, imageUrl) {
-                                                  return const Center(
-                                                    child: SpinKitFadingCircle(
-                                                      size: 20,
-                                                      color: AppColor.blueColor,
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                            const SizedBox(height: 8),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: isDarkTheme ? AppColor.lightBlack : AppColor.backgroundColor, // Set the border color here
-                                                  width: 1.0, // Set the border width here
-                                                ),
-                                                borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: () {
-                                                      if (quantity > 1) {
-                                                        controller
-                                                            .decrementQuantity(
-                                                                cart.id);
-                                                      } else {
-                                                        controller
-                                                            .deleteItem(cart.id);
-                                                      }
-                                                    },
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 40,
-                                                      decoration: BoxDecoration(
-                                                        color: isDarkTheme ? AppColor.lightBlack : AppColor.backgroundColor,
-                                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), bottomLeft: Radius.circular(5)) // Adjust the radius as needed
-                                                      ),
-                                                      child: quantity > 1
-                                                          ? const Icon(Icons.remove)                                                        : const Icon(Icons
-                                                              .delete_outline),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    '$quantity',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      controller
-                                                          .incrementQuantity(
-                                                          cart.id);
-                                                    },
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 40,
-                                                      decoration: BoxDecoration(
-                                                        color: isDarkTheme ? AppColor.lightBlack : AppColor.backgroundColor,
-                                                          borderRadius: const BorderRadius.only(topRight: Radius.circular(5), bottomRight: Radius.circular(5)) // Adjust the radius as needed
-                                                      ),
-                                                      child: const Icon(Icons.add),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(width: 16),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                productName,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              const SizedBox(height: 8),
-                                              Text(
-                                                'Price: ₹${productPrice.toStringAsFixed(2)}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall
-                                                    ?.copyWith(
-                                                        color:
-                                                            AppColor.greyColor),
-                                              ),
-                                              const SizedBox(height: 64),
-                                              Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: 60,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        controller
-                                                            .deleteItem(cart.id);
-                                                      },
-                                                      child: Container(
-                                                        height: 30,
-                                                        width: 40,
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            color: isDarkTheme ? AppColor.greyColor : AppColor.backgroundColor, // Set the border color here
-                                                            width: 1.0, // Set the border width here
-                                                          ),
-                                                          borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
-                                                        ),
-                                                        child: const Center(child: Text('Delete')),),
-                                                      ),
-                                                    ),
-
-                                                  const SizedBox(width: 10,),
-
-                                                  SizedBox(
-                                                    width: 100,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        controller
-                                                            .deleteItem(cart.id);
-                                                      },
-                                                      child: Container(
-                                                        height: 30,
-                                                        width: 40,
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            color: isDarkTheme ? AppColor.greyColor : AppColor.backgroundColor, // Set the border color here
-                                                            width: 1.0, // Set the border width here
-                                                          ),
-                                                          borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
-                                                        ),
-                                                        child: const Center(child: Text('Save for later')),),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
+                                return CartCardWidget(
+                                    productImageUrl: productImageUrl,
+                                    quantity: quantity,
+                                    id: cart.id,
+                                    productPrice: productPrice,
+                                    productName: productName);
                               }
                             });
                       }, childCount: cartDocs.length),
@@ -324,5 +140,30 @@ class CartTab extends GetView<CartTabController> {
         },
       ),
     );
+  }
+}
+
+class _BuyButtonHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final List<QueryDocumentSnapshot> cartDocs;
+
+  _BuyButtonHeaderDelegate({required this.cartDocs});
+
+  @override
+  double get minExtent => 60.0;
+  @override
+  double get maxExtent => 60.0;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return ProceedToBuyButtonWidget(cartDocs);
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }

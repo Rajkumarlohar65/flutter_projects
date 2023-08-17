@@ -1,6 +1,7 @@
 import 'package:BhawaniSilver/app/data/model/banner.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
+import 'package:BhawaniSilver/app/widgets/search_bar_widget.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -49,34 +50,10 @@ class HomeTab extends GetView<HomeTabController> {
             }
             return CustomScrollView(
               slivers: [
-                SliverAppBar(
+                const SliverAppBar(
                   expandedHeight: 60,
                   pinned: true,
-                  title: InkWell(
-                    onTap: () => showSearch(
-                        context: context,
-                        delegate: MySearchDelegate()),
-                    child: Container(
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: AppColor.whiteColor,
-                        borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.search, color: AppColor.lightBlack, size: 25,),
-                            const SizedBox(width: 10,),
-                            Text("Search Bhawani Silver",style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColor.lightBlack, fontSize: 15)),
-                            const Spacer(),
-                            const Icon(Icons.mic,  color: AppColor.lightBlack, size: 25,)
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  title: SearchBarWidget()
                 ),
                 SliverToBoxAdapter(
                   child: StreamBuilder<QuerySnapshot>(

@@ -23,7 +23,7 @@ class HomeTab extends GetView<HomeTabController> {
     bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor:
-          isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
+          isDarkTheme ? AppColor.blackColor : AppColor.cardBackgroundColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
         builder: (context, productSnapShot) {
@@ -53,31 +53,31 @@ class HomeTab extends GetView<HomeTabController> {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  backgroundColor: isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
+                  expandedHeight: 60,
+                  backgroundColor: isDarkTheme ? AppColor.blackColor : AppColor.blueGrey,
                   pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Text(
-                            AppString.splashAppName,
-                            style: TextStyle(color: isDarkTheme ? Colors.white : Colors.blueGrey,),
-                          )),
-                          InkWell(
-                            child: Icon(
-                              Icons.search,
-                              color: isDarkTheme ? Colors.white : Colors.blueGrey,
-                            ),
-                            onTap: () {
-                              showSearch(
-                                  context: context,
-                                  delegate: MySearchDelegate());
-                            },
-                          ),
-                        ],
+                  title: InkWell(
+                    onTap: () => showSearch(
+                        context: context,
+                        delegate: MySearchDelegate()),
+                    child: Container(
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: AppColor.whiteColor,
+                        borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.search, color: AppColor.lightBlack, size: 25,),
+                            const SizedBox(width: 10,),
+                            Text("Search Bhawani Silver",style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColor.lightBlack, fontSize: 15)),
+                            const Spacer(),
+                            const Icon(Icons.mic,  color: AppColor.lightBlack, size: 25,)
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -116,10 +116,9 @@ class HomeTab extends GetView<HomeTabController> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 0),
                             child: SizedBox(
-                              height: 210,
+                              height: 216,
                               child: CarouselSlider(
                                 options: CarouselOptions(
-                                  enlargeCenterPage: true,
                                   viewportFraction: 1,
                                   aspectRatio: 1,
                                   initialPage: controller.currentIndex.value,
@@ -142,10 +141,10 @@ class HomeTab extends GetView<HomeTabController> {
                       }),
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  padding: const EdgeInsets.symmetric(vertical: 2),
                   sliver: SliverGrid.count(
                     crossAxisCount: 2, // Number of columns in the grid
-                    childAspectRatio: 0.80, // Aspect ratio of each card
+                    childAspectRatio: 0.90, // Aspect ratio of each card
                     children: List.generate(products.length, (index) {
                       final product = products[index];
                       return InkWell(
@@ -154,17 +153,14 @@ class HomeTab extends GetView<HomeTabController> {
                               arguments: product);
                         },
                         child: Card(
-                          elevation: 0.5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                          elevation: 0,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AspectRatio(
-                                aspectRatio: 1,
+                                aspectRatio: 1.2,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(20),
+                                  padding: const EdgeInsets.all(12),
                                   child: CachedNetworkImage(
                                     imageUrl: product.image,
                                     cacheManager: DefaultCacheManager(),

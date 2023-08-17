@@ -12,6 +12,13 @@ class AppTheme {
         iconTheme: IconThemeData(color: AppColor.blackColor)
       ),
 
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.white,
+          unselectedItemColor: Colors.black38,
+          selectedItemColor: Colors.black
+      ),
+
+
       listTileTheme: const ListTileThemeData(
           textColor: AppColor.blackColor
       ),
@@ -33,8 +40,8 @@ class AppTheme {
 
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColor.blackColor,
-        unselectedItemColor: AppColor.greyColor,
-        selectedItemColor: Colors.cyan
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppColor.whiteColor
       ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(

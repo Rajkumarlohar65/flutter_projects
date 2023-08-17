@@ -14,7 +14,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
     bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor:
-          isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
+          isDarkTheme ? AppColor.blackColor : AppColor.whiteColor,
       body: CustomScrollView(
         slivers: [
           StreamBuilder<List<Map<String, dynamic>>>(
@@ -51,13 +51,14 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                 );
               } else {
                 return SliverAppBar(
-                  expandedHeight: 190,
+                  backgroundColor: isDarkTheme ? AppColor.blackColor : AppColor.blueGrey,
+                  expandedHeight: 200,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: const Text(
-                      "My orders",
-                      style: TextStyle(color: Colors.grey),
+                      "My Orders",
+                      style: TextStyle(color: AppColor.whiteColor),
                     ),
                     background: Center(
                       child: Lottie.asset(

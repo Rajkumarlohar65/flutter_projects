@@ -32,36 +32,54 @@ class OrderCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                Text(
-                  'Order $orderNumber',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Spacer(),
-                SizedBox(
-                  width: 80,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return CancelOrderDialog(onDelete: onDelete);
+          ClipRRect(
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            child: Container(
+              color: isDarkTheme ? AppColor.greyColor : AppColor.cardBackgroundColor,
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    Text(
+                      'Order $orderNumber',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: isDarkTheme ? AppColor.blackColor : AppColor.blackColor
+                      ),
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: 80,
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CancelOrderDialog(onDelete: onDelete);
+                            },
+                          );
                         },
-                      );
-                    },
-                    child: Text("Cancel", style: TextStyle(color: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor),),
-                  ),
+                        child: Container(
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: isDarkTheme ? AppColor.lightBlack : AppColor.whiteColor,
+                            border: Border.all(
+                              color: isDarkTheme ? AppColor.lightBlack : AppColor.cardBackgroundColor, // Set the border color here
+                              width: 1.0, // Set the border width here
+                            ),
+                            borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
+                          ),
+                          child: Center(child: Text("Cancel", style: TextStyle(color: isDarkTheme ? AppColor.whiteColor : AppColor.blackColor),)),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-          const Divider(),
+          // const Divider(),
           ListTile(
             title: const Text('Shipping Address'),
             subtitle: Text(

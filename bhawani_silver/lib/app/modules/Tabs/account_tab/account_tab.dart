@@ -17,10 +17,11 @@ class AccountTab extends GetView<AccountTabController> {
     String firstCapital = UserModel.name!.isNotEmpty ? UserModel.name![0].toUpperCase() : '';
 
     return Scaffold(
-      backgroundColor: isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
+      backgroundColor: isDarkTheme ? AppColor.blackColor : AppColor.cardBackgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            backgroundColor: isDarkTheme ? AppColor.blackColor : AppColor.blueGrey,
             expandedHeight: 200,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -32,8 +33,8 @@ class AccountTab extends GetView<AccountTabController> {
                       width: 100,
                       height: 100,
                       child: CircleAvatar(
-                        backgroundColor: AppColor.greyColor,
-                        child: Text(firstCapital, style: Theme.of(context).textTheme.titleLarge,),
+                        backgroundColor: AppColor.whiteColor,
+                        child: Text(firstCapital, style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColor.blueGrey),),
                       ),
                     ),
                     const SizedBox(
@@ -41,11 +42,11 @@ class AccountTab extends GetView<AccountTabController> {
                     ),
                     Text(
                       '${UserModel.name}',
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColor.whiteColor),
                     ),
                     Text(
                       '${UserModel.email}',
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColor.whiteColor),
                     ),
                   ],
                 ),

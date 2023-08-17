@@ -13,6 +13,8 @@ class AppColor{
   static const Color orangeColor = Color(0xFFFF9800);
   static const Color cardBackgroundColor = Color(0xFFF6F8FC);
   static const Color greyColor = Colors.grey;
+  static const Color blueGrey = Colors.blueGrey;
+  static const Color lightBlack = Colors.black45;
 
 
 }

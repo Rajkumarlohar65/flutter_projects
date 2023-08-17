@@ -51,7 +51,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                 );
               } else {
                 return SliverAppBar(
-                  expandedHeight: 200,
+                  expandedHeight: 190,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,

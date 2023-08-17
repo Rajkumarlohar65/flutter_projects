@@ -81,7 +81,7 @@ class AccountTab extends GetView<AccountTabController> {
                               children: [
                                 Text('Profile Info',
                                     style:
-                                        Theme.of(context).textTheme.titleLarge),
+                                        Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18)),
                                 Text(
                                   '${UserModel.email}',
                                   style: Theme.of(context).textTheme.bodySmall,
@@ -136,14 +136,14 @@ class AccountTab extends GetView<AccountTabController> {
                               children: [
                                 Text('Theme',
                                     style:
-                                        Theme.of(context).textTheme.titleLarge),
+                                        Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18)),
                                 Obx(() {
                                   return controller.themeMode.value ==
                                           ThemeMode.light
-                                      ? const Text(AppString.lightTheme)
+                                      ? Text(AppString.lightTheme, style: Theme.of(context).textTheme.bodySmall)
                                       : controller.themeMode.value ==
                                               ThemeMode.dark
-                                          ? const Text(AppString.darkTheme)
+                                          ? Text(AppString.darkTheme, style: Theme.of(context).textTheme.bodySmall)
                                           : const Text(AppString.systemDefault);
                                 }),
                               ],

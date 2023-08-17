@@ -20,7 +20,7 @@ class Product {
     return Product(
       name: data['name'] ?? '',
       description: data['description'] ?? '',
-      price: data['price'] ?? 0.0,
+      price: data['price'] ?? 0,
       image: data['image'] ?? '',
       productId: snapshot.id,
     );

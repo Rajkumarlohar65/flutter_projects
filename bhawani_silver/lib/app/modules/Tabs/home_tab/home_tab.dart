@@ -1,3 +1,4 @@
+import 'package:BhawaniSilver/app/data/model/banner.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:carousel_slider/carousel_options.dart';
@@ -21,7 +22,8 @@ class HomeTab extends GetView<HomeTabController> {
   Widget build(BuildContext context) {
     bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
+      backgroundColor:
+          isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
         builder: (context, productSnapShot) {
@@ -51,7 +53,7 @@ class HomeTab extends GetView<HomeTabController> {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  expandedHeight: 300,
+                  backgroundColor: isDarkTheme ? Colors.black : AppColor.cardBackgroundColor,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
@@ -59,15 +61,15 @@ class HomeTab extends GetView<HomeTabController> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                               child: Text(
                             AppString.splashAppName,
-                            style: TextStyle(color: Colors.cyan),
+                            style: TextStyle(color: isDarkTheme ? Colors.white : Colors.blueGrey,),
                           )),
                           InkWell(
-                            child: const Icon(
+                            child: Icon(
                               Icons.search,
-                              color: AppColor.greyColor,
+                              color: isDarkTheme ? Colors.white : Colors.blueGrey,
                             ),
                             onTap: () {
                               showSearch(
@@ -78,42 +80,72 @@ class HomeTab extends GetView<HomeTabController> {
                         ],
                       ),
                     ),
-                    background: Padding(
-                      padding: const EdgeInsets.only(bottom: 5, top: 50),
-                      child: Obx(() => CarouselSlider(
-                        options: CarouselOptions(
-                          height: 300, // Set the desired height of the carousel
-                          initialPage: controller.currentIndex.value,
-                          enableInfiniteScroll: true, // Set whether to enable infinite scroll
-                          autoPlay: true, // Set whether to enable auto-play
-                          autoPlayInterval: const Duration(seconds: 5), // Set the auto-play interval
-                          onPageChanged: (index, reason) {
-                            controller.updateCurrentIndex(index);
-                          },
-                        ),
-                        items: products.map((product) {
-                          return InkWell(
-                            onTap: () {
-                              final product = products[controller.currentIndex.value];
-                              Get.toNamed(Routes.OVERVIEW_OF_PRODUCT, arguments: product);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 50),
-                              child: CachedNetworkImage(
-                                imageUrl: product.image,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: StreamBuilder<QuerySnapshot>(
+                      stream: controller.bannerStream,
+                      builder: (context, bannerSnapShot) {
+                        if (bannerSnapShot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (bannerSnapShot.hasError) {
+                          return Center(
+                            child:
+                            Text('Error: ${bannerSnapShot.error}'),
+                          );
+                        } else if (!bannerSnapShot.hasData) {
+                          return const Center(
+                            child: Text('No data available'),
+                          );
+                        } else {
+                          final bannerDocs = bannerSnapShot.data!.docs;
+                          final banners = bannerDocs
+                              .map((doc) => AppBanner.fromSnapshot(doc))
+                              .toList();
+
+                          // Make sure there are products available before using them
+                          if (banners.isEmpty) {
+                            return const Center(
+                              child: Text('No products available'),
+                            );
+                          }
+
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 0),
+                            child: SizedBox(
+                              height: 210,
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  enlargeCenterPage: true,
+                                  viewportFraction: 1,
+                                  aspectRatio: 1,
+                                  initialPage: controller.currentIndex.value,
+                                  enableInfiniteScroll: true, // Set whether to enable infinite scroll
+                                  autoPlay: true, // Set whether to enable auto-play
+                                  autoPlayInterval: const Duration(seconds: 5), // Set the auto-play interval
+                                  onPageChanged: (index, reason) {
+                                    controller.updateCurrentIndex(index);
+                                  },
+                                ),
+                                items: List.generate(banners.length, (index) {
+                                  final banner = banners[index];
+                                  return CachedNetworkImage(imageUrl: banner.url);
+                                }),
                               ),
                             ),
                           );
-                        }).toList(),
-                      )),
-                    ),
-                  ),
+
+                        }
+                      }),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   sliver: SliverGrid.count(
                     crossAxisCount: 2, // Number of columns in the grid
-                    childAspectRatio: 0.75, // Aspect ratio of each card
+                    childAspectRatio: 0.80, // Aspect ratio of each card
                     children: List.generate(products.length, (index) {
                       final product = products[index];
                       return InkWell(
@@ -122,7 +154,7 @@ class HomeTab extends GetView<HomeTabController> {
                               arguments: product);
                         },
                         child: Card(
-                          elevation: 2,
+                          elevation: 0.5,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -131,21 +163,24 @@ class HomeTab extends GetView<HomeTabController> {
                             children: [
                               AspectRatio(
                                 aspectRatio: 1,
-                                child: CachedNetworkImage(
-                                  imageUrl: product.image,
-                                  cacheManager: DefaultCacheManager(),
-                                  placeholder: (context, imageUrl) {
-                                    return const Center(
-                                      child: SpinKitFadingCircle(
-                                        size: 20,
-                                        color: AppColor.blueColor,
-                                      ),
-                                    );
-                                  },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: CachedNetworkImage(
+                                    imageUrl: product.image,
+                                    cacheManager: DefaultCacheManager(),
+                                    placeholder: (context, imageUrl) {
+                                      return const Center(
+                                        child: SpinKitFadingCircle(
+                                          size: 20,
+                                          color: AppColor.blueColor,
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -153,7 +188,7 @@ class HomeTab extends GetView<HomeTabController> {
                                       product.name,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleLarge,
+                                          .titleMedium,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -162,7 +197,7 @@ class HomeTab extends GetView<HomeTabController> {
                                       'Price: ₹${product.price}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyMedium
+                                          .bodySmall
                                           ?.copyWith(color: AppColor.greyColor),
                                     ),
                                   ],

@@ -40,7 +40,7 @@ class CartTab extends GetView<CartTabController> {
               return CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    expandedHeight: 200,
+                    expandedHeight: 180,
                     pinned: true,
                     backgroundColor: isDarkTheme
                         ? Colors.black
@@ -61,8 +61,8 @@ class CartTab extends GetView<CartTabController> {
                               foregroundColor: MaterialStateProperty.all(
                                   AppColor.blackColor),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                  const Size(double.infinity, 40))),
-                          child: const Text('Proceed to Buy'),
+                                  const Size(double.infinity, 30))),
+                          child: const Text('Proceed to Buy', style: TextStyle(fontSize: 11),),
                         ),
                       ),
                       background: Column(
@@ -76,11 +76,22 @@ class CartTab extends GetView<CartTabController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    'Subtotal: ₹${subtotal.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'Subtotal: ₹',
+                                        style: TextStyle(
+                                          // fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                      ),
+                                      Text(
+                                        subtotal.toStringAsFixed(2),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -234,7 +245,7 @@ class CartTab extends GetView<CartTabController> {
                                                 productName,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .titleLarge,
+                                                    .titleMedium,
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -243,12 +254,12 @@ class CartTab extends GetView<CartTabController> {
                                                 'Price: ₹${productPrice.toStringAsFixed(2)}',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .bodyMedium
+                                                    .bodySmall
                                                     ?.copyWith(
                                                         color:
                                                             AppColor.greyColor),
                                               ),
-                                              const SizedBox(height: 61),
+                                              const SizedBox(height: 64),
                                               Row(
                                                 children: [
                                                   SizedBox(

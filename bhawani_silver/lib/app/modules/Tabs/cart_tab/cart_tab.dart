@@ -16,8 +16,6 @@ class CartTab extends GetView<CartTabController> {
   Widget build(BuildContext context) {
     bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor:
-          isDarkTheme ? AppColor.blackColor : AppColor.cardBackgroundColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
         builder: (context, cartSnapShot) {
@@ -42,9 +40,6 @@ class CartTab extends GetView<CartTabController> {
                   SliverAppBar(
                     expandedHeight: 200,
                     pinned: true,
-                    backgroundColor: isDarkTheme
-                        ? AppColor.blackColor
-                        : AppColor.blueGrey,
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true,
                       title: Padding(
@@ -171,7 +166,7 @@ class CartTab extends GetView<CartTabController> {
                                             Container(
                                               decoration: BoxDecoration(
                                                 border: Border.all(
-                                                  color: isDarkTheme ? AppColor.lightBlack : AppColor.cardBackgroundColor, // Set the border color here
+                                                  color: isDarkTheme ? AppColor.lightBlack : AppColor.backgroundColor, // Set the border color here
                                                   width: 1.0, // Set the border width here
                                                 ),
                                                 borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
@@ -196,7 +191,7 @@ class CartTab extends GetView<CartTabController> {
                                                       height: 30,
                                                       width: 40,
                                                       decoration: BoxDecoration(
-                                                        color: isDarkTheme ? AppColor.lightBlack : AppColor.cardBackgroundColor,
+                                                        color: isDarkTheme ? AppColor.lightBlack : AppColor.backgroundColor,
                                                         borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), bottomLeft: Radius.circular(5)) // Adjust the radius as needed
                                                       ),
                                                       child: quantity > 1
@@ -226,7 +221,7 @@ class CartTab extends GetView<CartTabController> {
                                                       height: 30,
                                                       width: 40,
                                                       decoration: BoxDecoration(
-                                                        color: isDarkTheme ? AppColor.lightBlack : AppColor.cardBackgroundColor,
+                                                        color: isDarkTheme ? AppColor.lightBlack : AppColor.backgroundColor,
                                                           borderRadius: const BorderRadius.only(topRight: Radius.circular(5), bottomRight: Radius.circular(5)) // Adjust the radius as needed
                                                       ),
                                                       child: const Icon(Icons.add),
@@ -276,7 +271,7 @@ class CartTab extends GetView<CartTabController> {
                                                         width: 40,
                                                         decoration: BoxDecoration(
                                                           border: Border.all(
-                                                            color: isDarkTheme ? AppColor.greyColor : AppColor.cardBackgroundColor, // Set the border color here
+                                                            color: isDarkTheme ? AppColor.greyColor : AppColor.backgroundColor, // Set the border color here
                                                             width: 1.0, // Set the border width here
                                                           ),
                                                           borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
@@ -299,7 +294,7 @@ class CartTab extends GetView<CartTabController> {
                                                         width: 40,
                                                         decoration: BoxDecoration(
                                                           border: Border.all(
-                                                            color: isDarkTheme ? AppColor.greyColor : AppColor.cardBackgroundColor, // Set the border color here
+                                                            color: isDarkTheme ? AppColor.greyColor : AppColor.backgroundColor, // Set the border color here
                                                             width: 1.0, // Set the border width here
                                                           ),
                                                           borderRadius: BorderRadius.circular(5), // Adjust the radius as needed

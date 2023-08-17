@@ -35,7 +35,7 @@ class OrderCardWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
             child: Container(
-              color: isDarkTheme ? AppColor.greyColor : AppColor.cardBackgroundColor,
+              color: isDarkTheme ? AppColor.greyColor : AppColor.backgroundColor,
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Row(
@@ -65,7 +65,7 @@ class OrderCardWidget extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: isDarkTheme ? AppColor.lightBlack : AppColor.whiteColor,
                             border: Border.all(
-                              color: isDarkTheme ? AppColor.lightBlack : AppColor.cardBackgroundColor, // Set the border color here
+                              color: isDarkTheme ? AppColor.lightBlack : AppColor.backgroundColor, // Set the border color here
                               width: 1.0, // Set the border width here
                             ),
                             borderRadius: BorderRadius.circular(5), // Adjust the radius as needed

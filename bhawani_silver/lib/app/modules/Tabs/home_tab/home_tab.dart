@@ -20,10 +20,7 @@ class HomeTab extends GetView<HomeTabController> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor:
-          isDarkTheme ? AppColor.blackColor : AppColor.cardBackgroundColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
         builder: (context, productSnapShot) {
@@ -54,7 +51,6 @@ class HomeTab extends GetView<HomeTabController> {
               slivers: [
                 SliverAppBar(
                   expandedHeight: 60,
-                  backgroundColor: isDarkTheme ? AppColor.blackColor : AppColor.blueGrey,
                   pinned: true,
                   title: InkWell(
                     onTap: () => showSearch(
@@ -134,6 +130,7 @@ class HomeTab extends GetView<HomeTabController> {
                                   return CachedNetworkImage(imageUrl: banner.url);
                                 }),
                               ),
+
                             ),
                           );
 

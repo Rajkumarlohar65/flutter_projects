@@ -13,8 +13,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
   Widget build(BuildContext context) {
     bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor:
-          isDarkTheme ? AppColor.blackColor : AppColor.whiteColor,
+    backgroundColor: isDarkTheme ? null : AppColor.whiteColor,
       body: CustomScrollView(
         slivers: [
           StreamBuilder<List<Map<String, dynamic>>>(
@@ -51,7 +50,6 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                 );
               } else {
                 return SliverAppBar(
-                  backgroundColor: isDarkTheme ? AppColor.blackColor : AppColor.blueGrey,
                   expandedHeight: 200,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(

@@ -1,7 +1,6 @@
+import 'package:BhawaniSilver/app/core/values/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../controllers/address_controller.dart';
 
 class AddressView extends GetView<AddressController> {
@@ -11,19 +10,12 @@ class AddressView extends GetView<AddressController> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      // appBar: AppBar(title: Text('Address Screen')),
+      appBar: AppBar(title: const Text("Enter Address", style: TextStyle(color: AppColor.whiteColor),),),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 200),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: screenHeight * 0.1),
-              child: Text(
-                "Enter Address",
-                style: GoogleFonts.alike(fontSize: 25),
-              ),
-            ),
             Form(
               key: controller.formKey,
               child: Container(
@@ -35,39 +27,41 @@ class AddressView extends GetView<AddressController> {
                   child: Column(
                     children: [
                       Padding(
-                          padding: EdgeInsets.only(bottom: screenHeight * 0.03),
-                          child: TextFormField(
-                            controller: controller.countryController,
-                            style: const TextStyle(
-                              fontSize: 20,
+                        padding: EdgeInsets.only(bottom: screenHeight * 0.03),
+                        child: DropdownButtonFormField<String>(
+                          value: controller.country, // Set the currently selected value
+                          onChanged: (newValue) {
+                            controller.country = newValue; // Update the selected value
+                          },
+                          decoration: const InputDecoration(
+                            labelText: "Country",
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Select a country"; // Update the validation message
+                            }
+                            return null;
+                          },
+                          items: ['India'] // Replace with your list of countries
+                              .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
                             ),
-                            decoration: const InputDecoration(
-                                labelText: "Country",
-                                labelStyle: TextStyle(fontSize: 15),
-                                contentPadding: EdgeInsets.zero),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Enter Country";
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.text,
-                            autofillHints: const [AutofillHints.countryName],
-                            onSaved: (value) {
-                              controller.country = value;
-                            },
-                          )),
+                          )
+                              .toList(),
+                        ),
+                      ),
+
                       Padding(
                           padding: EdgeInsets.only(bottom: screenHeight * 0.03),
                           child: TextFormField(
                             controller: controller.mobileNumberController,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                             decoration: const InputDecoration(
                               labelText: "Mobile Number",
-                              labelStyle: TextStyle(fontSize: 15),
-                              contentPadding: EdgeInsets.zero,
                             ),
                             keyboardType: TextInputType.phone, // Set keyboard type to allow only numeric input
                             autofillHints: const [AutofillHints.telephoneNumber],
@@ -91,12 +85,11 @@ class AddressView extends GetView<AddressController> {
                           child: TextFormField(
                             controller: controller.streetController,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                             decoration: const InputDecoration(
-                                labelText: "Street",
-                                labelStyle: TextStyle(fontSize: 15),
-                                contentPadding: EdgeInsets.zero),
+                              labelText: "Street",
+                            ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Enter Street";
@@ -114,12 +107,11 @@ class AddressView extends GetView<AddressController> {
                           child: TextFormField(
                             controller: controller.landmarkController,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                             decoration: const InputDecoration(
-                                labelText: "LandMark",
-                                labelStyle: TextStyle(fontSize: 15),
-                                contentPadding: EdgeInsets.zero),
+                              labelText: "LandMark",
+                            ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Enter Landmark";
@@ -137,12 +129,10 @@ class AddressView extends GetView<AddressController> {
                           child: TextFormField(
                             controller: controller.pincodeController,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                             decoration: const InputDecoration(
                               labelText: "Pincode",
-                              labelStyle: TextStyle(fontSize: 15),
-                              contentPadding: EdgeInsets.zero,
                             ),
                             keyboardType: TextInputType.number, // Set keyboard type to allow only numeric input
                             autofillHints: const [AutofillHints.postalCode],
@@ -166,17 +156,16 @@ class AddressView extends GetView<AddressController> {
                           child: TextFormField(
                             controller: controller.cityController,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                             decoration: const InputDecoration(
-                                labelText: "City",
-                                labelStyle: TextStyle(fontSize: 15),
-                                contentPadding: EdgeInsets.zero),
+                              labelText: "City/Town",
+                            ),
                             keyboardType: TextInputType.streetAddress,
                             autofillHints: const [AutofillHints.addressCity],
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Enter City";
+                                return "Enter City/Town";
                               }
                               return null;
                             },
@@ -186,36 +175,80 @@ class AddressView extends GetView<AddressController> {
                             },
                           )),
                       Padding(
-                          padding: EdgeInsets.only(bottom: screenHeight * 0.03),
-                          child: TextFormField(
-                            controller: controller.stateController,
-                            style: const TextStyle(
-                              fontSize: 20,
+                        padding: EdgeInsets.only(bottom: screenHeight * 0.03),
+                        child: DropdownButtonFormField<String>(
+                          value: controller.state, // Set the currently selected value
+                          onChanged: (newValue) {
+                            controller.state = newValue; // Update the selected value
+                          },
+                          decoration: const InputDecoration(
+                            labelText: "State",
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Select a state"; // Update the validation message
+                            }
+                            return null;
+                          },
+                          items: [
+                            'Andhra Pradesh',
+                            'Arunachal Pradesh',
+                            'Assam',
+                            'Bihar',
+                            'Chhattisgarh',
+                            'Goa',
+                            'Gujarat',
+                            'Haryana',
+                            'Himachal Pradesh',
+                            'Jharkhand',
+                            'Karnataka',
+                            'Kerala',
+                            'Madhya Pradesh',
+                            'Maharashtra',
+                            'Manipur',
+                            'Meghalaya',
+                            'Mizoram',
+                            'Nagaland',
+                            'Odisha',
+                            'Punjab',
+                            'Rajasthan',
+                            'Sikkim',
+                            'Tamil Nadu',
+                            'Telangana',
+                            'Tripura',
+                            'Uttar Pradesh',
+                            'Uttarakhand',
+                            'West Bengal',
+                            ] // Replace with your list of states
+                              .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
                             ),
-                            decoration: const InputDecoration(
-                                labelText: "State",
-                                labelStyle: TextStyle(fontSize: 15),
-                                contentPadding: EdgeInsets.zero),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Enter State";
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.streetAddress,
-                            autofillHints: const [AutofillHints.addressState],
-                            onSaved: (value) {
-                              controller.state = value;
-                            },
-                          )),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (controller.formKey.currentState!.validate()) {
-                            controller.formKey.currentState!.save();
-                            controller.saveAddress();
-                          }
-                        },
-                        child: const Text("Save Address"),
+                          )
+                              .toList(),
+                          menuMaxHeight: 500,
+                        ),
+                      ),
+
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (controller.formKey.currentState!.validate()) {
+                              controller.formKey.currentState!.save();
+                              controller.saveAddress();
+                            }
+                          },
+                          style: ButtonStyle(
+                              backgroundColor:
+                              MaterialStateProperty.all(AppColor.yellowColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  AppColor.blackColor),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                  const Size(double.infinity, 50))),
+                          child: const Text("Save Address"),
+                        ),
                       )
                     ],
                   )),

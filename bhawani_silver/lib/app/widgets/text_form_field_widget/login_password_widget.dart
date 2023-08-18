@@ -15,12 +15,9 @@ class LoginPasswordTextFormField extends StatelessWidget {
     return Obx(() {
       return TextFormField(
         controller: controller.passwordController,
-        style: const TextStyle(fontSize: 20),
         obscureText: obscureText.value,
         decoration: InputDecoration(
           labelText: AppString.loginPasswordHint,
-          labelStyle: const TextStyle(fontSize: 15),
-          contentPadding: EdgeInsets.zero,
           suffixIcon: IconButton(
               onPressed: () {
                 obscureText.toggle();

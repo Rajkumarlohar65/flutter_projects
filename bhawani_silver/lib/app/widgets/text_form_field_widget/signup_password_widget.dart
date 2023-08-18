@@ -24,8 +24,6 @@ class SignUpPasswordTextFormField extends StatelessWidget {
               },
               icon: Icon(
                   obscureText.value ? Icons.visibility_off : Icons.visibility)),
-          labelStyle: const TextStyle(fontSize: 15),
-          contentPadding: EdgeInsets.zero,
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {

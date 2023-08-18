@@ -14,7 +14,7 @@ class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
   @override
   Widget build(BuildContext context) {
     final newController = Get.find<CartTabController>();
-    final Product product = controller.product;
+    final Product product = controller.product as Product;
     final fireStoreServices = FireStoreServices();
 
     return Obx(

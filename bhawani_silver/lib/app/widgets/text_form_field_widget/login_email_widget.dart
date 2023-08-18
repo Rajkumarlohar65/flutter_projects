@@ -12,13 +12,9 @@ class LoginEmailTextFormField extends StatelessWidget {
     final controller = Get.find<LoginController>();
     return TextFormField(
       controller: controller.emailController,
-      style: const TextStyle(
-        fontSize: 20,
-      ),
       decoration: const InputDecoration(
           labelText: AppString.loginEmailHint,
-          labelStyle: TextStyle(fontSize: 15),
-          contentPadding: EdgeInsets.zero),
+      ),
       keyboardType: TextInputType.emailAddress,
       autofillHints: const [AutofillHints.email],
       validator: (value) {

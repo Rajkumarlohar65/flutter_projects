@@ -15,6 +15,15 @@ class AppTheme {
       // Scaffold Background Color
       scaffoldBackgroundColor: AppColor.backgroundColor, // Set scaffold background color
 
+      // Elevated Button Theme (Customize elevated button appearance)
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: AppColor.whiteColor, backgroundColor: AppColor.blueGrey, // Set the text color
+        ),
+      ),
+
+
+
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
           unselectedItemColor: Colors.black38,

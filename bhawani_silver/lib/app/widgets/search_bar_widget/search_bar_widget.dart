@@ -1,7 +1,6 @@
+import 'package:BhawaniSilver/app/widgets/search_bar_widget/my_search_delegate.dart';
 import 'package:flutter/material.dart';
-
-import '../core/values/app_color.dart';
-import '../modules/home/my_search_delegate.dart';
+import '../../core/values/app_color.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});

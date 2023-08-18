@@ -13,8 +13,6 @@ class SignUpEmailTextFormField extends StatelessWidget {
       controller: controller.emailController,
       decoration: const InputDecoration(
           labelText: AppString.signUpEmailHint,
-          labelStyle: TextStyle(fontSize: 15),
-          contentPadding: EdgeInsets.zero,
       ),
       keyboardType: TextInputType.emailAddress,
       autofillHints: const [AutofillHints.email],

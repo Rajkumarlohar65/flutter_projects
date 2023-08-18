@@ -13,8 +13,6 @@ class SignUpNameTextFormField extends StatelessWidget {
       controller: controller.nameController,
       decoration: const InputDecoration(
           labelText: AppString.signUpNameHint,
-          labelStyle: TextStyle(fontSize: 15),
-          contentPadding: EdgeInsets.zero,
       ),
       keyboardType: TextInputType.name,
       autofillHints: const [AutofillHints.name],

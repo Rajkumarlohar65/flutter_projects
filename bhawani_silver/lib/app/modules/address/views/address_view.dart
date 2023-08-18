@@ -1,4 +1,10 @@
 import 'package:BhawaniSilver/app/core/values/app_color.dart';
+import 'package:BhawaniSilver/app/widgets/button_widget/address_saveAddressButton_widget.dart';
+import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_city_widget.dart';
+import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_landmark_widget.dart';
+import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_mobileNumber_widget.dart';
+import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_pincode_widget.dart';
+import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_street_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/address_controller.dart';
@@ -10,7 +16,12 @@ class AddressView extends GetView<AddressController> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(title: const Text("Enter Address", style: TextStyle(color: AppColor.whiteColor),),),
+      appBar: AppBar(
+        title: const Text(
+          "Enter Address",
+          style: TextStyle(color: AppColor.whiteColor),
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 200),
         child: Column(
@@ -29,9 +40,11 @@ class AddressView extends GetView<AddressController> {
                       Padding(
                         padding: EdgeInsets.only(bottom: screenHeight * 0.03),
                         child: DropdownButtonFormField<String>(
-                          value: controller.country, // Set the currently selected value
+                          value: controller
+                              .country, // Set the currently selected value
                           onChanged: (newValue) {
-                            controller.country = newValue; // Update the selected value
+                            controller.country =
+                                newValue; // Update the selected value
                           },
                           decoration: const InputDecoration(
                             labelText: "Country",
@@ -42,144 +55,40 @@ class AddressView extends GetView<AddressController> {
                             }
                             return null;
                           },
-                          items: ['India'] // Replace with your list of countries
-                              .map<DropdownMenuItem<String>>(
-                                (String value) => DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            ),
-                          )
-                              .toList(),
+                          items:
+                              ['India'] // Replace with your list of countries
+                                  .map<DropdownMenuItem<String>>(
+                                    (String value) => DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    ),
+                                  )
+                                  .toList(),
                         ),
                       ),
-
                       Padding(
                           padding: EdgeInsets.only(bottom: screenHeight * 0.03),
-                          child: TextFormField(
-                            controller: controller.mobileNumberController,
-                            style: const TextStyle(
-                              fontSize: 15,
-                            ),
-                            decoration: const InputDecoration(
-                              labelText: "Mobile Number",
-                            ),
-                            keyboardType: TextInputType.phone, // Set keyboard type to allow only numeric input
-                            autofillHints: const [AutofillHints.telephoneNumber],
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Enter Mobile Number";
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              if (value != null && value.isNotEmpty) {
-                                controller.mobileNumber = int.parse(value);
-                              } else {
-                                controller.mobileNumber = 0; // Default value in case the input is empty
-                              }
-                            },
-                          )
-                      ),
+                          child: const AddressMobileNumberWidget()),
                       Padding(
                           padding: EdgeInsets.only(bottom: screenHeight * 0.03),
-                          child: TextFormField(
-                            controller: controller.streetController,
-                            style: const TextStyle(
-                              fontSize: 15,
-                            ),
-                            decoration: const InputDecoration(
-                              labelText: "Street",
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Enter Street";
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.streetAddress,
-                            autofillHints: const [AutofillHints.streetAddressLevel1],
-                            onSaved: (value) {
-                              controller.street = value;
-                            },
-                          )),
+                          child: const AddressStreetWidget()),
                       Padding(
                           padding: EdgeInsets.only(bottom: screenHeight * 0.03),
-                          child: TextFormField(
-                            controller: controller.landmarkController,
-                            style: const TextStyle(
-                              fontSize: 15,
-                            ),
-                            decoration: const InputDecoration(
-                              labelText: "LandMark",
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Enter Landmark";
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.streetAddress,
-                            autofillHints: const [AutofillHints.streetAddressLevel2],
-                            onSaved: (value) {
-                              controller.landmark = value;
-                            },
-                          )),
+                          child: const AddressLandmarkWidget()),
                       Padding(
                           padding: EdgeInsets.only(bottom: screenHeight * 0.03),
-                          child: TextFormField(
-                            controller: controller.pincodeController,
-                            style: const TextStyle(
-                              fontSize: 15,
-                            ),
-                            decoration: const InputDecoration(
-                              labelText: "Pincode",
-                            ),
-                            keyboardType: TextInputType.number, // Set keyboard type to allow only numeric input
-                            autofillHints: const [AutofillHints.postalCode],
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Enter Pin Code";
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              if (value != null && value.isNotEmpty) {
-                                controller.pinCode = int.parse(value);
-                              } else {
-                                controller.pinCode = 0; // Default value in case the input is empty
-                              }
-                            },
-                          )
-                      ),
+                          child: const AddressPincodeWidget()),
                       Padding(
                           padding: EdgeInsets.only(bottom: screenHeight * 0.03),
-                          child: TextFormField(
-                            controller: controller.cityController,
-                            style: const TextStyle(
-                              fontSize: 15,
-                            ),
-                            decoration: const InputDecoration(
-                              labelText: "City/Town",
-                            ),
-                            keyboardType: TextInputType.streetAddress,
-                            autofillHints: const [AutofillHints.addressCity],
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Enter City/Town";
-                              }
-                              return null;
-                            },
-
-                            onSaved: (value) {
-                              controller.city = value;
-                            },
-                          )),
+                          child: const AddressCityWidget()),
                       Padding(
                         padding: EdgeInsets.only(bottom: screenHeight * 0.03),
                         child: DropdownButtonFormField<String>(
-                          value: controller.state, // Set the currently selected value
+                          value: controller
+                              .state, // Set the currently selected value
                           onChanged: (newValue) {
-                            controller.state = newValue; // Update the selected value
+                            controller.state =
+                                newValue; // Update the selected value
                           },
                           decoration: const InputDecoration(
                             labelText: "State",
@@ -219,37 +128,18 @@ class AddressView extends GetView<AddressController> {
                             'Uttar Pradesh',
                             'Uttarakhand',
                             'West Bengal',
-                            ] // Replace with your list of states
+                          ] // Replace with your list of states
                               .map<DropdownMenuItem<String>>(
                                 (String value) => DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            ),
-                          )
+                                  value: value,
+                                  child: Text(value),
+                                ),
+                              )
                               .toList(),
                           menuMaxHeight: 500,
                         ),
                       ),
-
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (controller.formKey.currentState!.validate()) {
-                              controller.formKey.currentState!.save();
-                              controller.saveAddress();
-                            }
-                          },
-                          style: ButtonStyle(
-                              backgroundColor:
-                              MaterialStateProperty.all(AppColor.yellowColor),
-                              foregroundColor: MaterialStateProperty.all(
-                                  AppColor.blackColor),
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                  const Size(double.infinity, 50))),
-                          child: const Text("Save Address"),
-                        ),
-                      )
+                      const AddressSaveAddressButtonWidget()
                     ],
                   )),
             ),

@@ -1,8 +1,7 @@
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/proceed_to_buy_button_widget.dart';
 import 'package:BhawaniSilver/app/widgets/card_widget/cartCardWidget.dart';
-import 'package:BhawaniSilver/app/widgets/search_bar_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:BhawaniSilver/app/widgets/search_bar_widget/search_bar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -10,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../core/values/app_color.dart';
-import '../../../routes/app_pages.dart';
 
 class CartTab extends GetView<CartTabController> {
   const CartTab({Key? key}) : super(key: key);

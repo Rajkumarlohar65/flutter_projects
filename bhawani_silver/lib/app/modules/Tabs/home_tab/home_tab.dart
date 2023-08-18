@@ -1,7 +1,7 @@
 import 'package:BhawaniSilver/app/data/model/banner.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/home_tab/home_tab_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
-import 'package:BhawaniSilver/app/widgets/search_bar_widget.dart';
+import 'package:BhawaniSilver/app/widgets/search_bar_widget/search_bar_widget.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,9 +12,7 @@ import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../core/values/app_color.dart';
-import '../../../core/values/app_string.dart';
 import '../../../data/model/product.dart';
-import '../../home/my_search_delegate.dart';
 
 class HomeTab extends GetView<HomeTabController> {
   const HomeTab({super.key});

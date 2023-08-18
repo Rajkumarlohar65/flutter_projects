@@ -2,6 +2,7 @@
 
 class Address {
   String id;
+  String name;
   String street;
   String landmark;
   String city;
@@ -12,6 +13,7 @@ class Address {
 
   Address({
     required this.id,
+    required this.name,
     required this.street,
     required this.landmark,
     required this.city,

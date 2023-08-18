@@ -3,6 +3,7 @@ import 'package:BhawaniSilver/app/widgets/button_widget/address_saveAddressButto
 import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_city_widget.dart';
 import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_landmark_widget.dart';
 import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_mobileNumber_widget.dart';
+import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_name_widget.dart';
 import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_pincode_widget.dart';
 import 'package:BhawaniSilver/app/widgets/text_form_field_widget/address_street_widget.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,10 @@ class AddressView extends GetView<AddressController> {
                                   .toList(),
                         ),
                       ),
+
+                      Padding(
+                          padding: EdgeInsets.only(bottom: screenHeight * 0.03),
+                          child: const AddressNameWidget()),
                       Padding(
                           padding: EdgeInsets.only(bottom: screenHeight * 0.03),
                           child: const AddressMobileNumberWidget()),

@@ -10,6 +10,7 @@ class AddressController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   String? country;
+  String? name;
   int? mobileNumber;
   String? street;
   String? landmark;
@@ -20,6 +21,7 @@ class AddressController extends GetxController {
   RxBool isLoading = false.obs;
 
   final TextEditingController countryController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController streetController = TextEditingController();
   final TextEditingController landmarkController = TextEditingController();
@@ -34,7 +36,7 @@ class AddressController extends GetxController {
         .collection('users')
         .doc(uid)
         .collection('address')
-        .doc().set({'country': country, 'mobile number': mobileNumber, 'street': street, 'landmark': landmark, 'pincode': pinCode, 'city': city, 'state': state}
+        .doc().set({'country': country, 'name': name, 'mobile number': mobileNumber, 'street': street, 'landmark': landmark, 'pincode': pinCode, 'city': city, 'state': state}
     );
     Utils().showSuccessToast("Address Saved");
     Get.offNamed(Routes.SELECT_ADDRESS);

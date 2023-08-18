@@ -10,6 +10,8 @@ class SelectAddressController extends GetxController {
   final cartData = Get.arguments;
   List<Address> get addresses => _addresses;
 
+  final RxBool isLoading = true.obs; // Initialize with true
+
   @override
   void onInit() {
     super.onInit();
@@ -18,12 +20,14 @@ class SelectAddressController extends GetxController {
 
   void fetchAddresses() async {
     try {
+      isLoading(true); // Show loading indicator
       final uid = FirebaseAuth.instance.currentUser!.uid; // Replace with the actual user ID of the logged-in user
       final querySnapshot = await _firestore.collection('users').doc(uid).collection('address').get();
       final List<Address> fetchedAddresses = querySnapshot.docs.map((doc) {
         final data = doc.data();
         return Address(
           id: doc.id,
+          name: data['name'] ?? '',
           street: data['street'] ?? '',
           landmark: data['landmark'] ?? '',
           city: data['city'] ?? '',
@@ -37,6 +41,8 @@ class SelectAddressController extends GetxController {
     } catch (e) {
       // Handle any errors that occur during data fetching
       print('Error fetching addresses: $e');
+    } finally {
+      isLoading(false); // Hide loading indicator
     }
   }
 }

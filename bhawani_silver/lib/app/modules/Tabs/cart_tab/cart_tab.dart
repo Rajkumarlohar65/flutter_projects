@@ -64,7 +64,6 @@ class CartTab extends GetView<CartTabController> {
                                           style: TextStyle(
                                             // fontWeight: FontWeight.bold,
                                             fontSize: 18,
-                                            color: AppColor.blackColor,
                                           ),
                                         ),
                                         Text(
@@ -72,7 +71,6 @@ class CartTab extends GetView<CartTabController> {
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
-                                            color: AppColor.blackColor,
                                           ),
                                         ),
                                       ],

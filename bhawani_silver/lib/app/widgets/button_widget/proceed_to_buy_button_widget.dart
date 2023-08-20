@@ -12,25 +12,22 @@ class ProceedToBuyButtonWidget extends GetView<OverviewOfProductController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ElevatedButton(
-          onPressed: () {
-            Get.toNamed(Routes.SELECT_ADDRESS, arguments: cartDocs);
-          },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
-            foregroundColor: MaterialStateProperty.all(AppColor.blackColor),
-            minimumSize: MaterialStateProperty.all<Size>(
-              const Size(double.infinity, 40),
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: ElevatedButton(
+        onPressed: () {
+          Get.toNamed(Routes.SELECT_ADDRESS, arguments: cartDocs);
+        },
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
+          foregroundColor: MaterialStateProperty.all(AppColor.blackColor),
+          minimumSize: MaterialStateProperty.all<Size>(
+            const Size(double.infinity, 40),
           ),
-          child: const Text(
-            'Proceed to Buy',
-            style: TextStyle(fontSize: 18),
-          ),
+        ),
+        child: const Text(
+          'Proceed to Buy',
+          style: TextStyle(fontSize: 18),
         ),
       ),
     );

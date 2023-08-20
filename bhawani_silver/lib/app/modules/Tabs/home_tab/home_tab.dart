@@ -49,10 +49,7 @@ class HomeTab extends GetView<HomeTabController> {
             return CustomScrollView(
               slivers: [
                 const SliverAppBar(
-                  expandedHeight: 60,
-                  pinned: true,
-                  title: SearchBarWidget()
-                ),
+                    expandedHeight: 60, pinned: true, title: SearchBarWidget()),
                 SliverToBoxAdapter(
                   child: StreamBuilder<QuerySnapshot>(
                       stream: controller.bannerStream,
@@ -64,8 +61,7 @@ class HomeTab extends GetView<HomeTabController> {
                           );
                         } else if (bannerSnapShot.hasError) {
                           return Center(
-                            child:
-                            Text('Error: ${bannerSnapShot.error}'),
+                            child: Text('Error: ${bannerSnapShot.error}'),
                           );
                         } else if (!bannerSnapShot.hasData) {
                           return const Center(
@@ -93,22 +89,50 @@ class HomeTab extends GetView<HomeTabController> {
                                   viewportFraction: 1,
                                   aspectRatio: 1,
                                   initialPage: controller.currentIndex.value,
-                                  enableInfiniteScroll: true, // Set whether to enable infinite scroll
-                                  autoPlay: true, // Set whether to enable auto-play
-                                  autoPlayInterval: const Duration(seconds: 5), // Set the auto-play interval
+                                  enableInfiniteScroll: true,
+                                  autoPlay: true,
+                                  autoPlayInterval: const Duration(seconds: 5),
                                   onPageChanged: (index, reason) {
                                     controller.updateCurrentIndex(index);
                                   },
                                 ),
                                 items: List.generate(banners.length, (index) {
                                   final banner = banners[index];
-                                  return CachedNetworkImage(imageUrl: banner.url);
+                                  return Stack(children: [
+                                    CachedNetworkImage(imageUrl: banner.url),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.only(top: 200),
+                                      child: Obx(() => Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: List.generate(
+                                            banners.length,
+                                                (index) {
+                                              return Container(
+                                                width: 8,
+                                                height: 8,
+                                                margin:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 4),
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: index ==
+                                                      controller
+                                                          .currentIndex
+                                                          .value
+                                                      ? AppColor.whiteColor
+                                                      : AppColor.greyColor,
+                                                ),
+                                              );
+                                            }),
+                                      ),)
+                                    )
+                                  ]);
                                 }),
                               ),
-
                             ),
                           );
-
                         }
                       }),
                 ),
@@ -148,7 +172,8 @@ class HomeTab extends GetView<HomeTabController> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

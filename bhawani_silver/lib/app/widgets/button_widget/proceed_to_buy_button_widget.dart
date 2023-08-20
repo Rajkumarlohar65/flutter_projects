@@ -5,13 +5,14 @@ import '../../core/values/app_color.dart';
 import '../../modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import '../../routes/app_pages.dart';
 
-class ProceedToBuyButtonWidget extends GetView<OverviewOfProductController> {
+class ProceedToBuyButtonWidget extends StatelessWidget {
   final List<QueryDocumentSnapshot> cartDocs;
 
   const ProceedToBuyButtonWidget(this.cartDocs, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(10),
       child: ElevatedButton(

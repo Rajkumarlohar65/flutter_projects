@@ -21,7 +21,10 @@ class PaymentController extends GetxController {
   // Retrieve the selected address data passed from the SelectAddressView
   Ad.Address selectedAddress = Get.arguments as Ad.Address;
 
-  final myController = Get.find<OverviewOfProductController>();
+  // final myController = Get.find<OverviewOfProductController>();
+  final myController = Get.isRegistered<OverviewOfProductController>()
+      ? Get.find<OverviewOfProductController>()
+      : null;
 
   Future<void> makePayment() async {
     try {
@@ -59,7 +62,7 @@ class PaymentController extends GetxController {
   }
 
   createPaymentIntent() async {
-    int? totalAmount = (myController.product.price - discount).toInt();
+    int? totalAmount = myController != null ? (myController!.product.price - discount).toInt() : (ctc.cartSubtotal - discount).toInt();
     try {
       Map<String, dynamic> body = {
         'amount': (totalAmount * 100).toString(),
@@ -96,8 +99,8 @@ class PaymentController extends GetxController {
       },
       'productDetails': myController != null
           ? {
-              'name': myController.product.name,
-              'price': myController.product.price,
+              'name': myController?.product.name,
+              'price': myController?.product.price,
             }
           : {
               'name':

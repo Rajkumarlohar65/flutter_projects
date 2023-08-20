@@ -171,12 +171,14 @@ class PaymentView extends GetView<PaymentController> {
           height: 65, // Adjust the height as needed
           padding: const EdgeInsets.all(16.0),
           child: Obx(() {
-            return controller.isLoading.value
+            return
+              controller.isLoading.value
                 ? const SpinKitThreeBounce(
                     size: 20,
                     color: AppColor.blueColor,
                   )
-                : ElevatedButton(
+                :
+              ElevatedButton(
                     onPressed: () async {
                       try {
                         controller.isLoading.value = true;

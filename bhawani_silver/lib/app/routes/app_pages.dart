@@ -97,5 +97,5 @@ class AppPages {
       page: () => const PaymentConfirmationView(),
       binding: PaymentConfirmationBinding(),
     ),
-  ];
+    ];
 }

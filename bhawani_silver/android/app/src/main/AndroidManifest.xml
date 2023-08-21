@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bhawani.bhawani_silver">
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
    <application
         android:label="BhawaniSilver"
         android:name="${applicationName}"

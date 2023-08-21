@@ -1,3 +1,4 @@
+import 'package:BhawaniSilver/app/widgets/search_bar_widget/voice_search.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,10 @@ import '../../data/model/product.dart';
 import '../../routes/app_pages.dart';
 
 class MySearchDelegate extends SearchDelegate {
+  final VoiceSearchController voiceSearchController = VoiceSearchController();
+
   final CollectionReference productsCollection =
-  FirebaseFirestore.instance.collection('products');
+      FirebaseFirestore.instance.collection('products');
 
   Future<QuerySnapshot> getProducts() async {
     return productsCollection.get();
@@ -48,7 +51,33 @@ class MySearchDelegate extends SearchDelegate {
             query = '';
           }
         },
-      )
+      ),
+      Visibility(
+        visible: query.isEmpty,
+        child: IconButton(
+          onPressed: () {
+            voiceSearchController.startListening((String result) {
+              query = result;
+              showResults(context);
+            });
+          },
+          icon: Obx(() {
+            return voiceSearchController.isListening.value
+                ? InkWell(
+                    onTap: voiceSearchController.stopListening,
+                    child: Lottie.asset(
+                        'assets/animations/mic.json', // Replace this with your Lottie animation file path
+                        width:
+                            500, // Set the width and height of the animation as per your preference
+                        height: 500,
+                        reverse: true),
+                  )
+                : const Icon(
+                    Icons.mic,
+                  );
+          }),
+        ),
+      ),
     ];
   }
 
@@ -72,9 +101,9 @@ class MySearchDelegate extends SearchDelegate {
         final List suggestions = query.isEmpty
             ? recentSearches
             : products
-            .where((product) =>
-            product.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+                .where((product) =>
+                    product.toLowerCase().contains(query.toLowerCase()))
+                .toList();
 
         return ListView.builder(
           itemCount: suggestions.length,
@@ -95,6 +124,7 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    voiceSearchController.isListening.value = false;
     if (query.isEmpty) {
       return ListView.builder(
         itemCount: recentSearches.length,
@@ -124,17 +154,17 @@ class MySearchDelegate extends SearchDelegate {
 
         final productDocs = productSnapShot.data!.docs;
         final products =
-        productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
+            productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
 
         if (products.isEmpty) {
           // Display a message when no products are found
           return Center(
             child: Lottie.asset(
-              'assets/animations/not_found.json', // Replace this with your Lottie animation file path
-              width:  250, // Set the width and height of the animation as per your preference
-              height: 250,
-              reverse: true
-              ),
+                'assets/animations/not_found.json', // Replace this with your Lottie animation file path
+                width:
+                    250, // Set the width and height of the animation as per your preference
+                height: 250,
+                reverse: true),
           );
         }
 
@@ -200,8 +230,7 @@ class MySearchDelegate extends SearchDelegate {
             );
           },
         );
-
-          },
+      },
     );
   }
 

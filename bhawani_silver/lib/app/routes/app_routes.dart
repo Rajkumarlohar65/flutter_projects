@@ -16,6 +16,7 @@ abstract class Routes {
   static const PAYMENT = _Paths.PAYMENT;
   static const SELECT_ADDRESS = _Paths.SELECT_ADDRESS;
   static const PAYMENT_CONFIRMATION = _Paths.PAYMENT_CONFIRMATION;
+  static const SPEECH_TO_TEXT = _Paths.SPEECH_TO_TEXT;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const PAYMENT = '/payment';
   static const SELECT_ADDRESS = '/select-address';
   static const PAYMENT_CONFIRMATION = '/payment-confirmation';
+  static const SPEECH_TO_TEXT = '/speech-to-text';
 }

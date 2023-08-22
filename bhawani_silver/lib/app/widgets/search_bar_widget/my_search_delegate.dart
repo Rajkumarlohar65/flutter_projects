@@ -1,3 +1,4 @@
+import 'package:BhawaniSilver/app/widgets/cache_networkImage_widget.dart';
 import 'package:BhawaniSilver/app/widgets/search_bar_widget/voice_search.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -187,16 +188,9 @@ class MySearchDelegate extends SearchDelegate {
                           aspectRatio: 1,
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 5),
-                            child: CachedNetworkImage(
+                            child: CachedNetworkImageWidget(
                               imageUrl: product.image,
-                              cacheManager: DefaultCacheManager(),
-                              placeholder: (context, imageUrl) {
-                                return const SpinKitFadingCircle(
-                                  size: 20,
-                                  color: AppColor.blueColor,
-                                );
-                              },
-                            ),
+                            )
                           ),
                         ),
                       ),

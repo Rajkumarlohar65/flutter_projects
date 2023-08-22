@@ -1,7 +1,6 @@
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:BhawaniSilver/app/widgets/cache_networkImage_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -41,18 +40,9 @@ class CartCardWidget extends StatelessWidget {
                 SizedBox(
                   width: 100,
                   height: 100,
-                  child: CachedNetworkImage(
+                  child: CachedNetworkImageWidget(
                     imageUrl: productImageUrl,
-                    fit: BoxFit.cover,
-                    placeholder: (context, imageUrl) {
-                      return const Center(
-                        child: SpinKitFadingCircle(
-                          size: 20,
-                          color: AppColor.blueColor,
-                        ),
-                      );
-                    },
-                  ),
+                  )
                 ),
                 const SizedBox(height: 8),
                 Container(

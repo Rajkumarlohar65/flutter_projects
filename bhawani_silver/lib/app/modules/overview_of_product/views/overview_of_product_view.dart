@@ -1,6 +1,7 @@
 import 'package:BhawaniSilver/app/core/values/app_color.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/add_to_cart_button_widget.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/buy_now_button_widget.dart';
+import 'package:BhawaniSilver/app/widgets/cache_networkImage_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Padding(
                       padding: const EdgeInsets.only(bottom: 5, top: 80),
-                      child: CachedNetworkImage(imageUrl: product.image),
+                      child: CachedNetworkImageWidget(imageUrl: product.image),
                     ),
                   ),
                 ),

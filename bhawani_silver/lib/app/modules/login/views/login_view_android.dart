@@ -3,7 +3,6 @@ import 'package:BhawaniSilver/app/widgets/button_widget/login_forget_password_bu
 import 'package:BhawaniSilver/app/widgets/button_widget/navigate_login_to_signup_button.dart';
 import 'package:BhawaniSilver/app/widgets/text_form_field_widget/login_email_widget.dart';
 import 'package:BhawaniSilver/app/widgets/text_form_field_widget/login_password_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,31 +53,25 @@ class LoginViewAndroid extends GetView<LoginController> {
           ],
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: screenHeight * 0.05,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                child: const LoginButtonWidget(),
-              ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: screenHeight * 0.05,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+              child: const LoginButtonWidget(),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(AppString.loginNewUserText),
-                  NavigateLoginToSignUpButton(),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(AppString.loginNewUserText),
+              NavigateLoginToSignUpButton(),
+            ],
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

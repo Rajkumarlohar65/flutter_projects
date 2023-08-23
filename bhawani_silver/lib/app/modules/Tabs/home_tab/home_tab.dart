@@ -7,6 +7,7 @@ import 'package:BhawaniSilver/app/widgets/shimmer_placeHolder_widget.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,12 @@ class HomeTab extends GetView<HomeTabController> {
 
   @override
   Widget build(BuildContext context) {
+    double carouselAspectRatio = kIsWeb ? 1.8 : 1.0;
+    double carouselViewportFraction = kIsWeb ? 0.6 : 1.0;
+
+    const int cardAxisCount = kIsWeb ? 4 : 2; // Adjust as needed
+    const double cardAspectRatio = kIsWeb ? 1.2 : 0.90; // Adjust as needed
+    const double imageAspectRatio = kIsWeb ? 1.5 : 1.2;// Adjust as needed
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
@@ -79,56 +86,59 @@ class HomeTab extends GetView<HomeTabController> {
                             padding: const EdgeInsets.only(top: 0),
                             child: SizedBox(
                               height: 216,
-                              child: CarouselSlider(
-                                options: CarouselOptions(
-                                  viewportFraction: 1,
-                                  aspectRatio: 1,
-                                  initialPage: controller.currentIndex.value,
-                                  enableInfiniteScroll: true,
-                                  autoPlay: true,
-                                  autoPlayInterval: const Duration(seconds: 5),
-                                  onPageChanged: (index, reason) {
-                                    controller.updateCurrentIndex(index);
-                                  },
+                              child: Flexible(
+                                child: CarouselSlider(
+                                  options: CarouselOptions(
+                                    viewportFraction: carouselViewportFraction,
+                                    aspectRatio: carouselAspectRatio,
+                                    initialPage: controller.currentIndex.value,
+                                    enableInfiniteScroll: true,
+                                    autoPlay: true,
+                                    autoPlayInterval: const Duration(seconds: 5),
+                                    onPageChanged: (index, reason) {
+                                      controller.updateCurrentIndex(index);
+                                    },
+                                  ),
+                                  items: List.generate(banners.length, (index) {
+                                    final banner = banners[index];
+                                    return Stack(children: [
+                                      SizedBox(
+                                        width: double.infinity,
+                                          height: double.infinity,
+                                          child: CachedNetworkImageWidget(
+                                            imageUrl: banner.url,
+                                          )),
+                                      Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 200),
+                                          child: Obx(
+                                            () => Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: List.generate(
+                                                  banners.length, (index) {
+                                                return Container(
+                                                  width: 8,
+                                                  height: 8,
+                                                  margin:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 4),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: index ==
+                                                            controller
+                                                                .currentIndex
+                                                                .value
+                                                        ? AppColor.whiteColor
+                                                        : AppColor.greyColor,
+                                                  ),
+                                                );
+                                              }),
+                                            ),
+                                          ))
+                                    ]);
+                                  }),
                                 ),
-                                items: List.generate(banners.length, (index) {
-                                  final banner = banners[index];
-                                  return Stack(children: [
-                                    SizedBox(
-                                        height: 216,
-                                        child: CachedNetworkImageWidget(
-                                          imageUrl: banner.url,
-                                        )),
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 200),
-                                        child: Obx(
-                                          () => Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: List.generate(
-                                                banners.length, (index) {
-                                              return Container(
-                                                width: 8,
-                                                height: 8,
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 4),
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: index ==
-                                                          controller
-                                                              .currentIndex
-                                                              .value
-                                                      ? AppColor.whiteColor
-                                                      : AppColor.greyColor,
-                                                ),
-                                              );
-                                            }),
-                                          ),
-                                        ))
-                                  ]);
-                                }),
                               ),
                             ),
                           );
@@ -138,8 +148,8 @@ class HomeTab extends GetView<HomeTabController> {
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
                   sliver: SliverGrid.count(
-                    crossAxisCount: 2, // Number of columns in the grid
-                    childAspectRatio: 0.90, // Aspect ratio of each card
+                    crossAxisCount: cardAxisCount,
+                    childAspectRatio: cardAspectRatio,
                     children: List.generate(products.length, (index) {
                       final product = products[index];
                       return InkWell(
@@ -152,13 +162,15 @@ class HomeTab extends GetView<HomeTabController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AspectRatio(
-                                aspectRatio: 1.2,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: CachedNetworkImageWidget(
-                                      imageUrl: product.image,
-                                    )),
+                              Flexible(
+                                child: AspectRatio(
+                                  aspectRatio: imageAspectRatio,
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(12),
+                                      child: CachedNetworkImageWidget(
+                                        imageUrl: product.image,
+                                      )),
+                                ),
                               ),
                               Padding(
                                   padding: const EdgeInsets.symmetric(

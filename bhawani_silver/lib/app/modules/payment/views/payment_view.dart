@@ -16,7 +16,7 @@ class PaymentView extends GetView<PaymentController> {
 
   @override
   Widget build(BuildContext context) {
-    final ctc = Get.find<CartTabController>();
+    CartTabController ctc = Get.put(CartTabController());
     // Retrieve the selected address data passed from the SelectAddressView
     Address selectedAddress = Get.arguments as Address;
     // Check if OverviewOfProductController is available and has a product

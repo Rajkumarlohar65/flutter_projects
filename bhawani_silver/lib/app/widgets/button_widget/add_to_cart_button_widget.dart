@@ -13,7 +13,7 @@ class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
 
   @override
   Widget build(BuildContext context) {
-    final newController = Get.find<CartTabController>();
+    final newController = Get.put(CartTabController());
     final Product product = controller.product as Product;
     final fireStoreServices = FireStoreServices();
 
@@ -35,6 +35,7 @@ class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
                     final productExists = await fireStoreServices
                         .isProductInCart(product.productId);
                     if (!productExists) {
+                      CartTabController controller = Get.put(CartTabController());
                       await FireStoreServices.addToCart(product.productId, 1);
                       Utils().showSuccessToast('${product.name} added to cart');
                       newController.calculateCartSubtotal();

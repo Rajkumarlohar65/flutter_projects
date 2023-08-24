@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:BhawaniSilver/app/core/theme/app_theme.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/account_tab/account_tab_controller.dart';
+import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,6 @@ Future<void> main() async{
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
-
 
   runApp(
     GetMaterialApp(

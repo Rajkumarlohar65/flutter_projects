@@ -1,4 +1,6 @@
+import 'package:BhawaniSilver/app/data/firebase/Authentication/authentication_helper.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
+import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/proceed_to_buy_button_widget.dart';
 import 'package:BhawaniSilver/app/widgets/card_widget/cartCardWidget.dart';
 import 'package:BhawaniSilver/app/widgets/search_bar_widget/search_bar_widget.dart';
@@ -15,6 +17,49 @@ class CartTab extends GetView<CartTabController> {
 
   @override
   Widget build(BuildContext context) {
+    if (!AuthenticationHelper().isUserLoggedIN()) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset(
+              'assets/animations/empty_cart.json', // Replace this with your Lottie animation file path
+              width:
+              300, // Set the width and height of the animation as per your preference
+              height: 300,
+              reverse: true),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.offAllNamed(Routes.LOGIN);
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
+                        foregroundColor: MaterialStateProperty.all(Colors.black), // You can adjust the text color
+                      ),
+                      child: const Text('Login to your account'),
+                    )
+
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      Get.offAllNamed(Routes.SIGNUP);
+                    },
+                    child: const Text('Sign up now'),
+                  )
+
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,

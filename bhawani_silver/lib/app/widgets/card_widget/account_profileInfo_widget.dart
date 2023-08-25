@@ -1,14 +1,15 @@
 import 'package:BhawaniSilver/app/data/model/userModel.dart';
+import 'package:BhawaniSilver/app/modules/Tabs/account_tab/account_tab_controller.dart';
 import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AccountProfileInfoWidget extends StatelessWidget{
   const AccountProfileInfoWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    AccountTabController controller = Get.find<AccountTabController>();
+    return Obx(() => controller.isUserLoggedIn.value ? InkWell(
       onTap: () => Get.toNamed(Routes.PROFILE_INFO),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -31,7 +32,7 @@ class AccountProfileInfoWidget extends StatelessWidget{
                       style:
                       Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18)),
                   Text(
-                    '${UserModel.email}',
+                    '${UserModel.email ?? ''}',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
@@ -40,7 +41,7 @@ class AccountProfileInfoWidget extends StatelessWidget{
           ),
         ),
       ),
-    );
+    ) : SizedBox());
   }
 
 }

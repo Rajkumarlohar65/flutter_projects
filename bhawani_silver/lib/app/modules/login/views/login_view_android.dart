@@ -1,3 +1,4 @@
+import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/login_button_widget.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/login_forget_password_button.dart';
 import 'package:BhawaniSilver/app/widgets/button_widget/navigate_login_to_signup_button.dart';
@@ -64,11 +65,23 @@ class LoginViewAndroid extends GetView<LoginController> {
               child: const LoginButtonWidget(),
             ),
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(AppString.loginNewUserText),
-              NavigateLoginToSignUpButton(),
+              const Text(AppString.loginNewUserText),
+              const NavigateLoginToSignUpButton(),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // Handle the skip action
+                    // For example, navigate to the main content screen
+                    Get.offNamed(Routes.HOME); // Change to your route name
+                  },
+                  child: const Text("Skip"),
+                ),
+              ),
             ],
           ),
         ],

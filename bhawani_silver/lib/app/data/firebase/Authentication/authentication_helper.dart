@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:BhawaniSilver/app/data/firebase/firestore/firestore_services.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AuthenticationHelper {
   FirebaseAuth auth = FirebaseAuth.instance;

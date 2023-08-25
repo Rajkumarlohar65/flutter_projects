@@ -10,13 +10,17 @@ class CartTabController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    productStream = FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('cart')
-        .snapshots();
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      uid = currentUser.uid;
+      productStream = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('cart')
+          .snapshots();
 
-    await calculateCartSubtotal();
+      await calculateCartSubtotal();
+    }
 
     super.onInit();
   }

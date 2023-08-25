@@ -1,13 +1,22 @@
+import 'package:BhawaniSilver/app/data/firebase/Authentication/authentication_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AccountTabController extends GetxController {
+  RxBool isUserLoggedIn = false.obs;
   Rx<ThemeMode> themeMode = ThemeMode.light.obs;
+
+  void checkCurrentUser() {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    isUserLoggedIn.value = currentUser != null;
+  }
 
   @override
   void onInit() {
     super.onInit();
+    checkCurrentUser();
     selectedThemeValue();
   }
 

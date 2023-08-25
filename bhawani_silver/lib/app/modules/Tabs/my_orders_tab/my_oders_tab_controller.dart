@@ -7,13 +7,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class MyOrdersTabController extends GetxController {
   // Stream to listen for real-time changes in orders
   Stream<List<Map<String, dynamic>>> getOrderStream() {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('orders')
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((document) => document.data()).toList());
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('orders')
+          .snapshots()
+          .map((snapshot) =>
+          snapshot.docs.map((document) => document.data()).toList());
+    } else {
+      // Return an empty stream if the user is not logged in
+      return Stream.value([]);
+    }
   }
 
   void deleteOrder(String orderId) {
@@ -34,32 +40,5 @@ class MyOrdersTabController extends GetxController {
       print('Error deleting order: $error');
     });
   }
-
-  // void showCancelConfirmationDialog(BuildContext context, VoidCallback onDelete) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         title: const Text("Cancel Order"),
-  //         content: const Text("Are you sure you want to cancel this order?"),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop(); // Close the dialog
-  //             },
-  //             child: const Text("No"),
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               onDelete(); // Call the delete function when confirmed
-  //               Navigator.of(context).pop(); // Close the dialog
-  //             },
-  //             child: const Text("Yes"),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
 }

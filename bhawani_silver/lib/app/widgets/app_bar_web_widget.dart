@@ -2,8 +2,6 @@ import 'package:BhawaniSilver/app/core/values/app_color.dart';
 import 'package:BhawaniSilver/app/core/values/app_string.dart';
 import 'package:BhawaniSilver/app/widgets/search_bar_widget/my_search_delegate.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class AppBarWebWidget extends StatelessWidget {
   final Function(int) onTabSelected;  // Callback function to update tab index

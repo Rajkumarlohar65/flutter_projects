@@ -15,6 +15,6 @@ class SelectAddressView extends GetView<SelectAddressController> {
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? const SelectAddressViewWeb() : const SelectAddressViewAndroid();
+    return const SelectAddressViewAndroid();
   }
 }

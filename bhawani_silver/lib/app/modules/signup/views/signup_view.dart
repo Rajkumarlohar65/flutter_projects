@@ -18,6 +18,6 @@ class SignupView extends GetView<SignupController> {
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? const SignupViewWeb() : const SignupViewAndroid();
+    return const SignupViewAndroid();
   }
 }

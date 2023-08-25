@@ -9,6 +9,6 @@ class AddressView extends GetView<AddressController> {
   const AddressView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? const AddressViewWeb() : const AddressViewAndroid();
+    return const AddressViewAndroid();
   }
 }

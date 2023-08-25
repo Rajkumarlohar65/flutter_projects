@@ -11,6 +11,6 @@ class HomeTab extends GetView<HomeTabController> {
   @override
   Widget build(BuildContext context) {
 
-    return kIsWeb ? const HomeTabWeb() : const HomeTabAndroid();
+    return const HomeTabAndroid();
   }
 }

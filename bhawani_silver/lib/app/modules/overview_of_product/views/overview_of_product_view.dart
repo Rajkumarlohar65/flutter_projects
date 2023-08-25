@@ -11,6 +11,6 @@ class OverviewOfProductView extends GetView<OverviewOfProductController> {
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? const OverviewOfProductViewWeb() : const OverviewOfProductViewAndroid();
+    return const OverviewOfProductViewAndroid();
   }
 }

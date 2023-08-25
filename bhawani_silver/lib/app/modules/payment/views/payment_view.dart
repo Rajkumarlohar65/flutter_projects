@@ -1,11 +1,14 @@
+import 'package:BhawaniSilver/app/core/utils/utils.dart';
 import 'package:BhawaniSilver/app/core/values/app_color.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import 'package:BhawaniSilver/app/modules/select_address/controllers/select_address_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../data/model/address.dart';
 import '../controllers/payment_controller.dart';
@@ -180,9 +183,14 @@ class PaymentView extends GetView<PaymentController> {
                 :
               ElevatedButton(
                     onPressed: () async {
-                      try {
-                        controller.isLoading.value = true;
-                        await controller.makePayment();
+                      try{
+                        if (kIsWeb) {
+                          // Show a toast notification only on web
+                          Utils().showErrorSnackBar("Error", "payment currently not accepted in website");
+                        }else{
+                          controller.isLoading.value = true;
+                          await controller.makePayment();
+                        }
                       } catch (error) {
                         // Handle errors during payment or Firestore operations
                         print(

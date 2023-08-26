@@ -4,6 +4,7 @@ import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:BhawaniSilver/app/widgets/cache_networkImage_widget.dart';
 import 'package:BhawaniSilver/app/widgets/search_bar_widget/search_bar_widget.dart';
 import 'package:BhawaniSilver/app/widgets/shimmer_placeHolder_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,7 +25,7 @@ class HomeTabAndroid extends GetView<HomeTabController> {
 
     const int cardAxisCount = kIsWeb ? 4 : 2; // Adjust as needed
     const double cardAspectRatio = kIsWeb ? 1.2 : 0.90; // Adjust as needed
-    const double imageAspectRatio = kIsWeb ? 1.5 : 1.2;// Adjust as needed
+    const double imageAspectRatio = kIsWeb ? 1.5 : 1.2; // Adjust as needed
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,
@@ -41,7 +42,7 @@ class HomeTabAndroid extends GetView<HomeTabController> {
           } else {
             final productDocs = productSnapShot.data!.docs;
             final products =
-            productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
+                productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
 
             // Make sure there are products available before using them
             if (products.isEmpty) {
@@ -85,7 +86,7 @@ class HomeTabAndroid extends GetView<HomeTabController> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 0),
                             child: SizedBox(
-                              height: 216,
+                              height: kIsWeb ? 300 : 216,
                               child: CarouselSlider(
                                 options: CarouselOptions(
                                   viewportFraction: carouselViewportFraction,
@@ -108,26 +109,26 @@ class HomeTabAndroid extends GetView<HomeTabController> {
                                           imageUrl: banner.url,
                                         )),
                                     Padding(
-                                        padding:
-                                        const EdgeInsets.only(top: 200),
+                                        padding: const EdgeInsets.only(
+                                            top: kIsWeb ? 300 : 200),
                                         child: Obx(
-                                              () => Row(
+                                          () => Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: List.generate(
                                                 banners.length, (index) {
                                               return Container(
                                                 width: 8,
                                                 height: 8,
                                                 margin:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 4),
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 4),
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   color: index ==
-                                                      controller
-                                                          .currentIndex
-                                                          .value
+                                                          controller
+                                                              .currentIndex
+                                                              .value
                                                       ? AppColor.whiteColor
                                                       : AppColor.greyColor,
                                                 ),
@@ -160,37 +161,39 @@ class HomeTabAndroid extends GetView<HomeTabController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AspectRatio(
-                                aspectRatio: imageAspectRatio,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: CachedNetworkImageWidget(
-                                      imageUrl: product.image,
-                                    )),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10, right: 10, left: 10),
+                                child: Center(
+                                  child: SizedBox(
+                                      height: 150,
+                                      width: 150,
+                                      child: CachedNetworkImageWidget(
+                                        imageUrl: product.image,
+                                      )),
+                                ),
+                              ),
+                              const Spacer(),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Text(
+                                  product.name,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0),
-                                child:  Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      product.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      'Price: ₹${product.price}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(color: AppColor.greyColor),
-                                    ),
-                                  ],
+                                padding: const EdgeInsets.only(
+                                    top: 4, right: 8, left: 8, bottom: 4),
+                                child: Text(
+                                  'Price: ₹${product.price}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: AppColor.greyColor),
                                 ),
                               ),
                             ],

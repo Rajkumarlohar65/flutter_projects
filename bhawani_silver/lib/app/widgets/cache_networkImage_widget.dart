@@ -14,6 +14,7 @@ class CachedNetworkImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
+      fit: BoxFit.fill,
       placeholder: (context, imageUrl) {
         return const ShimmerPlaceholderWidget(width: double.infinity, height: double.infinity);
       },

@@ -27,9 +27,15 @@ class OverviewOfProductViewAndroid
                   expandedHeight: 400,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Padding(
-                      padding: const EdgeInsets.only(bottom: 5, top: 80),
-                      child: CachedNetworkImageWidget(imageUrl: product.image),
+                    background: Column(
+                      children: [
+                        const SizedBox( height: 100,),
+                        SizedBox(
+                          width: 300,
+                            height: 300,
+                            child: CachedNetworkImageWidget(imageUrl: product.image)
+                        ),
+                      ],
                     ),
                   ),
                 ),

@@ -21,7 +21,7 @@ class BuyNowButtonWidget extends StatelessWidget {
                 const Size(double.infinity, 50))),
         onPressed: () {
           if (!AuthenticationHelper().isUserLoggedIN()) {
-            Get.offAllNamed(Routes.LOGIN);
+            Get.toNamed(Routes.LOGIN);
           } else {
             Get.toNamed(Routes.SELECT_ADDRESS, arguments: controller.product);
           }

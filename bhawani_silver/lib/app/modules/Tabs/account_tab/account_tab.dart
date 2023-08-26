@@ -70,7 +70,7 @@ class AccountTab extends GetView<AccountTabController> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    Get.offAllNamed(Routes.LOGIN);
+                                    Get.toNamed(Routes.LOGIN);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
@@ -82,7 +82,7 @@ class AccountTab extends GetView<AccountTabController> {
                             ),
                             OutlinedButton(
                               onPressed: () {
-                                Get.offAllNamed(Routes.SIGNUP);
+                                Get.toNamed(Routes.SIGNUP);
                               },
                               child: const Text('Sign up now', style: TextStyle(color: AppColor.whiteColor),),
                             )

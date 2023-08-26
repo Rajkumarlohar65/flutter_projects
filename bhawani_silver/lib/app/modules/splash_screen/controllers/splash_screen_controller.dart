@@ -10,12 +10,16 @@ class SplashScreenController extends GetxController {
   void onInit() {
     super.onInit();
 
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   if (AuthenticationHelper().isUserLoggedIN()) {
+    //     Get.offAllNamed(Routes.HOME);
+    //   } else {
+    //     Get.offAllNamed(Routes.LOGIN);
+    //   }
+    // });
+
     Future.delayed(const Duration(seconds: 2), () {
-      if (AuthenticationHelper().isUserLoggedIN()) {
-        Get.offAllNamed(Routes.HOME);
-      } else {
-        Get.offAllNamed(Routes.LOGIN);
-      }
+      Get.offAllNamed(Routes.HOME);
     });
 
   }

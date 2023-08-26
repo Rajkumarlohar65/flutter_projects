@@ -16,7 +16,7 @@ class LogOutButtonWidget extends StatelessWidget {
       onPressed: () {
         AuthenticationHelper().signOut().then((result) {
           UserModel.clearData();
-          Get.offAllNamed(Routes.LOGIN);
+          Get.offAllNamed(Routes.HOME);
           Utils().showSuccessToast(AppString.logOutSuccessSnackBarMessage);
         });
       }, child: const Text('LOG OUT'),

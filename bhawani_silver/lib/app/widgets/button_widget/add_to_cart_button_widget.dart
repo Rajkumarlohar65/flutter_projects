@@ -32,7 +32,7 @@ class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
               ? null
               : () async {
                   if(!AuthenticationHelper().isUserLoggedIN()){
-                    Get.offAllNamed(Routes.LOGIN);
+                    Get.toNamed(Routes.LOGIN);
                   }else{
                     try {
                       controller.setLoading(true);

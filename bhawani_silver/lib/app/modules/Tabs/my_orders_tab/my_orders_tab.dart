@@ -34,7 +34,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.offAllNamed(Routes.LOGIN);
+                          Get.toNamed(Routes.LOGIN);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
@@ -46,7 +46,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      Get.offAllNamed(Routes.SIGNUP);
+                      Get.toNamed(Routes.SIGNUP);
                     },
                     child: const Text('Sign up now'),
                   )

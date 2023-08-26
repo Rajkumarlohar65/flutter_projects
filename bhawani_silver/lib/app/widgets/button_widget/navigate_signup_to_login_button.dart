@@ -10,7 +10,7 @@ class NavigateSignUpToLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () {
-          Get.offAllNamed(Routes.LOGIN);
+          Get.offAndToNamed(Routes.LOGIN);
         },
         child: const Text(
           AppString.alreadyHaveAccountText,

@@ -20,12 +20,12 @@ class HomeTabAndroid extends GetView<HomeTabController> {
 
   @override
   Widget build(BuildContext context) {
-    double carouselAspectRatio = kIsWeb ? 1.8 : 1.0;
-    double carouselViewportFraction = kIsWeb ? 0.6 : 1.0;
+    double carouselAspectRatio = 1.0;
+    double carouselViewportFraction = 1.0;
 
-    const int cardAxisCount = kIsWeb ? 4 : 2; // Adjust as needed
-    const double cardAspectRatio = kIsWeb ? 1.2 : 0.90; // Adjust as needed
-    const double imageAspectRatio = kIsWeb ? 1.5 : 1.2; // Adjust as needed
+    const int cardAxisCount = 2; // Adjust as needed
+    const double cardAspectRatio = 0.90; // Adjust as needed
+    const double imageAspectRatio = 1.2; // Adjust as needed
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
         stream: controller.productStream,

@@ -9,7 +9,7 @@ import '../../core/values/app_color.dart';
 class CartCardWidget extends StatelessWidget {
   final String productImageUrl;
   final int quantity;
-  final String id;
+  final int id;
   final int productPrice;
   final String productName;
   const CartCardWidget(

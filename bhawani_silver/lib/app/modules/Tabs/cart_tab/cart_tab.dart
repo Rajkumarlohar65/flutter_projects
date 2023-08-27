@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../core/values/app_color.dart';
@@ -17,33 +18,38 @@ class CartTab extends GetView<CartTabController> {
 
   @override
   Widget build(BuildContext context) {
-    if (!AuthenticationHelper().isUserLoggedIN()) {
-      return Scaffold(
-        body: Center(
+    final storage = GetStorage();
+    final cartItems = controller.cartItems.value;
+
+    return Obx(() {
+      if (controller.cartItems.isEmpty) {
+        return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Lottie.asset(
-              'assets/animations/empty_cart.json', // Replace this with your Lottie animation file path
-              width:
-              300, // Set the width and height of the animation as per your preference
-              height: 300,
-              reverse: true),
-              Row(
+              Center(
+                child: Lottie.asset(
+                  'assets/animations/empty_cart.json',
+                  width: 300,
+                  height: 300,
+                  reverse: true,
+                ),
+              ),
+              !AuthenticationHelper().isUserLoggedIN() ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.toNamed(Routes.LOGIN);
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
-                        foregroundColor: MaterialStateProperty.all(Colors.black), // You can adjust the text color
-                      ),
-                      child: const Text('Login to your account'),
-                    )
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.toNamed(Routes.LOGIN);
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
+                          foregroundColor: MaterialStateProperty.all(Colors.black), // You can adjust the text color
+                        ),
+                        child: const Text('Login to your account'),
+                      )
 
                   ),
                   OutlinedButton(
@@ -54,138 +60,92 @@ class CartTab extends GetView<CartTabController> {
                   )
 
                 ],
-              ),
+              ) : Container()
             ],
           ),
+        );
+      }
+      return Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            const SliverAppBar(
+              expandedHeight: 60,
+              pinned: true,
+              title: SearchBarWidget(),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Obx(() {
+                      final subtotal = controller.cartSubtotal.value;
+                      return Container(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Subtotal: ₹',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Text(
+                                  subtotal.toStringAsFixed(2),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                  ],
+                ),
+              ]),
+            ),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _BuyButtonHeaderDelegate(cartDocs: cartItems),
+            ),
+            SliverPadding(
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final cartItem = cartItems[index];
+                  final productImageUrl = cartItem['image'];
+                  final quantity = cartItem['quantity'];
+                  final id = cartItem['id'];
+                  final productPrice = cartItem['product_price'];
+                  final productName = cartItem['product_name'];
+
+                  return Obx(() {
+                    final quantity = controller.cartItems[index]['quantity'];
+
+                    return CartCardWidget(
+                      productImageUrl: productImageUrl,
+                      quantity: quantity,
+                      id: id ?? 0,
+                      productPrice: productPrice,
+                      productName: productName,
+                    );
+                  });
+                }, childCount: cartItems.length),
+              ),  padding: const EdgeInsets.only(),)
+          ],
         ),
       );
-    }
-    return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-        stream: controller.productStream,
-        builder: (context, cartSnapShot) {
-          if (cartSnapShot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            final cartDocs = cartSnapShot.data!.docs;
-            if (cartDocs.isEmpty) {
-              return Center(
-                child: Lottie.asset(
-                    'assets/animations/empty_cart.json', // Replace this with your Lottie animation file path
-                    width:
-                        300, // Set the width and height of the animation as per your preference
-                    height: 300,
-                    reverse: true),
-              );
-            } else {
-              return CustomScrollView(
-                slivers: [
-                  const SliverAppBar(
-                    expandedHeight: 60,
-                    pinned: true,
-                    title: SearchBarWidget(),
-                  ),
-                  SliverList(
-                      delegate: SliverChildListDelegate([
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Obx(() {
-                            final subtotal = controller.cartSubtotal.value;
-                            return Container(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          'Subtotal: ₹',
-                                          style: TextStyle(
-                                            // fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                        Text(
-                                          subtotal.toStringAsFixed(2),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ));
-                          })
-                        ])
-                  ])),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _BuyButtonHeaderDelegate(cartDocs: cartDocs),
-                  ),
-                  SliverPadding(
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        final cart = cartDocs[index];
-                        final productId = cart['product_id'] ?? '';
-                        final quantity = cart['quantity'] ?? '';
-                        return FutureBuilder<DocumentSnapshot>(
-                            future: FirebaseFirestore.instance
-                                .collection('products')
-                                .doc(productId)
-                                .get(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                if (index == 0) {
-                                  return const SizedBox(
-                                    child: SpinKitFadingCircle(
-                                      size: 20,
-                                      color: AppColor.blueColor,
-                                    ),
-                                  );
-                                } else {
-                                  return const SizedBox.shrink();
-                                }
-                              } else {
-                                final productData = snapshot.data!.data()
-                                    as Map<String, dynamic>?;
-                                final productName = productData?['name'] ?? '';
-                                final productPrice =
-                                    productData?['price'] ?? '';
-                                final productImageUrl =
-                                    productData?['image'] ?? '';
-
-                                return CartCardWidget(
-                                    productImageUrl: productImageUrl,
-                                    quantity: quantity,
-                                    id: cart.id,
-                                    productPrice: productPrice,
-                                    productName: productName);
-                              }
-                            });
-                      }, childCount: cartDocs.length),
-                    ),
-                    padding: const EdgeInsets.only(),
-                  ),
-                ],
-              );
-            }
-          }
-        },
-      ),
-    );
+    });
   }
 }
-
 class _BuyButtonHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final List<QueryDocumentSnapshot> cartDocs;
+  final List<dynamic> cartDocs; // Change the type to List<dynamic>
 
   _BuyButtonHeaderDelegate({required this.cartDocs});
 
@@ -196,10 +156,10 @@ class _BuyButtonHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+      BuildContext context,
+      double shrinkOffset,
+      bool overlapsContent,
+      ) {
     return ProceedToBuyButtonWidget(cartDocs);
   }
 

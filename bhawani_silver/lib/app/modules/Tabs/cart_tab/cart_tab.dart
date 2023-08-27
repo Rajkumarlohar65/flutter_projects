@@ -18,8 +18,6 @@ class CartTab extends GetView<CartTabController> {
 
   @override
   Widget build(BuildContext context) {
-    final storage = GetStorage();
-
     return Obx(() {
       if (controller.cartItems.isEmpty) {
         return Center(

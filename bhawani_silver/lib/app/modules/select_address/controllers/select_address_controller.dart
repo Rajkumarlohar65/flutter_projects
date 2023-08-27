@@ -7,7 +7,7 @@ import '../../../data/model/address.dart';
 class SelectAddressController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final RxList<Address> _addresses = RxList<Address>([]);
-  final cartData = Get.arguments;
+  // final cartData = Get.arguments;
   List<Address> get addresses => _addresses;
 
   final RxBool isLoading = true.obs; // Initialize with true

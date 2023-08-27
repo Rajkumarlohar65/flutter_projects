@@ -89,6 +89,18 @@ class PaymentController extends GetxController {
 
   void saveOrder() {
     // Assuming you have the required data like 'selectedAddress' and 'myController' (if not, modify accordingly)
+    // Assuming you have the required data like 'selectedAddress' and 'myController' (if not, modify accordingly)
+    final List<Map<String, dynamic>> cartItems = ctc.cartItems.toList(); // Get a copy of cartItems
+
+    final List<Map<String, dynamic>> productDetails = cartItems.map((item) {
+      return {
+        'name': item['product_name'],
+        'price': item['product_price'],
+        'quantity': item['quantity']
+        // You can add more properties if needed
+      };
+    }).toList();
+
     final orderData = {
       'shippingAddress': {
         'street': selectedAddress.street,
@@ -103,9 +115,7 @@ class PaymentController extends GetxController {
               'price': myController?.product.price,
             }
           : {
-              'name':
-                  '', // Set the name to an empty string if myController is null
-              'price': 0, // Set the price to 0 if myController is null
+              'items': productDetails, // Set the name to an empty string if myController is null
             },
       'subtotal': myController?.product.price ??
           ctc.cartSubtotal

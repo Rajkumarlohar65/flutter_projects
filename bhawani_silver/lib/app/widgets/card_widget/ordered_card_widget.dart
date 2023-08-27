@@ -90,10 +90,17 @@ class OrderCardWidget extends StatelessWidget {
           const Divider(),
           ListTile(
             title: const Text('Items'),
-            subtitle: Text(
-              '${productDetails['name']}',
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Name: ${productDetails['name']}, Price: ${productDetails['price']}',
+                ),
+              ],
             ),
           ),
+
+
           const SizedBox(height: 8),
           ListTile(
             title: const Text('Total Amount'),

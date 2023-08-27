@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../../data/model/address.dart';
 import '../controllers/payment_controller.dart';
 
@@ -29,7 +30,8 @@ class PaymentView extends GetView<PaymentController> {
 
     // Get the list of items from CartController
     final cartController = Get.find<SelectAddressController>();
-    final cartItems = cartController.cartData;
+    final storage = GetStorage();
+    final cartItems = storage.read<List>('cartItems') ?? [];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Checkout'),

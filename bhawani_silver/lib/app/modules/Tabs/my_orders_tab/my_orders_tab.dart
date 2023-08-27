@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:BhawaniSilver/app/widgets/card_widget/ordered_card_widget.dart';
 
 import '../../../core/values/app_color.dart';
+import '../../overview_of_product/controllers/overview_of_product_controller.dart';
 
 class MyOrdersTab extends GetView<MyOrdersTabController> {
   const MyOrdersTab({Key? key});
@@ -125,6 +126,9 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.data != null && snapshot.data!.isNotEmpty) {
+                    final myController = Get.isRegistered<OverviewOfProductController>()
+                        ? Get.find<OverviewOfProductController>()
+                        : null;
                     return SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
@@ -133,6 +137,12 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                           final productDetails = order['productDetails'];
                           final total = order['total'];
                           final orderId = order['orderId'];
+
+                          // Access the 'items' key when myController is null, otherwise use the 'productDetails' value
+                          final orderProductDetails = myController == null
+                              ? order['productDetails']['items']
+                              : order['productDetails'];
+
 
                           return OrderCardWidget(
                               context: context,

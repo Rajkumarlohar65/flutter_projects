@@ -19,7 +19,6 @@ class CartTab extends GetView<CartTabController> {
   @override
   Widget build(BuildContext context) {
     final storage = GetStorage();
-    final cartItems = controller.cartItems.value;
 
     return Obx(() {
       if (controller.cartItems.isEmpty) {
@@ -35,32 +34,33 @@ class CartTab extends GetView<CartTabController> {
                   reverse: true,
                 ),
               ),
-              !AuthenticationHelper().isUserLoggedIN() ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed(Routes.LOGIN);
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
-                          foregroundColor: MaterialStateProperty.all(Colors.black), // You can adjust the text color
-                        ),
-                        child: const Text('Login to your account'),
-                      )
-
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.SIGNUP);
-                    },
-                    child: const Text('Sign up now'),
-                  )
-
-                ],
-              ) : Container()
+              !AuthenticationHelper().isUserLoggedIN()
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Get.toNamed(Routes.LOGIN);
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    AppColor.yellowColor),
+                                foregroundColor: MaterialStateProperty.all(Colors
+                                    .black), // You can adjust the text color
+                              ),
+                              child: const Text('Login to your account'),
+                            )),
+                        OutlinedButton(
+                          onPressed: () {
+                            Get.toNamed(Routes.SIGNUP);
+                          },
+                          child: const Text('Sign up now'),
+                        )
+                      ],
+                    )
+                  : Container()
             ],
           ),
         );
@@ -113,37 +113,37 @@ class CartTab extends GetView<CartTabController> {
             ),
             SliverPersistentHeader(
               pinned: true,
-              delegate: _BuyButtonHeaderDelegate(cartDocs: cartItems),
+              delegate:
+                  _BuyButtonHeaderDelegate(cartDocs: controller.cartItems),
             ),
             SliverPadding(
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  final cartItem = cartItems[index];
+                  final cartItem = controller.cartItems[index];
                   final productImageUrl = cartItem['image'];
                   final quantity = cartItem['quantity'];
-                  final id = cartItem['id'];
+                  final productId = cartItem['product_id'];
                   final productPrice = cartItem['product_price'];
                   final productName = cartItem['product_name'];
 
-                  return Obx(() {
-                    final quantity = controller.cartItems[index]['quantity'];
-
-                    return CartCardWidget(
-                      productImageUrl: productImageUrl,
-                      quantity: quantity,
-                      id: id ?? 0,
-                      productPrice: productPrice,
-                      productName: productName,
-                    );
-                  });
-                }, childCount: cartItems.length),
-              ),  padding: const EdgeInsets.only(),)
+                  return CartCardWidget(
+                    productImageUrl: productImageUrl,
+                    quantity: quantity,
+                    productId: productId,
+                    productPrice: productPrice,
+                    productName: productName,
+                  );
+                }, childCount: controller.cartItems.length),
+              ),
+              padding: const EdgeInsets.only(),
+            )
           ],
         ),
       );
     });
   }
 }
+
 class _BuyButtonHeaderDelegate extends SliverPersistentHeaderDelegate {
   final List<dynamic> cartDocs; // Change the type to List<dynamic>
 
@@ -156,10 +156,10 @@ class _BuyButtonHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context,
-      double shrinkOffset,
-      bool overlapsContent,
-      ) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return ProceedToBuyButtonWidget(cartDocs);
   }
 

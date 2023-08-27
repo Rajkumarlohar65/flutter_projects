@@ -18,28 +18,33 @@ class CartTabController extends GetxController {
     print("Read data: $cartItems");
   }
 
-  void incrementQuantity(int index) {
-    cartItems[index]['quantity']++;
-    storage.write('cartItems', cartItems.toList()); // Convert to List before writing
-    calculateCartSubtotal();
-    readData();
-  }
-
-  void decrementQuantity(int index) {
-    if (cartItems[index]['quantity'] > 1) {
-      cartItems[index]['quantity']--;
-      storage.write('cartItems', cartItems.toList()); // Convert to List before writing
+  void incrementQuantity(String productId) {
+    final index = cartItems.indexWhere((item) => item['product_id'] == productId);
+    if (index != -1) {
+      cartItems[index]['quantity']++;
+      storage.write('cartItems', cartItems.toList());
       calculateCartSubtotal();
       readData();
     }
   }
 
-  void deleteItem(int index) {
-    cartItems.removeAt(index);
-    storage.write('cartItems', cartItems.toList()); // Convert to List before writing
+  void decrementQuantity(String productId) {
+    final index = cartItems.indexWhere((item) => item['product_id'] == productId);
+    if (index != -1 && cartItems[index]['quantity'] > 1) {
+      cartItems[index]['quantity']--;
+      storage.write('cartItems', cartItems.toList());
+      calculateCartSubtotal();
+      readData();
+    }
+  }
+
+  void deleteItem(String productId) {
+    cartItems.removeWhere((item) => item['product_id'] == productId);
+    storage.write('cartItems', cartItems.toList());
     calculateCartSubtotal();
     readData();
   }
+
 
   void calculateCartSubtotal() {
     double subtotal = 0.0;

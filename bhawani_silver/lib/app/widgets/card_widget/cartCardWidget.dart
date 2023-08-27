@@ -9,14 +9,14 @@ import '../../core/values/app_color.dart';
 class CartCardWidget extends StatelessWidget {
   final String productImageUrl;
   final int quantity;
-  final int id;
+  final String productId;
   final int productPrice;
   final String productName;
   const CartCardWidget(
       {super.key,
       required this.productImageUrl,
       required this.quantity,
-      required this.id,
+      required this.productId,
       required this.productPrice,
       required this.productName});
 
@@ -63,9 +63,9 @@ class CartCardWidget extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           if (quantity > 1) {
-                            controller.decrementQuantity(id);
+                            controller.decrementQuantity(productId);
                           } else {
-                            controller.deleteItem(id);
+                            controller.deleteItem(productId);
                           }
                         },
                         child: Container(
@@ -97,7 +97,7 @@ class CartCardWidget extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          controller.incrementQuantity(id);
+                          controller.incrementQuantity(productId);
                         },
                         child: Container(
                           height: 30,
@@ -145,7 +145,7 @@ class CartCardWidget extends StatelessWidget {
                         width: 60,
                         child: InkWell(
                           onTap: () {
-                            controller.deleteItem(id);
+                            controller.deleteItem(productId);
                           },
                           child: Container(
                             height: 30,

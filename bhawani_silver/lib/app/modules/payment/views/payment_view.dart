@@ -8,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../data/model/address.dart';
@@ -20,6 +19,7 @@ class PaymentView extends GetView<PaymentController> {
 
   @override
   Widget build(BuildContext context) {
+    PaymentController controller = Get.put(PaymentController());
     CartTabController ctc = Get.put(CartTabController());
     // Retrieve the selected address data passed from the SelectAddressView
     Address selectedAddress = Get.arguments as Address;

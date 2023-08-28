@@ -15,6 +15,7 @@ class AddToCartButtonWidget extends GetView<OverviewOfProductController> {
 
   @override
   Widget build(BuildContext context) {
+    OverviewOfProductController controller = Get.put(OverviewOfProductController());
     final Product product = controller.product as Product;
     final storage = GetStorage();
 

@@ -10,7 +10,7 @@ class BuyNowButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<OverviewOfProductController>();
+    OverviewOfProductController controller = Get.put(OverviewOfProductController());
     return ClipRRect(
       borderRadius: BorderRadius.circular(25),
       child: ElevatedButton(

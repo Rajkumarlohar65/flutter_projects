@@ -14,6 +14,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (controller) {
       return Scaffold(
+
         body: IndexedStack(
           index: controller.currentIndex,
           children: const [

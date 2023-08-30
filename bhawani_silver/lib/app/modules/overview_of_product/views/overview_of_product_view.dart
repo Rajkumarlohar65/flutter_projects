@@ -27,6 +27,7 @@ class OverviewOfProductView
                   title: Text(product.name),
                   expandedHeight: 400,
                   pinned: true,
+                  backgroundColor: AppColor.blueGrey,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Column(
                       children: [

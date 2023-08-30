@@ -13,9 +13,6 @@ class CategoryTab extends GetView<CategoryTabController> {
 
     return Scaffold(
       backgroundColor: AppColor.whiteColor,
-      appBar: AppBar(
-        title: const Text("Categories"),
-      ),
       body: FutureBuilder(
         future: controller.loadCategories(),
         builder: (context, snapshot) {

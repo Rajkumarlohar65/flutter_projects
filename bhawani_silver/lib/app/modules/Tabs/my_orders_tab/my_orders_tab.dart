@@ -25,7 +25,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
               Lottie.asset(
                   'assets/animations/empty_orders.json', // Replace this with your Lottie animation file path
                   width:
-                  300, // Set the width and height of the animation as per your preference
+                      300, // Set the width and height of the animation as per your preference
                   height: 300,
                   reverse: true),
               Row(
@@ -38,20 +38,19 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                           Get.toNamed(Routes.LOGIN);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(AppColor.yellowColor),
-                          foregroundColor: MaterialStateProperty.all(Colors.black), // You can adjust the text color
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColor.yellowColor),
+                          foregroundColor: MaterialStateProperty.all(
+                              Colors.black), // You can adjust the text color
                         ),
                         child: const Text('Login to your account'),
-                      )
-
-                  ),
+                      )),
                   OutlinedButton(
                     onPressed: () {
                       Get.toNamed(Routes.SIGNUP);
                     },
                     child: const Text('Sign up now'),
                   )
-
                 ],
               ),
             ],
@@ -61,7 +60,7 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
     }
 
     return Scaffold(
-    backgroundColor: isDarkTheme ? null : AppColor.whiteColor,
+      backgroundColor: isDarkTheme ? null : AppColor.whiteColor,
       body: CustomScrollView(
         slivers: [
           StreamBuilder<List<Map<String, dynamic>>>(
@@ -97,70 +96,54 @@ class MyOrdersTab extends GetView<MyOrdersTabController> {
                   ),
                 );
               } else {
-                return SliverAppBar(
-                  expandedHeight: 200,
-                  pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: const Text(
-                      "My Orders",
-                      style: TextStyle(color: AppColor.whiteColor),
-                    ),
-                    background: Center(
-                      child: Lottie.asset(
-                        'assets/animations/delivery_boy.json',
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                return SliverPadding(
+                  padding: const EdgeInsets.only(),
+                  sliver: StreamBuilder<List<Map<String, dynamic>>>(
+                    stream: controller.getOrderStream(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.active) {
+                        if (snapshot.data != null &&
+                            snapshot.data!.isNotEmpty) {
+                          final myController =
+                              Get.isRegistered<OverviewOfProductController>()
+                                  ? Get.find<OverviewOfProductController>()
+                                  : null;
+                          return SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                final order = snapshot.data![index];
+                                final shippingAddress =
+                                    order['shippingAddress'];
+                                final productDetails = order['productDetails'];
+                                final total = order['total'];
+                                final orderId = order['orderId'];
+
+                                // Access the 'items' key when myController is null, otherwise use the 'productDetails' value
+                                final orderProductDetails = myController == null
+                                    ? order['productDetails']['items']
+                                    : order['productDetails'];
+
+                                return OrderCardWidget(
+                                    context: context,
+                                    orderNumber: index + 1,
+                                    shippingAddress: shippingAddress,
+                                    productDetails: productDetails,
+                                    totalAmount: total.toDouble(),
+                                    onDelete: () =>
+                                        controller.deleteOrder(orderId));
+                              },
+                              childCount: snapshot.data!.length,
+                            ),
+                          );
+                        }
+                      }
+                      return SliverList(delegate: SliverChildListDelegate([]));
+                    },
                   ),
                 );
               }
             },
           ),
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 4, bottom: 4),
-            sliver: StreamBuilder<List<Map<String, dynamic>>>(
-              stream: controller.getOrderStream(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.data != null && snapshot.data!.isNotEmpty) {
-                    final myController = Get.isRegistered<OverviewOfProductController>()
-                        ? Get.find<OverviewOfProductController>()
-                        : null;
-                    return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final order = snapshot.data![index];
-                          final shippingAddress = order['shippingAddress'];
-                          final productDetails = order['productDetails'];
-                          final total = order['total'];
-                          final orderId = order['orderId'];
-
-                          // Access the 'items' key when myController is null, otherwise use the 'productDetails' value
-                          final orderProductDetails = myController == null
-                              ? order['productDetails']['items']
-                              : order['productDetails'];
-
-
-                          return OrderCardWidget(
-                              context: context,
-                              orderNumber: index + 1,
-                              shippingAddress: shippingAddress,
-                              productDetails: productDetails,
-                              totalAmount: total.toDouble(),
-                              onDelete: () => controller.deleteOrder(orderId));
-                        },
-                        childCount: snapshot.data!.length,
-                      ),
-                    );
-                  }
-                }
-                return SliverList(delegate: SliverChildListDelegate([]));
-              },
-            ),
-          )
         ],
       ),
     );

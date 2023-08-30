@@ -45,8 +45,6 @@ class HomeTab extends GetView<HomeTabController> {
             }
             return CustomScrollView(
               slivers: [
-                const SliverAppBar(
-                    expandedHeight: 60, pinned: true, title: SearchBarWidget()),
                 SliverToBoxAdapter(
                   child: StreamBuilder<QuerySnapshot>(
                     stream: controller.bannerStream,

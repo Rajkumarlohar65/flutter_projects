@@ -66,11 +66,6 @@ class CartTab extends GetView<CartTabController> {
       return Scaffold(
         body: CustomScrollView(
           slivers: [
-            const SliverAppBar(
-              expandedHeight: 60,
-              pinned: true,
-              title: SearchBarWidget(),
-            ),
             SliverList(
               delegate: SliverChildListDelegate([
                 Column(

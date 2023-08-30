@@ -7,7 +7,7 @@ class AppTheme {
 
       // AppBar Theme
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColor.blueGrey,
+        backgroundColor: AppColor.darkNavy,
         titleTextStyle: TextStyle(color: AppColor.whiteColor),
         iconTheme: IconThemeData(color: AppColor.whiteColor)
       ),
@@ -23,9 +23,9 @@ class AppTheme {
       ),
 
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Colors.white,
-          unselectedItemColor: Colors.black38,
-          selectedItemColor: Colors.black
+          backgroundColor: AppColor.whiteColor,
+          unselectedItemColor: AppColor.lightBlack,
+          selectedItemColor: AppColor.darkNavy
       ),
 
 

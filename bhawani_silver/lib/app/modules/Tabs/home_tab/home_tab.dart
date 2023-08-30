@@ -9,6 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/values/app_color.dart';
 import '../../../data/model/product.dart';
@@ -34,7 +35,7 @@ class HomeTab extends GetView<HomeTabController> {
           } else {
             final productDocs = productSnapShot.data!.docs;
             final products =
-            productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
+                productDocs.map((doc) => Product.fromSnapshot(doc)).toList();
 
             // Make sure there are products available before using them
             if (products.isEmpty) {
@@ -48,38 +49,39 @@ class HomeTab extends GetView<HomeTabController> {
                     expandedHeight: 60, pinned: true, title: SearchBarWidget()),
                 SliverToBoxAdapter(
                   child: StreamBuilder<QuerySnapshot>(
-                      stream: controller.bannerStream,
-                      builder: (context, bannerSnapShot) {
-                        if (bannerSnapShot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const ShimmerPlaceholderWidget(
-                              width: double.infinity, height: 216);
-                        } else if (bannerSnapShot.hasError) {
-                          return Center(
-                            child: Text('Error: ${bannerSnapShot.error}'),
-                          );
-                        } else if (!bannerSnapShot.hasData) {
+                    stream: controller.bannerStream,
+                    builder: (context, bannerSnapShot) {
+                      if (bannerSnapShot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const ShimmerPlaceholderWidget(
+                            width: double.infinity, height: 216);
+                      } else if (bannerSnapShot.hasError) {
+                        return Center(
+                          child: Text('Error: ${bannerSnapShot.error}'),
+                        );
+                      } else if (!bannerSnapShot.hasData) {
+                        return const Center(
+                          child: Text('No data available'),
+                        );
+                      } else {
+                        final bannerDocs = bannerSnapShot.data!.docs;
+                        final banners = bannerDocs
+                            .map((doc) => AppBanner.fromSnapshot(doc))
+                            .toList();
+
+                        // Make sure there are products available before using them
+                        if (banners.isEmpty) {
                           return const Center(
-                            child: Text('No data available'),
+                            child: Text('No products available'),
                           );
-                        } else {
-                          final bannerDocs = bannerSnapShot.data!.docs;
-                          final banners = bannerDocs
-                              .map((doc) => AppBanner.fromSnapshot(doc))
-                              .toList();
-
-                          // Make sure there are products available before using them
-                          if (banners.isEmpty) {
-                            return const Center(
-                              child: Text('No products available'),
-                            );
-                          }
-
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 0),
-                            child: SizedBox(
+                        }
+                        return Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            SizedBox(
                               height: 216,
-                              child: CarouselSlider(
+                              width: Get.width,
+                              child: CarouselSlider.builder(
                                 options: CarouselOptions(
                                   viewportFraction: 1.0,
                                   aspectRatio: 1.0,
@@ -91,50 +93,46 @@ class HomeTab extends GetView<HomeTabController> {
                                     controller.updateCurrentIndex(index);
                                   },
                                 ),
-                                items: List.generate(banners.length, (index) {
+                                itemCount: banners.length,
+                                itemBuilder: (context, index, realIndex) {
                                   final banner = banners[index];
-                                  return Stack(children: [
-                                    SizedBox(
+                                  return Stack(
+                                    children: [
+                                      SizedBox(
                                         width: double.infinity,
                                         height: double.infinity,
                                         child: CachedNetworkImageWidget(
                                           imageUrl: banner.url,
-                                        )),
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 200),
-                                        child: Obx(
-                                              () => Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: List.generate(
-                                                banners.length, (index) {
-                                              return Container(
-                                                width: 8,
-                                                height: 8,
-                                                margin:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 4),
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: index ==
-                                                      controller
-                                                          .currentIndex
-                                                          .value
-                                                      ? AppColor.whiteColor
-                                                      : AppColor.greyColor,
-                                                ),
-                                              );
-                                            }),
-                                          ),
-                                        ))
-                                  ]);
-                                }),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
                             ),
-                          );
-                        }
-                      }),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Obx(
+                                () => AnimatedSmoothIndicator(
+                                  activeIndex: controller.currentIndex.value,
+                                  count: banners.length,
+                                  effect:  const SlideEffect(
+                                      spacing:  8.0,
+                                      radius:  10,
+                                      dotWidth:  8,
+                                      dotHeight:  8,
+                                      strokeWidth:  1.5,
+                                      dotColor:  Colors.grey,
+                                      activeDotColor:  Colors.white
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    },
+                  ),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
@@ -168,11 +166,11 @@ class HomeTab extends GetView<HomeTabController> {
                               const Spacer(),
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(horizontal: 8),
+                                    const EdgeInsets.symmetric(horizontal: 8),
                                 child: Text(
                                   product.name,
                                   style:
-                                  Theme.of(context).textTheme.titleMedium,
+                                      Theme.of(context).textTheme.titleMedium,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),

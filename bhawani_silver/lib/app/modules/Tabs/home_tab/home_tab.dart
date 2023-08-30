@@ -122,8 +122,8 @@ class HomeTab extends GetView<HomeTabController> {
                                       dotWidth:  8,
                                       dotHeight:  8,
                                       strokeWidth:  1.5,
-                                      dotColor:  Colors.grey,
-                                      activeDotColor:  Colors.white
+                                      dotColor:  AppColor.greyColor,
+                                      activeDotColor:  AppColor.whiteColor
                                   ),
                                 ),
                               ),

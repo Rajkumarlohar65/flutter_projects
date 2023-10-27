@@ -12,6 +12,7 @@ class SelectAddressView extends GetView<SelectAddressController> {
 
   @override
   Widget build(BuildContext context) {
+    SelectAddressController controller = Get.put(SelectAddressController());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select a delivery address'),

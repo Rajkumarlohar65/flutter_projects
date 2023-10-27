@@ -1,3 +1,4 @@
+import 'package:BhawaniSilver/app/core/payment_gateway/payment_gateway.dart';
 import 'package:BhawaniSilver/app/core/utils/utils.dart';
 import 'package:BhawaniSilver/app/core/values/app_color.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../data/model/address.dart';
 import '../controllers/payment_controller.dart';
 
@@ -66,108 +68,108 @@ class PaymentView extends GetView<PaymentController> {
               margin: const EdgeInsets.all(16),
               child: myController != null
                   ? ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl: myController.product.image,
-                      ),
-                      title: Text(myController.product.name),
-                      subtitle: Text(
-                        "₹${myController.product.price.toString()}",
-                      ),
-                      trailing: const Text("Q:1"),
-                    )
+                leading: CachedNetworkImage(
+                  imageUrl: myController.product.image,
+                ),
+                title: Text(myController.product.name),
+                subtitle: Text(
+                  "₹${myController.product.price.toString()}",
+                ),
+                trailing: const Text("Q:1"),
+              )
                   : ListView.builder(
-                      itemCount: cartItems.length,
-                      itemBuilder: (context, index) {
-                        final cartItem = cartItems[index];
-                        final productId =
-                            cartItem['product_id'] ?? ''; // Get the product ID
-                        final quantity =
-                            cartItem['quantity'] ?? 0; // Get the quantity
+                itemCount: cartItems.length,
+                itemBuilder: (context, index) {
+                  final cartItem = cartItems[index];
+                  final productId =
+                      cartItem['product_id'] ?? ''; // Get the product ID
+                  final quantity =
+                      cartItem['quantity'] ?? 0; // Get the quantity
 
-                        // Add a FutureBuilder here to fetch product data based on the product ID
-                        return FutureBuilder<DocumentSnapshot>(
-                          future: FirebaseFirestore.instance
-                              .collection('products')
-                              .doc(productId)
-                              .get(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              // While loading other items, you can just return an empty container
-                              return Container();
-                            } else {
-                              final productData = snapshot.data!.data()
-                                  as Map<String, dynamic>?;
-                              final productName = productData?['name'] ?? '';
-                              final productPrice = productData?['price'] ?? 0;
-                              final productImage = productData?['image'] ?? '';
+                  // Add a FutureBuilder here to fetch product data based on the product ID
+                  return FutureBuilder<DocumentSnapshot>(
+                    future: FirebaseFirestore.instance
+                        .collection('products')
+                        .doc(productId)
+                        .get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        // While loading other items, you can just return an empty container
+                        return Container();
+                      } else {
+                        final productData = snapshot.data!.data()
+                        as Map<String, dynamic>?;
+                        final productName = productData?['name'] ?? '';
+                        final productPrice = productData?['price'] ?? 0;
+                        final productImage = productData?['image'] ?? '';
 
-                              return ListTile(
-                                leading: SizedBox(
-                                    width: 56,
-                                    child: CachedNetworkImage(
-                                      imageUrl: productImage,
-                                    )),
-                                title: Text(productName),
-                                subtitle: Text(
-                                  "₹${productPrice.toStringAsFixed(2)}",
-                                ),
-                                trailing: Text("Q:$quantity"),
-                              );
-                            }
-                          },
+                        return ListTile(
+                          leading: SizedBox(
+                              width: 56,
+                              child: CachedNetworkImage(
+                                imageUrl: productImage,
+                              )),
+                          title: Text(productName),
+                          subtitle: Text(
+                            "₹${productPrice.toStringAsFixed(2)}",
+                          ),
+                          trailing: Text("Q:$quantity"),
                         );
-                      },
-                    ),
+                      }
+                    },
+                  );
+                },
+              ),
             ),
           ),
           Padding(
               padding: const EdgeInsets.all(16.0),
               child: myController != null
                   ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Subtotal: ₹${myController.product.price.toString()}',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Discount: ₹${discount.toStringAsFixed(2)}',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        const SizedBox(height: 10),
-                        const Divider(),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Total: ₹${myController.product.price - discount}',
-                          style: const TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    )
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Subtotal: ₹${myController.product.price.toString()}',
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Discount: ₹${discount.toStringAsFixed(2)}',
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 10),
+                  const Divider(),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Total: ₹${myController.product.price - discount}',
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )
                   : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Subtotal: ₹${ctc.cartSubtotal.value.toString()}',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Discount: ₹$discount',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        const SizedBox(height: 10),
-                        const Divider(),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Total: ₹${ctc.cartSubtotal.value - discount}',
-                          style: const TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    )),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Subtotal: ₹${ctc.cartSubtotal.value.toString()}',
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Discount: ₹$discount',
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 10),
+                  const Divider(),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Total: ₹${ctc.cartSubtotal.value - discount}',
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -175,39 +177,28 @@ class PaymentView extends GetView<PaymentController> {
           width: double.infinity,
           height: 65, // Adjust the height as needed
           padding: const EdgeInsets.all(16.0),
-          child: Obx(() {
-            return
-              controller.isLoading.value
-                ? const SpinKitThreeBounce(
-                    size: 20,
-                    color: AppColor.blueColor,
-                  )
-                :
-              ElevatedButton(
-                    onPressed: () async {
-                      try{
-                        if (kIsWeb) {
-                          // Show a toast notification only on web
-                          Utils().showErrorSnackBar("Error", "payment currently not accepted in website");
-                        }else{
-                          controller.isLoading.value = true;
-                          await controller.makePayment();
-                        }
-                      } catch (error) {
-                        // Handle errors during payment or Firestore operations
-                        print(
-                            'Error processing payment and saving order: $error');
-                        Get.snackbar(
-                          'Error',
-                          'Failed to process your order.',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                        controller.isLoading.value = false;
-                      }
-                    },
-                    child: const Text('Pay Now'),
-                  );
-          }),
+          child: ElevatedButton(onPressed: (){
+            Razorpay razorpay = Razorpay();
+            var options = {
+              // 'key': 'rzp_live_ILgsfZCZoFIKMb',
+              'key': 'rzp_test_9gkr3QjOLXra7h',
+              'amount': 100,
+              'name': 'Acme Corp.',
+              'description': 'Fine T-Shirt',
+              'retry': {'enabled': true, 'max_count': 1},
+              'send_sms_hash': true,
+              'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
+              'external': {
+                'wallets': ['paytm']
+              }
+            };
+            razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, PaymentGateWay(context: context).handlePaymentErrorResponse);
+            razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, PaymentGateWay(context: context).handlePaymentSuccessResponse);
+            razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, PaymentGateWay(context: context).handleExternalWalletSelected);
+            razorpay.open(options);
+          },
+              child: const Text("Pay")),
+
         ),
       ),
     );

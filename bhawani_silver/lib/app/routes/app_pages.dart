@@ -1,5 +1,5 @@
+import 'package:BhawaniSilver/app/modules/payment/views/payment_view.dart';
 import 'package:get/get.dart';
-
 import '../modules/Tabs/account_tab/account_tab_binding.dart';
 import '../modules/Tabs/cart_tab/cart_tab_binding.dart';
 import '../modules/Tabs/category_tab/category_tab_binding.dart';
@@ -11,12 +11,11 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/order_confirmation/bindings/order_confirmation_binding.dart';
+import '../modules/order_confirmation/views/order_confirmation_view.dart';
 import '../modules/overview_of_product/bindings/overview_of_product_binding.dart';
 import '../modules/overview_of_product/views/overview_of_product_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
-import '../modules/payment/views/payment_view.dart';
-import '../modules/payment_confirmation/bindings/payment_confirmation_binding.dart';
-import '../modules/payment_confirmation/views/payment_confirmation_view.dart';
 import '../modules/profile_info/bindings/profile_info_binding.dart';
 import '../modules/profile_info/views/profile_info_view.dart';
 import '../modules/select_address/bindings/select_address_binding.dart';
@@ -93,9 +92,9 @@ class AppPages {
       binding: SelectAddressBinding(),
     ),
     GetPage(
-      name: _Paths.PAYMENT_CONFIRMATION,
-      page: () => const PaymentConfirmationView(),
-      binding: PaymentConfirmationBinding(),
+      name: _Paths.ORDER_CONFIRMATION,
+      page: () => const OrderConfirmationView(),
+      binding: OrderConfirmationBinding(),
     ),
-    ];
+  ];
 }

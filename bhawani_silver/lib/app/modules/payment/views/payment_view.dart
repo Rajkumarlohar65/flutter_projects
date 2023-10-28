@@ -1,6 +1,7 @@
 import 'package:BhawaniSilver/app/core/payment_gateway/payment_gateway.dart';
 import 'package:BhawaniSilver/app/core/utils/utils.dart';
 import 'package:BhawaniSilver/app/core/values/app_color.dart';
+import 'package:BhawaniSilver/app/data/firebase/Authentication/authentication_helper.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import 'package:BhawaniSilver/app/modules/select_address/controllers/select_address_controller.dart';
@@ -178,13 +179,17 @@ class PaymentView extends GetView<PaymentController> {
           height: 65, // Adjust the height as needed
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(onPressed: (){
+
+            num subTotal = myController != null ? myController.product.price : ctc.cartSubtotal.toDouble();
+            num total = subTotal - discount;
+
             Razorpay razorpay = Razorpay();
             var options = {
               // 'key': 'rzp_live_ILgsfZCZoFIKMb',
               'key': 'rzp_test_9gkr3QjOLXra7h',
-              'amount': 100,
-              'name': 'Acme Corp.',
-              'description': 'Fine T-Shirt',
+              'amount': '${total * 100}',
+              'name': 'Bhawani Silver',
+              'description': '${myController?.product.description.toString()}',
               'retry': {'enabled': true, 'max_count': 1},
               'send_sms_hash': true,
               'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},

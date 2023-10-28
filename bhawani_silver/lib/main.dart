@@ -1,11 +1,9 @@
 import 'dart:ui';
 import 'package:BhawaniSilver/app/core/theme/app_theme.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/account_tab/account_tab_controller.dart';
-import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'app/routes/app_pages.dart';
@@ -22,7 +20,6 @@ Future<void> main() async{
   final setTheme = AccountTabController();
   setTheme.loadThemeFromStorage();
 
-  Stripe.publishableKey = 'pk_test_51Nd5I0SArhJ5v6asFYLhXVwPovXheHmTQFbKQN7M0AYkB8lpY3CdN9xEc2zngmodn21y1Ob12jTtnnogRXashsI000NmXUkVwu';
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;

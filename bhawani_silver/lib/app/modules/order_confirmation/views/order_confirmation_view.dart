@@ -1,13 +1,13 @@
+import 'package:BhawaniSilver/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../routes/app_pages.dart';
-import '../controllers/payment_confirmation_controller.dart';
+import '../controllers/order_confirmation_controller.dart';
 
-class PaymentConfirmationView extends GetView<PaymentConfirmationController> {
-  const PaymentConfirmationView({Key? key}) : super(key: key);
+class OrderConfirmationView extends GetView<OrderConfirmationController> {
+  const OrderConfirmationView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,31 +16,31 @@ class PaymentConfirmationView extends GetView<PaymentConfirmationController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset(
-              'assets/animations/payment_successful.json', // Path to your animation
+              'assets/animations/order_placed.json', // Path to your animation
               height: 300,
               width: 300,
               repeat: false,
-              onLoaded: (composition) {
-                // Animation is loaded, start playing sound here
-                controller.playSound();
-              },
+              // onLoaded: (composition) {
+              //   // Animation is loaded, start playing sound here
+              //   controller.playSound();
+              // },
             ),
             const SizedBox(height: 20),
             const Text(
-              'Payment Successful',
+              'Order Placed',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Your order has been placed successfully!',
-              style: TextStyle(
+            Obx(() => Text(
+              'Payment id: ${controller.paymentId.value}',
+              style: const TextStyle(
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
-            ),
+            ),)
 
           ],
         ),

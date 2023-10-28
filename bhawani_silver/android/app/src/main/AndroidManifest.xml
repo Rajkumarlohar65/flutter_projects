@@ -2,7 +2,7 @@
     package="com.bhawani.bhawani_silver">
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
    <application
-        android:label="BhawaniSilver"
+        android:label="Bhawani Silver"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

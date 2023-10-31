@@ -23,10 +23,12 @@ class PaymentGateWay  {
   }
 
   void handlePaymentSuccessResponse(PaymentSuccessResponse response){
-    String? paymentId = response.paymentId;
+    String paymentId = response.paymentId!; // Use ! to assert that paymentId is not null
+    paymentController.saveOrder(paymentId: paymentId);
 
     // Navigate to the Payment_Confirmation route and pass the paymentId as a parameter
-    Get.toNamed(Routes.ORDER_CONFIRMATION, arguments: paymentId);  }
+    // Get.toNamed(Routes.ORDER_CONFIRMATION, arguments: paymentId);
+  }
 
   void handleExternalWalletSelected(ExternalWalletResponse response){
     showAlertDialog(context, "External Wallet Selected", "${response.walletName}");

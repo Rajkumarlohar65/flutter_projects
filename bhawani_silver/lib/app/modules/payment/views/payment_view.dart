@@ -1,7 +1,4 @@
 import 'package:BhawaniSilver/app/core/payment_gateway/payment_gateway.dart';
-import 'package:BhawaniSilver/app/core/utils/utils.dart';
-import 'package:BhawaniSilver/app/core/values/app_color.dart';
-import 'package:BhawaniSilver/app/data/firebase/Authentication/authentication_helper.dart';
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import 'package:BhawaniSilver/app/modules/select_address/controllers/select_address_controller.dart';
@@ -9,9 +6,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lottie/lottie.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../data/model/address.dart';
 import '../controllers/payment_controller.dart';
@@ -82,8 +79,8 @@ class PaymentView extends GetView<PaymentController> {
                 itemCount: cartItems.length,
                 itemBuilder: (context, index) {
                   final cartItem = cartItems[index];
-                  final productId =
-                      cartItem['product_id'] ?? ''; // Get the product ID
+                  final productId = cartItem['product_id'] ??
+                      ''; // Get the product ID
                   final quantity =
                       cartItem['quantity'] ?? 0; // Get the quantity
 
@@ -101,9 +98,12 @@ class PaymentView extends GetView<PaymentController> {
                       } else {
                         final productData = snapshot.data!.data()
                         as Map<String, dynamic>?;
-                        final productName = productData?['name'] ?? '';
-                        final productPrice = productData?['price'] ?? 0;
-                        final productImage = productData?['image'] ?? '';
+                        final productName =
+                            productData?['name'] ?? '';
+                        final productPrice =
+                            productData?['price'] ?? 0;
+                        final productImage =
+                            productData?['image'] ?? '';
 
                         return ListTile(
                           leading: SizedBox(
@@ -178,34 +178,48 @@ class PaymentView extends GetView<PaymentController> {
           width: double.infinity,
           height: 65, // Adjust the height as needed
           padding: const EdgeInsets.all(16.0),
-          child: ElevatedButton(onPressed: (){
+          child: ElevatedButton(
+            onPressed: () {
+              num subTotal = myController != null
+                  ? myController.product.price
+                  : ctc.cartSubtotal.toDouble();
+              num total = subTotal - discount;
 
-            num subTotal = myController != null ? myController.product.price : ctc.cartSubtotal.toDouble();
-            num total = subTotal - discount;
-
-            Razorpay razorpay = Razorpay();
-            var options = {
-              // 'key': 'rzp_live_ILgsfZCZoFIKMb',
-              'key': 'rzp_test_9gkr3QjOLXra7h',
-              'amount': '${total * 100}',
-              'name': 'Bhawani Silver',
-              'description': '${myController?.product.description.toString()}',
-              'retry': {'enabled': true, 'max_count': 1},
-              'send_sms_hash': true,
-              'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
-              'external': {
-                'wallets': ['paytm']
-              }
-            };
-            razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, PaymentGateWay(context: context).handlePaymentErrorResponse);
-            razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, PaymentGateWay(context: context).handlePaymentSuccessResponse);
-            razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, PaymentGateWay(context: context).handleExternalWalletSelected);
-            razorpay.open(options);
-          },
-              child: const Text("Pay")),
-
+              Razorpay razorpay = Razorpay();
+              var options = {
+                'key': 'rzp_test_9gkr3QjOLXra7h',
+                'amount': '${total * 100}',
+                'name': 'Bhawani Silver',
+                'description':
+                '${myController?.product.description.toString()}',
+                'retry': {'enabled': true, 'max_count': 1},
+                'send_sms_hash': true,
+                'prefill': {
+                  'contact': '8888888888',
+                  'email': 'test@razorpay.com'
+                },
+                'external': {
+                  'wallets': ['paytm']
+                }
+              };
+              razorpay.on(
+                  Razorpay.EVENT_PAYMENT_ERROR,
+                  PaymentGateWay(context: context)
+                      .handlePaymentErrorResponse);
+              razorpay.on(
+                  Razorpay.EVENT_PAYMENT_SUCCESS,
+                  PaymentGateWay(context: context)
+                      .handlePaymentSuccessResponse);
+              razorpay.on(
+                  Razorpay.EVENT_EXTERNAL_WALLET,
+                  PaymentGateWay(context: context)
+                      .handleExternalWalletSelected);
+              razorpay.open(options);
+            },
+            child: const Text("Pay"),
+          ),
         ),
-      ),
+      )
     );
   }
 }

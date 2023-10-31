@@ -29,12 +29,12 @@ class AddressCardWidget extends StatelessWidget {
               ListTile(
                 leading: const Icon(
                   Icons.location_on,
-                  color: AppColor.blueGrey,
+                  color: AppColor.darkNavy,
                 ),
                 title: Text(address.name), // Replace with actual name
                 trailing: const Icon(
                   Icons.arrow_forward_ios,
-                  color: AppColor.blueGrey,
+                  color: AppColor.darkNavy,
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

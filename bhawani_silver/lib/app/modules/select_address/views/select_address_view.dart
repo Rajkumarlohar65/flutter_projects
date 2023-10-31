@@ -46,7 +46,7 @@ class SelectAddressView extends GetView<SelectAddressController> {
           Get.offNamed(Routes.ADDRESS);
         },
         label: const Text("Add new Address"),
-        backgroundColor: AppColor.blueGrey,
+        backgroundColor: AppColor.darkNavy,
         icon: const Icon(Icons.home),
       ),
     );

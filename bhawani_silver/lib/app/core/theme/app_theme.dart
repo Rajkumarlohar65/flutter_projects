@@ -18,7 +18,7 @@ class AppTheme {
       // Elevated Button Theme (Customize elevated button appearance)
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          foregroundColor: AppColor.whiteColor, backgroundColor: AppColor.blueGrey, // Set the text color
+          foregroundColor: AppColor.whiteColor, backgroundColor: AppColor.darkNavy, // Set the text color
         ),
       ),
 

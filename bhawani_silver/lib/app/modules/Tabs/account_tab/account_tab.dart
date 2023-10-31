@@ -40,9 +40,13 @@ class AccountTab extends GetView<AccountTabController> {
                                 backgroundColor: AppColor.blueGrey,
                                 child: Text(
                                   firstCapital!,
-                                  style: Theme.of(context).textTheme.titleLarge,
+                                  style: const TextStyle(
+                                    color: Colors.white, // Set the text color to white
+                                    fontSize: 16, // You can adjust the font size as needed
+                                    fontWeight: FontWeight.bold
+                                  ),
                                 ),
-                              ),
+                              )
                             ),
                             const SizedBox(
                               height: 10,

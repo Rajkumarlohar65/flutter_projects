@@ -1,5 +1,6 @@
 import 'package:BhawaniSilver/app/modules/address/controllers/address_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AddressPincodeWidget extends StatelessWidget {
@@ -8,6 +9,11 @@ class AddressPincodeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<AddressController>();
+    // Define a custom input formatter to limit to 8 digits
+    final pincodeFormatter = FilteringTextInputFormatter.digitsOnly;
+
+    // Use LengthLimitingTextInputFormatter to limit the length
+    final lengthLimitFormatter = LengthLimitingTextInputFormatter(8);
     return TextFormField(
       controller: controller.pincodeController,
       style: const TextStyle(
@@ -17,6 +23,7 @@ class AddressPincodeWidget extends StatelessWidget {
         labelText: "Pincode",
       ),
       keyboardType: TextInputType.number, // Set keyboard type to allow only numeric input
+      inputFormatters: [pincodeFormatter, lengthLimitFormatter],
       autofillHints: const [AutofillHints.postalCode],
       validator: (value) {
         if (value == null || value.isEmpty) {

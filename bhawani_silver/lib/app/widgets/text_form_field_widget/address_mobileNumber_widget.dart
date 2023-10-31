@@ -16,12 +16,15 @@ class AddressMobileNumberWidget extends StatelessWidget {
       decoration: const InputDecoration(
         labelText: "Mobile Number",
       ),
+      maxLength: 10,
       keyboardType:
           TextInputType.phone, // Set keyboard type to allow only numeric input
       autofillHints: const [AutofillHints.telephoneNumber],
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "Enter Mobile Number";
+        } else if (value.length < 10) {
+          return "Mobile Number should have at least 10 digits";
         }
         return null;
       },

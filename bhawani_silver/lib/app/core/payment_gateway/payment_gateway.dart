@@ -1,9 +1,6 @@
 import 'package:BhawaniSilver/app/modules/Tabs/cart_tab/cart_tab_controller.dart';
 import 'package:BhawaniSilver/app/modules/overview_of_product/controllers/overview_of_product_controller.dart';
 import 'package:BhawaniSilver/app/modules/payment/controllers/payment_controller.dart';
-import 'package:BhawaniSilver/app/routes/app_pages.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -25,9 +22,6 @@ class PaymentGateWay  {
   void handlePaymentSuccessResponse(PaymentSuccessResponse response){
     String paymentId = response.paymentId!; // Use ! to assert that paymentId is not null
     paymentController.saveOrder(paymentId: paymentId);
-
-    // Navigate to the Payment_Confirmation route and pass the paymentId as a parameter
-    // Get.toNamed(Routes.ORDER_CONFIRMATION, arguments: paymentId);
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response){
@@ -39,7 +33,7 @@ class PaymentGateWay  {
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed:  () {
-        Get.offAllNamed(Routes.HOME);
+        Get.back();
       },
     );
     // set up the AlertDialog
@@ -58,8 +52,5 @@ class PaymentGateWay  {
       },
     );
   }
-
-
-
 
 }

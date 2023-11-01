@@ -10,13 +10,13 @@ import 'package:photo_view/photo_view.dart';
 import '../../../data/model/product.dart';
 import '../controllers/overview_of_product_controller.dart';
 
-class OverviewOfProductView
-    extends GetView<OverviewOfProductController> {
+class OverviewOfProductView extends GetView<OverviewOfProductController> {
   const OverviewOfProductView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    OverviewOfProductController controller = Get.put(OverviewOfProductController());
+    OverviewOfProductController controller =
+        Get.put(OverviewOfProductController());
     final Product product = controller.product;
 
     return Scaffold(
@@ -29,24 +29,24 @@ class OverviewOfProductView
                   title: Text(product.name),
                   expandedHeight: 400,
                   pinned: true,
-                  backgroundColor: AppColor.blueGrey,
+                  backgroundColor: AppColor.darkNavy,
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Column(
-                      children: [
-                        const SizedBox(
-                          height: 100,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            _showImageDialog(context, product.image);
-                          },
-                          child: SizedBox(
+                    background: InkWell(
+                      onTap: () {
+                        _showImageDialog(context, product.image);
+                      },
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 100,
+                          ),
+                          SizedBox(
                               width: 300,
                               height: 300,
                               child: CachedNetworkImageWidget(
                                   imageUrl: product.image)),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -104,29 +104,49 @@ class OverviewOfProductView
       ),
     );
   }
+
   void _showImageDialog(BuildContext context, String imageUrl) {
     showDialog(
       context: context,
       builder: (context) {
         return Dialog(
           insetPadding: EdgeInsets.zero,
-          child: Container(
-            height: MediaQuery.of(context).size.height , // Set the height to half of the screen height
-            width: MediaQuery.of(context).size.width,
-            child: Center(
-              child:  PhotoView(
-                imageProvider:  CachedNetworkImageProvider(imageUrl),
-                backgroundDecoration: const BoxDecoration(
-                  color: Colors.transparent, // Transparent background
+          child: Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: PhotoView(
+                    imageProvider: CachedNetworkImageProvider(imageUrl),
+                    backgroundDecoration: const BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    minScale: PhotoViewComputedScale.contained,
+                    maxScale: 2.0,
+                  ),
                 ),
-                minScale: PhotoViewComputedScale.contained,
-                maxScale: 2.0,
               ),
-            ),
+              Positioned(
+                top: 0,
+                left: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black, // Adjust the color as needed
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
     );
   }
 }
-
